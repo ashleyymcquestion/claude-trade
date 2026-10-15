@@ -485,6 +485,8 @@ class _Cycle:
                         self._symbol_error(sym, phase, e)
             self._refresh_snapshot()
             self.clear_closed_meta()
+            if self.snapshot is not None:
+                self.store.record_equity(self.snapshot)   # post-trade state for status/dashboard
         except BrokerError as e:
             rep.aborted = True
             rep.errors.append(f"broker: {e}")

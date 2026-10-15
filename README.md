@@ -1,5 +1,9 @@
 # claude-trade
 
+> **New: [quantbot](docs/QUANTBOT.md)**, a research + paper-trading system with three strategies,
+> walk-forward backtests, circuit breakers, a kill switch and a Streamlit dashboard. The section
+> below describes the original hourly paper trader in `trader/`, which is unchanged.
+
 An auto-trader for **stocks and crypto** that runs on GitHub Actions every hour, including
 overnight, against an **Alpaca paper (fake-money) account**.
 

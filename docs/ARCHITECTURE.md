@@ -136,3 +136,17 @@ data source ─► validate ─► strategies ─► risk (breakers, sizing) ─
   `first_equity_between`, `peak_equity(since=None)`, `latest_equity_positions`, `realized_pnl_records`.
 - Flag names: `kill_switch`, `breaker_daily` (NY date), `breaker_weekly` (ISO week), `breaker_drawdown`,
   `drawdown_reset_at`.
+
+## As built (phases 3, 5 and 6 additions)
+
+- `run_backtest(..., regimes=None, data_source=None, trade_start=None, close_at_end=False)`; `BacktestResult`
+  also has `meta` and `open_positions`. Backtests enforce sizing and exposure caps but not the circuit breakers.
+- `quantbot.strategies.get_strategy(name, cfg)`; `data.sources.write_bars_csv`, `alpaca_bars_to_frame`.
+- `run_cycle(cfg, broker, store, source, strategies, risk, now, alerter=None, asset_classes=None)`; it refuses a
+  broker whose `is_paper` is false. Fills are derived from changes in each order's `filled_qty` (alpaca-py's
+  `TradingClient` has no account-activities call). Store flags `entry_plan:<cid>` (stop distance for the fill)
+  and `scheduler_last_*` (run markers). Equity is recorded at the start and end of every cycle.
+- Heartbeat components: `runner`, `scheduler`. `Alerter(cfg, store, sender=None, clock=None)` with
+  `alert_last:<kind>` dedupe flags. Dashboard: `streamlit run quantbot/dashboard/app.py -- --config <toml>
+  [--reports-dir reports]`; pure data functions in `dashboard/data.py`.
+- Staleness defaults: stocks 120h, crypto 50h, both measured from the bar's open time.
