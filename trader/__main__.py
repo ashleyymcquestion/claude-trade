@@ -31,7 +31,14 @@ def main(argv=None):
     tr = sub.add_parser("trade", help="rebalance the Alpaca PAPER account once")
     tr.add_argument("--dry-run", action="store_true", help="plan orders without sending them")
 
+    rh = sub.add_parser("rh-plan", help="plan orders for the Robinhood crypto account (prints JSON)")
+    rh.add_argument("--history", default="data/proxy_history.csv")
+    rh.add_argument("--bars", help="raw get_equity_historicals JSON to merge into the history")
+    rh.add_argument("--state", required=True, help="account state JSON (see trader/robinhood.py)")
+
     args = parser.parse_args(argv)
+    if args.cmd == "rh-plan" and args.config == str(DEFAULT_PATH):
+        args.config = str(DEFAULT_PATH.with_name("config.robinhood.toml"))
     cfg = load_config(args.config)
 
     if args.cmd == "backtest":
@@ -52,6 +59,13 @@ def main(argv=None):
         print(write_summary(summary))
         if summary["errors"]:
             sys.exit(1)
+
+    elif args.cmd == "rh-plan":
+        import json
+
+        from .robinhood import run
+
+        print(json.dumps(run(cfg, args.history, args.state, args.bars), indent=2))
 
 
 if __name__ == "__main__":

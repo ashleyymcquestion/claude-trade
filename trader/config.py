@@ -1,7 +1,7 @@
 """Loads config.toml into a flat, validated Config."""
 
 import tomllib
-from dataclasses import dataclass, fields
+from dataclasses import dataclass, field, fields
 from pathlib import Path
 
 DEFAULT_PATH = Path(__file__).resolve().parent.parent / "config.toml"
@@ -27,6 +27,10 @@ class Config:
     max_daily_loss: float = 0.03
     on_daily_loss: str = "halt"
     kill_switch: bool = False
+    max_order_usd: float = 1e12
+
+    # Robinhood: coin -> US-listed ETF whose daily history stands in for the coin's.
+    proxies: dict = field(default_factory=dict)
 
     stock_cost_bps: float = 5.0
     crypto_cost_bps: float = 25.0

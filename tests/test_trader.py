@@ -156,3 +156,37 @@ def test_run_halts_on_daily_loss(monkeypatch):
     client = FakeClient(equity=9000, last_equity=10000)
     assert "daily loss" in make_trader(monkeypatch, client).run()["status"]
     assert client.submitted == []
+
+
+def test_robinhood_plan_small_account(tmp_path):
+    import json
+    from trader.robinhood import bars_to_closes, coin_prices, plan
+
+    cfg = load_config("config.robinhood.toml")
+    prices = synthetic_prices().rename(columns={"AAA": "BTC", "BBB": "ETH", "BTC/USD": "SOL"})
+    state = {"crypto_buying_power": 1.0, "positions": {}, "marks": {"BTC": 80000, "ETH": 2400, "SOL": 100},
+             "open_order_symbols": ["XLM"]}
+    result = plan(prices, state, cfg)
+    buys = [o for o in result["orders"] if o["side"] == "buy"]
+    assert sum(float(o["dollar_amount"]) for o in buys) <= 1.0
+    assert all(float(o["dollar_amount"]) >= cfg.min_order_usd for o in buys)
+    assert all(o["symbol"] in ("BTC", "ETH", "SOL") for o in result["orders"])
+
+    raw = {"data": {"results": [{"symbol": "IBIT", "bars": [
+        {"begins_at": "2026-10-13T00:00:00Z", "close_price": "47.1"},
+        {"begins_at": "2026-10-14T00:00:00Z", "close_price": "46.2", "interpolated": True}]}]}}
+    closes = bars_to_closes(raw)
+    assert list(closes["IBIT"]) == [47.1]
+    with pytest.raises(ValueError):
+        coin_prices(closes, cfg)  # ETHA/BSOL missing
+
+
+def test_robinhood_plan_caps_and_exits():
+    from trader.robinhood import plan
+
+    cfg = load_config("config.robinhood.toml")
+    prices = synthetic_prices().rename(columns={"AAA": "BTC", "BBB": "ETH", "BTC/USD": "SOL"})
+    state = {"crypto_buying_power": 10000.0, "positions": {"ETH": {"quantity": "1", "quantity_transferable": "1"}},
+             "marks": {"BTC": 80000, "ETH": 2400, "SOL": 100}}
+    result = plan(prices, state, cfg)
+    assert all(float(o.get("dollar_amount", 0)) <= cfg.max_order_usd for o in result["orders"])

@@ -1,0 +1,34 @@
+# Robinhood agentic crypto account (crypto only, runs once a day).
+# Robinhood quotes a ~2% bid/ask spread on crypto, so this trades far less often
+# than the Alpaca config: a wider no-trade band and a daily (not hourly) schedule.
+
+[universe]
+stocks = []
+crypto = ["BTC", "ETH", "SOL"]
+
+[robinhood]
+# Daily bars for these spot ETFs are used to compute each coin's signal.
+proxies = { BTC = "IBIT", ETH = "ETHA", SOL = "BSOL" }
+
+[strategy]
+sma_fast = 70
+sma_slow = 280
+momentum_lookbacks = [30, 91, 182, 365]
+vol_lookback = 60
+target_vol = 0.25          # crypto-only account: higher than the 12% multi-asset target
+execution_lag = 1
+
+[risk]
+max_gross = 1.0            # never more than the account's cash (no margin)
+max_weight = 0.50
+max_crypto = 1.0           # whole account is crypto
+rebalance_band = 0.05      # only trade when a coin is 5%+ of equity off target
+min_order_usd = 0.25       # Robinhood minimum order size for ETH (BTC accepts less)
+max_order_usd = 25.0       # runaway guard: no single order above this
+max_daily_loss = 0.10
+on_daily_loss = "halt"
+kill_switch = false        # true = planner outputs no orders
+
+[costs]
+stock_cost_bps = 5.0
+crypto_cost_bps = 100.0    # half of the ~2% spread, paid on each trade
