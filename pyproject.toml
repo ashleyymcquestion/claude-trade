@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "quantbot"
+version = "0.1.0"
+description = "Quantitative research and paper-trading bot (paper only)"
+requires-python = ">=3.12"
+dependencies = [
+  "alpaca-py==0.44.0",
+  "numpy==2.5.4",
+  "pandas==3.0.6",
+  "pydantic>=2.7,<3",
+]
+
+[project.optional-dependencies]
+dashboard = ["streamlit>=1.40"]
+dev = ["pytest==9.1.1"]
+
+[tool.setuptools.packages.find]
+include = ["quantbot*", "trader*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

@@ -5,3 +5,8 @@ __pycache__/
 .env
 logs/
 output/
+
+# quantbot
+.env
+state/
+*.sqlite3*

@@ -1,0 +1,75 @@
+# quantbot example configuration. Copy to configs/local.toml and edit.
+# Credentials never go here: they come from ALPACA_API_KEY / ALPACA_SECRET_KEY (see .env.example).
+
+initial_capital = 1000.0
+
+# Research proxies: BTC/ETH spot history is not reachable from the build sandbox, so research
+# can fall back to the spot ETFs (IBIT, ETHA). Paper trading always uses the real symbol.
+[[symbols]]
+symbol = "BTC/USD"
+asset_class = "crypto"
+data_symbol = "IBIT"            # iShares Bitcoin Trust, research proxy only
+
+[[symbols]]
+symbol = "ETH/USD"
+asset_class = "crypto"
+data_symbol = "ETHA"            # iShares Ethereum Trust, research proxy only
+
+[[symbols]]
+symbol = "NVDA"
+asset_class = "stock"
+
+[[symbols]]
+symbol = "AMD"
+asset_class = "stock"
+
+[[symbols]]
+symbol = "PLTR"
+asset_class = "stock"
+
+[[symbols]]
+symbol = "QQQ"
+asset_class = "stock"
+
+[costs]                       # assumptions; verify against the broker's current fee schedule
+stock_commission_bps = 0.0
+stock_half_spread_bps = 2.0
+stock_slippage_bps = 3.0
+crypto_fee_bps = 25.0
+crypto_half_spread_bps = 5.0
+crypto_slippage_bps = 5.0
+
+[risk]
+risk_per_trade = 0.005        # 0.5% of equity at risk per trade
+daily_loss_limit = 0.015
+weekly_loss_limit = 0.04
+max_drawdown = 0.08
+max_position_pct = 0.25
+max_gross_pct = 0.50
+min_notional_usd = 1.0
+max_open_positions = 6
+
+[strategies.trend]
+ema_fast = 20
+ema_slow = 50
+sma_long = 200
+
+[strategies.mean_reversion]
+rsi_period = 2
+rsi_entry = 10.0
+rsi_exit = 60.0
+
+[strategies.breakout]
+donchian_entry = 20
+donchian_exit = 10
+
+[data]
+bars_dir = "data/bars"
+
+[execution]
+mode = "sim"                  # "sim" or "alpaca_paper". There is no "live".
+db_path = "state/quantbot.sqlite3"
+
+[alerts]
+webhook_url_env = "QUANTBOT_ALERT_WEBHOOK"
+min_level = "warning"
