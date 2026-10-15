@@ -1,0 +1,56 @@
+name: paper-trade
+
+# Runs the bot against your Alpaca PAPER account every hour, 24/7.
+# Crypto trades any time; stock orders only go out while the US market is open.
+# Stop it instantly: set repository variable KILL_SWITCH=1, or disable this workflow.
+
+on:
+  schedule:
+    - cron: "17 * * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Plan orders without sending them"
+        type: boolean
+        default: true
+
+concurrency:
+  group: paper-trade
+  cancel-in-progress: false
+
+jobs:
+  trade:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      ALPACA_API_KEY: ${{ secrets.ALPACA_API_KEY }}
+      ALPACA_SECRET_KEY: ${{ secrets.ALPACA_SECRET_KEY }}
+      KILL_SWITCH: ${{ vars.KILL_SWITCH }}
+    steps:
+      - name: Check secrets
+        id: keys
+        run: |
+          if [ -z "$ALPACA_API_KEY" ] || [ -z "$ALPACA_SECRET_KEY" ]; then
+            echo "Add ALPACA_API_KEY and ALPACA_SECRET_KEY repository secrets to enable paper trading." >> "$GITHUB_STEP_SUMMARY"
+            echo "ok=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "ok=true" >> "$GITHUB_OUTPUT"
+          fi
+      - uses: actions/checkout@v4
+        if: steps.keys.outputs.ok == 'true'
+      - uses: actions/setup-python@v5
+        if: steps.keys.outputs.ok == 'true'
+        with:
+          python-version: "3.13"
+          cache: pip
+      - if: steps.keys.outputs.ok == 'true'
+        run: pip install -r requirements.txt
+      - name: Rebalance paper account
+        if: steps.keys.outputs.ok == 'true'
+        run: python -m trader trade ${{ (github.event_name == 'workflow_dispatch' && inputs.dry_run) && '--dry-run' || '' }}
+      - uses: actions/upload-artifact@v4
+        if: always() && steps.keys.outputs.ok == 'true'
+        with:
+          name: trade-log-${{ github.run_id }}
+          path: logs/
+          retention-days: 30

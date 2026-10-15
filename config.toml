@@ -1,0 +1,29 @@
+# Strategy + risk settings. Windows are in CALENDAR days because stocks and
+# crypto share one 7-day calendar (stock prices are carried over weekends).
+
+[universe]
+# Diversified ETFs: US large cap, Nasdaq, small cap, international, bonds, gold.
+stocks = ["SPY", "QQQ", "IWM", "EFA", "TLT", "GLD"]
+crypto = ["BTC/USD", "ETH/USD", "SOL/USD"]
+
+[strategy]
+sma_fast = 70                            # ~50 trading days
+sma_slow = 280                           # ~200 trading days
+momentum_lookbacks = [30, 91, 182, 365]  # ~1, 3, 6, 12 months
+vol_lookback = 60
+target_vol = 0.12                        # annualised portfolio volatility target
+execution_lag = 1                        # backtest trades one day after the signal
+
+[risk]
+max_gross = 1.0          # never more than 100% invested (no leverage)
+max_weight = 0.25        # max 25% in any single asset
+max_crypto = 0.30        # max 30% in crypto combined
+rebalance_band = 0.02    # ignore target changes smaller than 2% of equity
+min_order_usd = 10.0
+max_daily_loss = 0.03    # halt when equity is down 3% vs yesterday's close
+on_daily_loss = "halt"   # "halt" = no new orders; "flatten" = sell everything
+kill_switch = false      # true = never place orders
+
+[costs]
+stock_cost_bps = 5.0     # commission-free, but spread + slippage
+crypto_cost_bps = 25.0   # Alpaca crypto fee + spread
