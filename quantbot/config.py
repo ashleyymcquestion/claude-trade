@@ -120,7 +120,7 @@ class StrategiesConfig(_Strict):
 class DataConfig(_Strict):
     bars_dir: str = "data/bars"
     timeframe: Literal["1Day"] = "1Day"
-    stock_stale_after_hours: float = Field(96.0, gt=0)    # covers a long weekend
+    stock_stale_after_hours: float = Field(120.0, gt=0)   # a daily bar completes 1 day after its open; covers a 3-day weekend
     crypto_stale_after_hours: float = Field(36.0, gt=0)
     max_gap_bars: int = Field(5, ge=0)
 

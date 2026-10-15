@@ -123,3 +123,16 @@ data source ─► validate ─► strategies ─► risk (breakers, sizing) ─
 - `dashboard/app.py` Streamlit: equity, cash, positions, open orders, daily and total P&L, max drawdown,
   strategy performance (latest report JSON), trade history, regimes, breaker status, heartbeats/health,
   and an emergency stop button that engages the kill switch.
+
+## As built (phase 4 additions)
+
+- `RiskManager(cfg, store, killswitch, initial_capital=None)`; also `approve_exit(snapshot, symbol, now)`
+  (blocked only by the kill switch) and `reset_drawdown(by, now=None)` (measures the peak from the reset).
+  `approve_entry` also rejects when the store has an open BUY order for the symbol, so order statuses in the
+  store must be kept current by reconciliation.
+- `KillSwitch(store, kill_file=None)`; the kill file path comes from `QUANTBOT_KILL_FILE` (default `state/KILL`,
+  relative to the working directory). The file overrides `release()`.
+- Store extras: `realized_pnl_by_strategy()`, `flag_history(name)`, `get_flag_info`, `equity_at_or_before`,
+  `first_equity_between`, `peak_equity(since=None)`, `latest_equity_positions`, `realized_pnl_records`.
+- Flag names: `kill_switch`, `breaker_daily` (NY date), `breaker_weekly` (ISO week), `breaker_drawdown`,
+  `drawdown_reset_at`.
