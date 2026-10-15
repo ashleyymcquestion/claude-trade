@@ -47,6 +47,9 @@ class RiskConfig(_Strict):
     max_gross_pct: float = Field(0.50, gt=0, le=1.0)
     min_notional_usd: float = Field(1.0, gt=0)
     max_open_positions: int = Field(6, ge=1)
+    # Small accounts: when the risk-based size is below the broker minimum, buy the minimum instead,
+    # but only if a stop-out at that size loses at most this fraction of equity. 0 disables it.
+    min_order_risk_cap: float = Field(0.0, ge=0, le=0.05)
     # Hard-coded policy, present only so the config file states it; validators forbid changing it.
     allow_margin: Literal[False] = False
     allow_short: Literal[False] = False
@@ -140,6 +143,8 @@ class AlertConfig(_Strict):
 
 class AppConfig(_Strict):
     initial_capital: float = Field(1000.0, gt=0)
+    # Share of the brokerage account this bot manages (the rest belongs to other strategies).
+    sleeve: float = Field(1.0, gt=0, le=1.0)
     symbols: tuple[SymbolConfig, ...]
     costs: CostConfig = CostConfig()
     risk: RiskConfig = RiskConfig()

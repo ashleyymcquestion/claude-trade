@@ -122,3 +122,21 @@ quantbot/   config.py models.py logging_setup.py store.py alerts.py indicators.p
             dashboard/ (data, app)  __main__.py
 configs/example.toml   data/bars/*.csv   reports/   scripts/import_robinhood_bars.py   tests/quant/
 ```
+
+## Live on Robinhood (stocks sleeve)
+
+Since 2026-10-15, quantbot also trades real money on the Robinhood agentic account, through the
+scheduled Claude session in [ROBINHOOD.md](../ROBINHOOD.md) (Robinhood has no API keys; the
+session uses the Robinhood connector). `quantbot/robinhood_stocks.py` runs the same `run_cycle`
+with `RobinhoodPlanBroker`, which places nothing itself: it prints the orders, and the session
+places exactly those, then reports the results back with `rh-stock-record`.
+
+- Config: `configs/robinhood_stocks.toml`. Sleeve = 50% of the account (the BTC/ETH strategy has the
+  other 50%, `crypto_sleeve` in `config.robinhood.toml`). Trend + mean reversion on NVDA, AMD, PLTR, QQQ.
+- Small-account sizing: the normal 0.5% risk per trade would be ~1 cent, so `min_order_risk_cap = 0.04`
+  allows Robinhood's $1 minimum when a stop-out at $1 loses at most 4% of the sleeve (~8 cents).
+  Limits: daily 3%, weekly 6%, drawdown 15% of the sleeve; at most 2 positions.
+- State: `data/robinhood-stocks.sqlite3`, committed every run. `python -m quantbot status --config
+  configs/robinhood_stocks.toml` and the dashboard read it.
+- The sleeve's equity is 50% of the whole account's value, so crypto moves also move it (and its
+  drawdown). Deposits raise it.

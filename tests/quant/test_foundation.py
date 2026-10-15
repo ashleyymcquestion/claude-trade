@@ -110,3 +110,20 @@ def test_sizing_rejections():
     assert not _size(price=500.0, stop_price=490.0, asset=WHOLE).approved     # 1 share > risk, whole shares only
     assert not _size(asset=AssetInfo("X", AssetClass.STOCK, tradable=False, fractionable=True)).approved
     assert not _size(equity=100.0, cash=100.0, stop_price=1.0).approved          # ~$0.51 < $1 minimum
+
+
+def test_sizing_rounds_up_to_minimum_within_risk_cap():
+    small = RiskConfig(risk_per_trade=0.005, max_position_pct=0.5, max_gross_pct=1.0,
+                       daily_loss_limit=0.03, weekly_loss_limit=0.06, max_drawdown=0.15,
+                       min_order_risk_cap=0.04)
+    # $2.10 equity, 7% stop: risk sizing gives $0.15, below the $1 minimum.
+    base = dict(equity=2.10, cash=2.10, price=100.0, stop_price=93.0, asset=STOCK,
+                current_gross=0.0, current_symbol_exposure=0.0, one_way_cost_bps=0.0)
+    d = size_position(risk=small, **base)
+    assert d.approved and d.qty * 100.0 == pytest.approx(1.0) and "rounded up" in d.reason
+    # A 10% stop on $1 risks 4.8% of equity > 4% cap -> rejected.
+    assert not size_position(risk=small, **{**base, "stop_price": 90.0}).approved
+    # Cash below $1 -> rejected even within the cap.
+    assert not size_position(risk=small, **{**base, "cash": 0.90}).approved
+    # Disabled by default.
+    assert not size_position(risk=RiskConfig(), **base).approved

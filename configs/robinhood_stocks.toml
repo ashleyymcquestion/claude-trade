@@ -1,0 +1,59 @@
+# quantbot on the Robinhood agentic account (stocks), run each morning by the scheduled
+# Claude session (see ROBINHOOD.md). Sized for a very small account (~$4 in October 2026).
+
+initial_capital = 2.10        # informational; the live sleeve size comes from the account value
+sleeve = 0.5                  # this bot manages 50% of the account; the BTC/ETH strategy the other 50%
+
+[[symbols]]
+symbol = "NVDA"
+asset_class = "stock"
+
+[[symbols]]
+symbol = "AMD"
+asset_class = "stock"
+
+[[symbols]]
+symbol = "PLTR"
+asset_class = "stock"
+
+[[symbols]]
+symbol = "QQQ"
+asset_class = "stock"
+
+[costs]                       # Robinhood stock trades: no commission; spread ~0.02% on these names
+stock_commission_bps = 0.0
+stock_half_spread_bps = 2.0
+stock_slippage_bps = 3.0
+
+[risk]
+risk_per_trade = 0.005        # the normal rule: 0.5% of the sleeve at risk per trade
+# The sleeve is ~$2, so 0.5% is 1 cent and every order would be under Robinhood's $1 minimum.
+# Allow the $1 minimum when a stop-out at $1 loses at most 4% of the sleeve (~8 cents).
+min_order_risk_cap = 0.04
+max_position_pct = 0.50       # $1 of a ~$2 sleeve
+max_gross_pct = 1.0           # of the sleeve (= at most 50% of the whole account)
+daily_loss_limit = 0.03       # one stop-out (~3%) trips it; no new entries until the next day
+weekly_loss_limit = 0.06
+max_drawdown = 0.15           # sleeve value; then entries stop until `reset-drawdown`
+min_notional_usd = 1.0
+max_open_positions = 2
+
+[strategies.trend]
+enabled = true                # best out-of-sample results in reports/walkforward_*.md
+
+[strategies.mean_reversion]
+enabled = true
+
+[strategies.breakout]
+enabled = false               # weak and inconsistent in the walk-forward
+
+[data]
+bars_dir = "data/bars"
+
+[execution]
+mode = "sim"                  # unused here: Robinhood orders are placed by the session, not by code
+db_path = "data/robinhood-stocks.sqlite3"   # committed so state survives the daily fresh containers
+order_timeout_seconds = 3600  # an order still open an hour after planning is cancelled next cycle
+
+[alerts]
+min_level = "warning"

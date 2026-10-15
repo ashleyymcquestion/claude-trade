@@ -9,6 +9,9 @@ crypto = ["BTC", "ETH", "SOL"]
 [robinhood]
 # Daily bars for these spot ETFs are used to compute each coin's signal.
 proxies = { BTC = "IBIT", ETH = "ETHA", SOL = "BSOL" }
+# Share of the WHOLE account this crypto strategy manages; the other half belongs to the
+# quantbot stock bot (configs/robinhood_stocks.toml). Needs account_value in the state.
+crypto_sleeve = 0.5
 
 [strategy]
 sma_fast = 70

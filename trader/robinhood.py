@@ -8,7 +8,7 @@ the orders it prints. See ROBINHOOD.md.
 Inputs
   history CSV   daily closes of the proxy ETFs (data/proxy_history.csv)
   --bars JSON   optional raw get_equity_historicals result, merged into history
-  --state JSON  {"crypto_buying_power": 1.0,
+  --state JSON  {"crypto_buying_power": 1.0, "account_value": 4.19 (needed when crypto_sleeve < 1),
                  "positions": {"BTC": {"quantity": "0.0001", "quantity_transferable": "0.0001"}},
                  "marks": {"BTC": 82377.69, "ETH": 2446.05, "SOL": 106.01},
                  "open_order_symbols": ["XLM"]}
@@ -64,13 +64,22 @@ def plan(prices: pd.DataFrame, state: dict, cfg: Config) -> dict:
     holdings = {s: float(positions.get(s, {}).get("quantity", 0)) * marks[s] for s in cfg.crypto}
     cash = float(state["crypto_buying_power"])
     equity = cash + sum(holdings.values())
+    sleeve_note = None
+    if cfg.crypto_sleeve < 1.0:
+        # Shared account: manage only this strategy's share of the whole account's value.
+        if "account_value" not in state:
+            raise ValueError("crypto_sleeve < 1 needs account_value (get_portfolio total_value) in the state")
+        budget = cfg.crypto_sleeve * float(state["account_value"])
+        equity = min(budget, equity)
+        cash = max(0.0, min(cash, equity - sum(holdings.values())))
+        sleeve_note = f"sleeve {cfg.crypto_sleeve:.0%} of account ${float(state['account_value']):.2f} = ${budget:.2f}"
 
     target = latest_target(prices, cfg)
     result = {
         "equity": round(equity, 2), "cash": round(cash, 2), "prices_as_of": str(prices.index[-1].date()),
         "target": {s: round(float(w), 4) for s, w in target.items()},
         "holdings_usd": {s: round(v, 2) for s, v in holdings.items()},
-        "orders": [], "notes": [],
+        "orders": [], "notes": [sleeve_note] if sleeve_note else [],
     }
     if cfg.kill_switch:
         result["notes"].append("kill switch on: no orders")

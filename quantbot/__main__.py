@@ -282,6 +282,39 @@ def cmd_reset_drawdown(args) -> int:
     return 0
 
 
+# ---------------------------------------------------------------- Robinhood (stocks)
+def _rh_cfg(args) -> AppConfig:
+    cfg = _load(args)
+    if args.db:
+        cfg = cfg.model_copy(update={"execution": cfg.execution.model_copy(update={"db_path": args.db})})
+    return cfg
+
+
+def cmd_rh_stock_plan(args) -> int:
+    from .robinhood_stocks import plan
+
+    cfg = _rh_cfg(args)
+    state = json.loads(Path(args.state).read_text())
+    print(json.dumps(plan(cfg, state, cfg.sleeve, args.bars), indent=2, default=str))
+    return 0
+
+
+def cmd_rh_stock_record(args) -> int:
+    from .robinhood_stocks import record
+
+    cfg = _rh_cfg(args)
+    state = json.loads(Path(args.state).read_text())
+    print(json.dumps(record(cfg, state, cfg.sleeve), indent=2, default=str))
+    return 0
+
+
+def cmd_rh_stock_pending(args) -> int:
+    from .robinhood_stocks import pending
+
+    print(json.dumps(pending(_rh_cfg(args)), indent=2, default=str))
+    return 0
+
+
 # ---------------------------------------------------------------- parser
 def build_parser() -> argparse.ArgumentParser:
     common = argparse.ArgumentParser(add_help=False)
@@ -314,6 +347,18 @@ def build_parser() -> argparse.ArgumentParser:
     sub.add_parser("unkill", parents=[common], help="release the kill switch").set_defaults(func=cmd_unkill)
     sub.add_parser("reset-drawdown", parents=[common], help="manually reset the drawdown breaker").set_defaults(
         func=cmd_reset_drawdown)
+    rp = sub.add_parser("rh-stock-plan", parents=[common],
+                        help="Robinhood stocks: plan orders from a state file (prints JSON; places nothing)")
+    rp.add_argument("--state", required=True)
+    rp.add_argument("--bars", nargs="*", default=None, help="raw get_equity_historicals answers to merge")
+    rp.set_defaults(func=cmd_rh_stock_plan)
+    rr = sub.add_parser("rh-stock-record", parents=[common],
+                        help="Robinhood stocks: record placed orders' results from a fresh state file")
+    rr.add_argument("--state", required=True)
+    rr.set_defaults(func=cmd_rh_stock_record)
+    sub.add_parser("rh-stock-pending", parents=[common],
+                   help="Robinhood stocks: orders whose Robinhood state must be reported").set_defaults(
+        func=cmd_rh_stock_pending)
     return p
 
 

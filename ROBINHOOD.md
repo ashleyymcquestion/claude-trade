@@ -1,49 +1,100 @@
-# Robinhood daily run (agentic crypto account)
+# Robinhood daily run (agentic account)
 
-A scheduled Claude session follows this once a day. **The code decides the trades; the
-session only gathers inputs and places exactly the orders `rh-plan` prints.**
+A scheduled Claude session follows this once each morning (6:31 AM Pacific, just after the US
+stock market opens). **The code decides every trade; the session only gathers inputs and places
+exactly the orders the planners print.** Never add, resize, retry with different values, or
+invent orders.
 
-- Account: the agentic account (nickname "MCP"); `rhs_account_number` = `746480458`.
-- Coins traded: BTC, ETH, SOL only. Signals come from the IBIT / ETHA / BSOL ETF history in
-  `data/proxy_history.csv`, set in `config.robinhood.toml`.
-- Never trade any other coin. (The old XLM/HBAR positions were sold on 2026-10-15; if any other
-  holding or open order shows up, leave it alone.)
-- To stop: set `kill_switch = true` in `config.robinhood.toml`, turn trade approvals on in the
-  Robinhood app, or disable the scheduled task.
+- Account: the agentic account (nickname "MCP"); `account_number` = `rhs_account_number` = `746480458`.
+  It is a "limited margin" account, but both strategies use **cash only**.
+- The account is split in two halves (by total account value):
+  - **Crypto (Part A):** BTC, ETH, SOL with `trader rh-plan` (`config.robinhood.toml`, `crypto_sleeve = 0.5`).
+    Signals from the IBIT / ETHA / BSOL ETF history in `data/proxy_history.csv`.
+  - **Stocks (Part B):** NVDA, AMD, PLTR, QQQ with quantbot (`configs/robinhood_stocks.toml`, `sleeve = 0.5`):
+    trend + mean-reversion strategies, ATR stops, loss limits, kill switch. Its state lives in
+    `data/robinhood-stocks.sqlite3` (committed every run so it survives fresh containers).
+- Never trade any other symbol. If any other holding or open order shows up, leave it alone.
+- To stop:
+  - everything: disable the scheduled task, or turn trade approvals on in the Robinhood app;
+  - crypto only: `kill_switch = true` in `config.robinhood.toml`;
+  - stocks only: `python -m quantbot kill --config configs/robinhood_stocks.toml --reason "..."` and commit
+    `data/robinhood-stocks.sqlite3` (release with `unkill`).
 
-## Steps
+## Setup
 
-1. `git fetch origin claude/jolly-fermi-tvlmpb && git checkout claude/jolly-fermi-tvlmpb && git pull`
+1. `git fetch origin claude/jolly-fermi-tvlmpb && git checkout claude/jolly-fermi-tvlmpb && git pull origin claude/jolly-fermi-tvlmpb`
    then `python3 -m venv .venv && . .venv/bin/activate && pip install -r requirements.txt`.
-2. Gather the account state with the Robinhood connector:
-   - `get_portfolio(account_number="746480458")` → `crypto_buying_power.buying_power`
-   - `get_crypto_positions(rhs_account_number="746480458")` → BTC / ETH / SOL `quantity` and `quantity_transferable`
-   - `get_crypto_quotes(["BTC-USD","ETH-USD","SOL-USD"])` → `mark_price`
-   - `get_crypto_orders(rhs_account_number="746480458", state_group="open")` → `currency_code` of each open order
-3. Write `state.json` (outside the repo):
-   `{"crypto_buying_power": ..., "positions": {"BTC": {"quantity": "...", "quantity_transferable": "..."}, ...},
+2. `get_portfolio(account_number="746480458")` → keep `total_value` (the account value), `cash` and
+   `crypto_buying_power.buying_power`. Write all JSON files below outside the repo.
+
+## Part A: crypto
+
+3. Gather: `get_crypto_positions(rhs_account_number="746480458")` (BTC / ETH / SOL `quantity`,
+   `quantity_transferable`), `get_crypto_quotes(["BTC-USD","ETH-USD","SOL-USD"])` (`mark_price`),
+   `get_crypto_orders(rhs_account_number="746480458", state_group="open")` (`currency_code` of each).
+4. Write `state.json`:
+   `{"crypto_buying_power": <buying_power>, "account_value": <total_value>,
+     "positions": {"BTC": {"quantity": "...", "quantity_transferable": "..."}, ...},
      "marks": {"BTC": ..., "ETH": ..., "SOL": ...}, "open_order_symbols": [...]}`
-4. Fetch recent ETF bars: `get_equity_historicals(symbols=["IBIT","ETHA","BSOL"], interval="day",
-   start_time=<last date in data/proxy_history.csv minus 10 days>)`. Save the result JSON exactly as
-   returned to `bars.json` (outside the repo).
-5. `python -m trader rh-plan --state state.json --bars bars.json` (this also updates the history CSV).
-6. For each entry in `orders`, in order: `preview_crypto_order` with exactly its symbol, side, type and
+5. `get_equity_historicals(symbols=["IBIT","ETHA","BSOL"], interval="day", start_time=<last date in
+   data/proxy_history.csv minus 10 days>)`; save the answer exactly as returned to `bars.json`.
+6. `python -m trader rh-plan --state state.json --bars bars.json` (also updates the history CSV).
+7. For each entry in `orders`, in order: `preview_crypto_order` with exactly its symbol, side, type and
    `dollar_amount` or `quantity`, then `place_crypto_order` with the same values and a fresh UUID `ref_id`.
-   If a preview fails, skip that order and record the error. Never add, resize or invent orders.
-7. Check fills with `get_crypto_orders(created_at_gte=<run start>)`.
-8. Append a dated entry to `journal/robinhood-log.md` (equity, target, orders + fill prices, notes,
-   errors), commit `data/proxy_history.csv` and the journal, and push to `claude/jolly-fermi-tvlmpb`.
-9. Record the day's results (after the orders have filled):
-   - `get_portfolio(account_number="746480458")` and append one row to `data/robinhood-results.csv`:
-     `date` (today, Pacific), `value` = `total_value`, `cash`, `crypto` = `crypto_value` (2 decimals),
-     and a short `note` (e.g. "No trades" or "Bought BTC $0.40"). One row per date: if today's row
-     already exists, replace it.
-   - Build the JSON copy: `python3 -c "import csv,json; json.dump([{**r,'value':float(r['value']),'cash':float(r['cash']),'crypto':float(r['crypto'])} for r in csv.DictReader(open('data/robinhood-results.csv'))], open('daily-results.json','w'))"`
-     (write it outside the repo).
-   - Update the results page https://claude.ai/artifact/HZUowfm349k9HEcWYNHMST: upload the JSON with
-     the Artifact tool (`url` = that page, `file_path` = the JSON, `asset: true`), then with ArtifactData
-     `get` collection `datasets` doc `daily` and `update` it (pinned with `if_version`) with
-     `source: {kind: "file", url: <the upload's /_blob/... url>, name: "daily-results.json"}` and
-     `updated: {at: <now, ISO>, by: "Claude (daily run)"}`. If those tools aren't available, skip this
-     and say so in the final message; the CSV in the repo still has the row.
-   - Commit the CSV together with step 8's files.
+   If a preview fails, skip that order and record the error.
+8. Check fills with `get_crypto_orders(rhs_account_number="746480458", created_at_gte=<run start>)`.
+
+## Part B: stocks
+
+9. `python -m quantbot rh-stock-pending --config configs/robinhood_stocks.toml` lists stock orders from
+   earlier runs that are still open in the bot's records. For each, look up its current state with
+   `get_equity_orders(account_number="746480458", order_id=<robinhood_order_id>)` (or by symbol and
+   `created_at_gte` if the id is missing).
+10. Gather: `get_portfolio` again (crypto trades changed it) → `total_value`, `cash`;
+    `get_equity_positions(account_number="746480458")` → NVDA / AMD / PLTR / QQQ `quantity`,
+    `average_buy_price`; `get_equity_quotes(["NVDA","AMD","PLTR","QQQ"])` → last trade price as `mark`.
+11. Write `stock_state.json`:
+    `{"account_value": <total_value>, "cash": <cash>,
+      "positions": {"NVDA": {"quantity": "...", "average_buy_price": "...", "mark": ...}, ...},
+      "order_updates": {"<client_order_id from step 9>": {"robinhood_order_id": "...", "state": "<Robinhood
+         order state>", "filled_quantity": "<cumulative filled shares>", "average_price": "...",
+         "updated_at": "<ISO time>"}}}`
+    Only include the four symbols. Leave `order_updates` empty (`{}`) if step 9 listed nothing.
+12. `get_equity_historicals(symbols=["NVDA","AMD","PLTR","QQQ"], interval="day", start_time=<last date in
+    data/bars/NVDA.csv minus 10 days>)`; save the answer exactly as returned to `stock_bars.json`.
+13. `python -m quantbot rh-stock-plan --config configs/robinhood_stocks.toml --state stock_state.json --bars stock_bars.json`
+    (also merges the new bars into `data/bars/`).
+14. For each entry in `cancel`: `cancel_equity_order` for its `robinhood_order_id`.
+15. For each entry in `orders`, in order: `review_equity_order(account_number="746480458", symbol, side,
+    type="market", market_hours="regular_hours", and exactly its dollar_amount (buys) or quantity (sells))`.
+    If `order_checks` is not empty, don't place it; note the alert. Otherwise `place_equity_order` with the
+    same values and `ref_id` = the order's `ref_id` (deterministic: a retry can't double it). Keep each
+    order's `client_order_id` → Robinhood order `id`. If the answer is an approval instead of an order,
+    treat it as not placed (state "cancelled", filled 0) and say so.
+16. Wait about 30 seconds, then gather again: `get_portfolio`, `get_equity_positions`, `get_equity_quotes`,
+    and `get_equity_orders(account_number="746480458", created_at_gte=<run start>)`. Write `stock_after.json`
+    like step 11, with `order_updates` for every order placed in step 15, every cancel from step 14, and
+    anything from step 9.
+17. `python -m quantbot rh-stock-record --config configs/robinhood_stocks.toml --state stock_after.json`
+    (records fills, sets stops, records realized P&L, updates the loss limits).
+
+## Part C: results and commit
+
+18. Append a dated entry to `journal/robinhood-log.md`: account value; crypto targets, orders and fills;
+    stock orders, fills, stops and anything skipped (the `report.skipped` reasons); errors.
+19. Record the day's results:
+    - `get_portfolio(account_number="746480458")` and append one row to `data/robinhood-results.csv`:
+      `date` (today, Pacific), `value` = `total_value`, `cash`, `crypto` = `crypto_value` (2 decimals),
+      and a short `note` (e.g. "No trades" or "Bought NVDA $1.00; BTC no change"). One row per date: if
+      today's row already exists, replace it.
+    - Build the JSON copy: `python3 -c "import csv,json; json.dump([{**r,'value':float(r['value']),'cash':float(r['cash']),'crypto':float(r['crypto'])} for r in csv.DictReader(open('data/robinhood-results.csv'))], open('daily-results.json','w'))"`
+      (write it outside the repo).
+    - Update the results page https://claude.ai/artifact/HZUowfm349k9HEcWYNHMST: upload the JSON with
+      the Artifact tool (`url` = that page, `file_path` = the JSON, `asset: true`), then with ArtifactData
+      `get` collection `datasets` doc `daily` and `update` it (pinned with `if_version`) with
+      `source: {kind: "file", url: <the upload's /_blob/... url>, name: "daily-results.json"}` and
+      `updated: {at: <now, ISO>, by: "Claude (daily run)"}`. If those tools aren't available, skip this
+      and say so in the final message; the CSV in the repo still has the row.
+20. Commit `data/proxy_history.csv`, `data/bars/`, `data/robinhood-stocks.sqlite3`,
+    `data/robinhood-results.csv` and `journal/robinhood-log.md` together, and push to
+    `claude/jolly-fermi-tvlmpb`.

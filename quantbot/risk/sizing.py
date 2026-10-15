@@ -60,9 +60,21 @@ def size_position(
     if not asset.fractionable:
         qty = float(math.floor(qty + 1e-9))
 
+    min_notional = max(risk.min_notional_usd, asset.min_notional)
+    if qty * price < min_notional and binding == "risk" and risk.min_order_risk_cap > 0:
+        # Small account: round up to the broker minimum when that is still within the cap and
+        # every other limit (position, exposure, cash) allows it.
+        q_min = math.ceil(min_notional / price / step) * step if step > 0 else min_notional / price
+        if not asset.fractionable:
+            q_min = float(math.ceil(min_notional / price))
+        if (q_min * per_unit_risk <= risk.min_order_risk_cap * equity + 1e-12
+                and q_min <= min(qty_position, qty_gross, qty_cash) + 1e-12):
+            return RiskDecision(True, q_min,
+                                f"rounded up to the ${min_notional:.2f} minimum "
+                                f"(risk {q_min * per_unit_risk / equity:.2%} of equity)")
     if qty <= 0:
         return RiskDecision(False, 0.0, f"no size fits ({binding} limit)")
-    if qty * price < max(risk.min_notional_usd, asset.min_notional):
+    if qty * price < min_notional:
         return RiskDecision(False, 0.0, f"${qty * price:.2f} is below the minimum order (binding: {binding})")
     if asset.min_order_size and qty < asset.min_order_size:
         return RiskDecision(False, 0.0, f"{qty} is below the minimum order size {asset.min_order_size}")

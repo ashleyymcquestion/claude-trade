@@ -31,6 +31,9 @@ class Config:
 
     # Robinhood: coin -> US-listed ETF whose daily history stands in for the coin's.
     proxies: dict = field(default_factory=dict)
+    # Robinhood: share of the whole account (crypto + stocks + cash) this strategy may manage.
+    # 1.0 = all of it. The rest is left for the stock bot (quantbot, configs/robinhood_stocks.toml).
+    crypto_sleeve: float = 1.0
 
     stock_cost_bps: float = 5.0
     crypto_cost_bps: float = 25.0
@@ -50,6 +53,8 @@ class Config:
             raise ValueError("on_daily_loss must be 'halt' or 'flatten'")
         if not 0 < self.max_gross <= 1.0:
             raise ValueError("max_gross must be in (0, 1]; leverage is not supported")
+        if not 0 < self.crypto_sleeve <= 1.0:
+            raise ValueError("crypto_sleeve must be in (0, 1]")
         if self.sma_fast >= self.sma_slow:
             raise ValueError("sma_fast must be shorter than sma_slow")
 

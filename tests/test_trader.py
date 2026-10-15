@@ -164,8 +164,8 @@ def test_robinhood_plan_small_account(tmp_path):
 
     cfg = load_config("config.robinhood.toml")
     prices = synthetic_prices().rename(columns={"AAA": "BTC", "BBB": "ETH", "BTC/USD": "SOL"})
-    state = {"crypto_buying_power": 1.0, "positions": {}, "marks": {"BTC": 80000, "ETH": 2400, "SOL": 100},
-             "open_order_symbols": ["XLM"]}
+    state = {"crypto_buying_power": 1.0, "account_value": 2.0, "positions": {},
+             "marks": {"BTC": 80000, "ETH": 2400, "SOL": 100}, "open_order_symbols": ["XLM"]}
     result = plan(prices, state, cfg)
     buys = [o for o in result["orders"] if o["side"] == "buy"]
     assert sum(float(o["dollar_amount"]) for o in buys) <= 1.0
@@ -186,7 +186,24 @@ def test_robinhood_plan_caps_and_exits():
 
     cfg = load_config("config.robinhood.toml")
     prices = synthetic_prices().rename(columns={"AAA": "BTC", "BBB": "ETH", "BTC/USD": "SOL"})
-    state = {"crypto_buying_power": 10000.0, "positions": {"ETH": {"quantity": "1", "quantity_transferable": "1"}},
+    state = {"crypto_buying_power": 10000.0, "account_value": 24800.0,
+             "positions": {"ETH": {"quantity": "1", "quantity_transferable": "1"}},
              "marks": {"BTC": 80000, "ETH": 2400, "SOL": 100}}
     result = plan(prices, state, cfg)
     assert all(float(o.get("dollar_amount", 0)) <= cfg.max_order_usd for o in result["orders"])
+
+
+def test_robinhood_crypto_sleeve_limits_cash_and_equity():
+    from trader.robinhood import plan
+
+    cfg = load_config("config.robinhood.toml")
+    assert cfg.crypto_sleeve == 0.5
+    prices = synthetic_prices().rename(columns={"AAA": "BTC", "BBB": "ETH", "BTC/USD": "SOL"})
+    # $100 cash, no crypto, account $100 -> the crypto strategy may only use $50.
+    state = {"crypto_buying_power": 100.0, "account_value": 100.0, "positions": {},
+             "marks": {"BTC": 80000, "ETH": 2400, "SOL": 100}}
+    result = plan(prices, state, cfg)
+    assert result["equity"] == 50.0 and result["cash"] == 50.0
+    assert sum(float(o["dollar_amount"]) for o in result["orders"] if o["side"] == "buy") <= 50.0
+    with pytest.raises(ValueError):
+        plan(prices, {k: v for k, v in state.items() if k != "account_value"}, cfg)

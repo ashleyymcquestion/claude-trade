@@ -10,3 +10,4 @@ output/
 .env
 state/
 *.sqlite3*
+!data/robinhood-stocks.sqlite3
