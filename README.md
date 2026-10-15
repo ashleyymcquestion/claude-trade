@@ -1,6 +1,9 @@
 # claude-trade
 
-> **New: [quantbot](docs/QUANTBOT.md)**, a research + paper-trading system with three strategies,
+> **New: [kalshibot](docs/KALSHI.md)** trades Kalshi's 15-minute BTC up/down markets (demo exchange
+> by default).
+>
+> **[quantbot](docs/QUANTBOT.md)**, a research + paper-trading system with three strategies,
 > walk-forward backtests, circuit breakers, a kill switch and a Streamlit dashboard. The section
 > below describes the original hourly paper trader in `trader/`, which is unchanged.
 

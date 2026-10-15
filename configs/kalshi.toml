@@ -1,0 +1,27 @@
+# kalshibot configuration. API keys never go here: see .env.example and docs/KALSHI.md.
+
+[run]
+environment = "demo"        # "demo" = Kalshi's fake-money exchange. "prod" = real money.
+allow_live = false          # prod also needs KALSHI_LIVE_CONFIRM and --live; see docs/KALSHI.md
+dry_run = false             # true = decide and score, but never send an order
+poll_seconds = 15
+db_path = "state/kalshi.sqlite3"
+time_in_force = "immediate_or_cancel"   # take what's available at the ask, cancel the rest
+
+[strategy]
+series_ticker = "KXBTC15M"  # BTC price up or down in the next 15 minutes
+min_seconds_left = 90       # trade only between 90s and 10 min before the close
+max_seconds_left = 600
+min_edge = 0.05             # need 5 cents of expected edge per contract after the fee
+max_edge = 0.25             # bigger "edges" usually mean our BTC price is off; skip them
+min_price_cents = 5
+max_price_cents = 95
+vol_lookback_minutes = 60
+min_vol_per_minute = 0.0005
+allow_estimated_strike = false
+
+[risk]
+max_contracts_per_trade = 5
+max_cost_per_trade_usd = 5.0
+max_trades_per_day = 20
+daily_loss_limit_usd = 10.0

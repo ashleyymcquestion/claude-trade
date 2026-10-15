@@ -9,9 +9,11 @@ description = "Quantitative research and paper-trading bot (paper only)"
 requires-python = ">=3.12"
 dependencies = [
   "alpaca-py==0.44.0",
+  "cryptography>=42",
   "numpy==2.5.4",
   "pandas==3.0.6",
   "pydantic>=2.7,<3",
+  "requests>=2.31",
 ]
 
 [project.optional-dependencies]
@@ -19,7 +21,7 @@ dashboard = ["streamlit>=1.40"]
 dev = ["pytest==9.1.1"]
 
 [tool.setuptools.packages.find]
-include = ["quantbot*", "trader*"]
+include = ["quantbot*", "trader*", "kalshibot*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
