@@ -33,3 +33,17 @@ session only gathers inputs and places exactly the orders `rh-plan` prints.**
 7. Check fills with `get_crypto_orders(created_at_gte=<run start>)`.
 8. Append a dated entry to `journal/robinhood-log.md` (equity, target, orders + fill prices, notes,
    errors), commit `data/proxy_history.csv` and the journal, and push to `claude/jolly-fermi-tvlmpb`.
+9. Record the day's results (after the orders have filled):
+   - `get_portfolio(account_number="746480458")` and append one row to `data/robinhood-results.csv`:
+     `date` (today, Pacific), `value` = `total_value`, `cash`, `crypto` = `crypto_value` (2 decimals),
+     and a short `note` (e.g. "No trades" or "Bought BTC $0.40"). One row per date: if today's row
+     already exists, replace it.
+   - Build the JSON copy: `python3 -c "import csv,json; json.dump([{**r,'value':float(r['value']),'cash':float(r['cash']),'crypto':float(r['crypto'])} for r in csv.DictReader(open('data/robinhood-results.csv'))], open('daily-results.json','w'))"`
+     (write it outside the repo).
+   - Update the results page https://claude.ai/artifact/HZUowfm349k9HEcWYNHMST: upload the JSON with
+     the Artifact tool (`url` = that page, `file_path` = the JSON, `asset: true`), then with ArtifactData
+     `get` collection `datasets` doc `daily` and `update` it (pinned with `if_version`) with
+     `source: {kind: "file", url: <the upload's /_blob/... url>, name: "daily-results.json"}` and
+     `updated: {at: <now, ISO>, by: "Claude (daily run)"}`. If those tools aren't available, skip this
+     and say so in the final message; the CSV in the repo still has the row.
+   - Commit the CSV together with step 8's files.
