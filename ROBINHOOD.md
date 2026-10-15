@@ -6,7 +6,8 @@ session only gathers inputs and places exactly the orders `rh-plan` prints.**
 - Account: the agentic account (nickname "MCP"); `rhs_account_number` = `746480458`.
 - Coins traded: BTC, ETH, SOL only. Signals come from the IBIT / ETHA / BSOL ETF history in
   `data/proxy_history.csv`, set in `config.robinhood.toml`.
-- Never touch other holdings (XLM, HBAR) or their open orders.
+- Never trade any other coin. (The old XLM/HBAR positions were sold on 2026-10-15; if any other
+  holding or open order shows up, leave it alone.)
 - To stop: set `kill_switch = true` in `config.robinhood.toml`, turn trade approvals on in the
   Robinhood app, or disable the scheduled task.
 
