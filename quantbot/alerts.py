@@ -70,15 +70,17 @@ class Alerter:
         """Record + log the alert; returns True only if it was delivered to the webhook."""
         lvl = str(level).lower()
         if lvl not in LEVELS:
-            log_event(log, logging.WARNING, "alert_unknown_level", level=str(level), kind=kind)
+            log_event(log, logging.WARNING, "alert_unknown_level", given_level=str(level), alert_kind=kind)
             lvl = "warning"
         message = redact(str(message))
+        fields = {k: redact(v) if isinstance(v, str) else v for k, v in fields.items()}
 
         try:
             self.store.record_event(lvl, kind, message, **fields)
         except Exception as e:  # noqa: BLE001 - alerts must never crash the bot
             log_event(log, logging.ERROR, "alert_store_failed", kind=kind, error=f"{type(e).__name__}: {e}")
-        log_event(log, _LOG_LEVELS[lvl], message, alert_kind=kind, alert_level=lvl, **fields)
+        # fields nested so names like "msg"/"logger" cannot collide with log_event's parameters
+        log_event(log, _LOG_LEVELS[lvl], message, alert_kind=kind, alert_level=lvl, alert_fields=fields)
 
         if LEVELS[lvl] < LEVELS[self.cfg.min_level]:
             return False
