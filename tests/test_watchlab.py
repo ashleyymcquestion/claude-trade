@@ -73,3 +73,19 @@ def test_stacked_needs_two_sources():
                              politicians=[pol("BBB"), pol("CCC")]), [], {"seen_politician_trades": []})
     assert [s for s, _ in ideas["stacked"]] == ["AAA", "BBB"]
     assert "gainers + social" in ideas["stacked"][0][1]
+
+
+def test_options_needs_call_heavy_flow():
+    opts = [{"symbol": "AAA", "price": 10.0, "rel_options_volume": 27.0, "call_put": 900.0},
+            {"symbol": "BBB", "price": 10.0, "rel_options_volume": 30.0, "call_put": 0.5},
+            {"symbol": "CCC", "price": 10.0, "rel_options_volume": 5.0, "call_put": 2.0}]
+    trades, _, _ = w.run(inp(options=opts), [], {"last_run": ""})
+    assert [t.symbol for t in trades] == ["AAA", "CCC"]
+
+
+def test_velocity_needs_speed_and_volume():
+    rows = [{"symbol": "AAA", "price": 10.0, "pct_1d": 0.09, "pct_1h": 0.012, "rel_volume": 2.5},
+            {"symbol": "BBB", "price": 10.0, "pct_1d": 0.09, "pct_1h": -0.01, "rel_volume": 5.0},   # fading
+            {"symbol": "CCC", "price": 10.0, "pct_1d": 0.03, "pct_1h": 0.02, "rel_volume": 1.2}]    # thin volume
+    trades, _, _ = w.run(inp(velocity=rows), [], {"last_run": ""})
+    assert [t.symbol for t in trades] == ["AAA"]

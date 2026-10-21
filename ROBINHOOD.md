@@ -110,6 +110,12 @@ Paper-tests ideas from top gainers, unusual volume, politician filings and socia
        STOCK / market cap / Last / Volume filters → symbol, `price`, `rel_volume`.
      - `politicians`: `get_politician_trades` for each of Nancy Pelosi, Michael McCaul, Ro Khanna, Cleo Fields,
        Josh Gottheimer, Tommy Tuberville; put every returned entry, as returned, in one list.
+     - `options`: `preview_scan` with Relative options volume (1d, length 30) >= 3, Options volume (1d) >= 5000, and
+       the same STOCK / market cap / Last filters, plus column "Call/put ratio" = `optionsCallDayVolume / optionsPutDayVolume`
+       → symbol, `price`, `rel_options_volume`, `call_put`.
+     - `velocity`: `preview_scan` with % Change (1d, Close) > 0.02, % Change (1h, Close) > 0.005, Relative volume
+       (1d, length 30) >= 2, and the same STOCK / market cap / Last / Volume filters → symbol, `price`, `pct_1d`,
+       `pct_1h` (the "% Change (1H, close)" column), `rel_volume`.
      - `social`: one WebSearch for today's most-discussed tickers on X / Threads / StockTwits / Reddit. Up to 3
        US-listed tickers from a page clearly dated today or yesterday, each with `why` and `url`; else `[]`.
 17f. `python -m trader watch-needs --input watch_in.json` → `get_equity_quotes` for those symbols; add each last

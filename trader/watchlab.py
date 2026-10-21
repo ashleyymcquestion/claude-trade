@@ -10,6 +10,11 @@ Sources:
   buzz         unusual volume today (relative volume >= 3x) while up, a proxy for social buzz
   politicians  newly disclosed congressional BUYs (stock or options) from get_politician_trades
   social       tickers the session found trending on X / Threads / StockTwits / Reddit via web search
+  options      unusual options activity, call-heavy: options volume >= 3x normal and calls >= 2x puts
+               (the idea behind Market Rebellion's "Heat Seeker"; a flagged trade can also be a hedge)
+  velocity     price moving AND speeding up on rising volume, any ticker: up > 2% today, up > 0.5% in the
+               last hour, volume >= 2x normal (Excite Capital's "read the present, measure velocity and
+               acceleration of price, volume and time" idea, without predicting anything)
   stacked      tickers flagged by 2+ of the sources above on the same day: signals that "stack up"
                like crossing ripples in a pond, while a lone signal is more likely noise
 
@@ -19,6 +24,8 @@ Input file for `run` (written by the session):
      "buzz": [{"symbol", "price", "rel_volume"}],   # from preview_scan
      "politicians": [<raw get_politician_trades entries>],
      "social": [{"symbol", "why", "url"}],
+     "options": [{"symbol", "price", "rel_options_volume", "call_put"}],   # from preview_scan
+     "velocity": [{"symbol", "price", "pct_1d", "pct_1h", "rel_volume"}],  # from preview_scan
      "quotes": {"QQQ": 726.5, "<symbol>": <last price>, ...}}   # every symbol in `needs`
 """
 
@@ -37,9 +44,11 @@ STATE = DIR / "state.json"
 NY = ZoneInfo("America/New_York")
 BENCH = "QQQ"
 
-PICKS = {"gainers": 5, "buzz": 3, "politicians": 5, "social": 3, "stacked": 3}           # new paper trades per day, max
-MAX_HOLD = {"gainers": 5, "buzz": 5, "politicians": 20, "social": 5, "stacked": 5}      # trading days
+PICKS = {"gainers": 5, "buzz": 3, "politicians": 5, "social": 3, "options": 3, "velocity": 3, "stacked": 3}           # new paper trades per day, max
+MAX_HOLD = {"gainers": 5, "buzz": 5, "politicians": 20, "social": 5, "options": 5, "velocity": 5, "stacked": 5}      # trading days
 STOP, TARGET = -0.08, 0.15
+MIN_CALL_PUT = 2.0
+VELOCITY_MIN = {"pct_1d": 0.02, "pct_1h": 0.005, "rel_volume": 2.0}
 POLITICIAN_FRESH_DAYS = 14
 
 
@@ -148,12 +157,22 @@ def candidates(inp: dict, trades: list[Trade], state: dict) -> dict[str, list[tu
                                         f"{t['transaction_date']} (disclosed {t['disclosure_date']})")
     for s in inp.get("social") or []:
         add("social", s["symbol"], f"{s.get('why', 'trending')} ({s.get('url', '')})")
+    for o in sorted(inp.get("options") or [], key=lambda o: -float(o["rel_options_volume"])):
+        if float(o["call_put"]) >= MIN_CALL_PUT:
+            add("options", o["symbol"], f"options volume {float(o['rel_options_volume']):.1f}x normal, "
+                                        f"calls {float(o['call_put']):.1f}x puts")
+    fast = [v for v in inp.get("velocity") or [] if all(float(v[k]) > m for k, m in VELOCITY_MIN.items())]
+    for v in sorted(fast, key=lambda v: -float(v["pct_1h"]) * float(v["rel_volume"])):
+        add("velocity", v["symbol"], f"up {float(v['pct_1d']) * 100:.1f}% today, {float(v['pct_1h']) * 100:.1f}% "
+                                     f"in the last hour, {float(v['rel_volume']):.1f}x volume")
 
     # every symbol each source flagged today (before the per-source caps), most sources first
     flagged = {"gainers": {g["symbol"] for g in inp.get("gainers") or []},
                "buzz": {b["symbol"] for b in inp.get("buzz") or []},
                "politicians": {t["symbol"] for t in _fresh_politician_buys(inp.get("politicians") or [], seen, today)},
-               "social": {s["symbol"] for s in inp.get("social") or []}}
+               "social": {s["symbol"] for s in inp.get("social") or []},
+               "options": {o["symbol"] for o in inp.get("options") or [] if float(o["call_put"]) >= MIN_CALL_PUT},
+               "velocity": {v["symbol"] for v in fast}}
     hits: dict[str, list[str]] = {}
     for source, syms in flagged.items():
         for sym in syms:
@@ -167,7 +186,7 @@ def candidates(inp: dict, trades: list[Trade], state: dict) -> dict[str, list[tu
 def needs(inp: dict, trades: list[Trade], state: dict) -> list[str]:
     """Symbols the session must quote before `run`: the benchmark, open trades, and new ideas
     that don't already carry a price."""
-    priced = {g["symbol"].upper() for g in (inp.get("gainers") or [])} | {b["symbol"].upper() for b in (inp.get("buzz") or [])}
+    priced = {r["symbol"].upper() for k in ("gainers", "buzz", "options", "velocity") for r in (inp.get(k) or [])}
     syms = {BENCH} | {t.symbol for t in trades if t.status == "open"}
     syms |= {s for ideas in candidates(inp, trades, state).values() for s, _ in ideas if s not in priced}
     return sorted(syms)
@@ -177,7 +196,7 @@ def run(inp: dict, trades: list[Trade], state: dict) -> tuple[list[Trade], dict,
     now = _now(inp)
     today = now.astimezone(NY).date().isoformat()
     quotes = {k.upper(): float(v) for k, v in (inp.get("quotes") or {}).items()}
-    for g in (inp.get("gainers") or []) + (inp.get("buzz") or []):
+    for g in (inp.get("gainers") or []) + (inp.get("buzz") or []) + (inp.get("options") or []) + (inp.get("velocity") or []):
         quotes.setdefault(g["symbol"].upper(), float(g["price"]))
     bench = quotes.get(BENCH)
     if not bench:

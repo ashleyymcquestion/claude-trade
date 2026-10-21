@@ -1,8 +1,10 @@
 # Quantum computing and investing (RebelCon 2026)
 
-Oct 21, 2026. Notes from Nadab's quantum session at RebelCon 2026, Las Vegas. The speaker isn't on
-the public speaker list ([RebelCon prep page](https://marketrebellion.com/rebelcon26-prep-package/)),
-so his full name and company are unconfirmed.
+Oct 21, 2026. Notes from "The Quantum Future" at RebelCon 2026, Las Vegas: Marc X. LoPresti (Market
+Rebellion CEO) and [Nadab Akhtar](https://milkeninstitute.org/index%2ephp/staff/nadab-akhtar), founder and
+managing partner of Excite Capital, CEO of Project LightShift (room-temperature photonic quantum processor),
+Milken Institute FinTech Advisory Council. Marc and likely Jon Najarian sit on Excite Capital's board. Live
+doc: [The Quantum Future – RebelCon Notes](https://claude.ai/artifact/BLw1bZWvWgshBsYAaqrpe5).
 
 ## Talk summary
 
@@ -21,8 +23,20 @@ so his full name and company are unconfirmed.
    the best ones faster than a regular computer.
 6. **It's a whole industry:** quantum security, quantum software, quantum sensing (super-precise
    measurement) and more.
-7. **It's real today:** companies like "Excite Capital" (name as heard) and Quantum eMotion already use
-   it to make money.
+7. **It's real today:** companies like Excite Capital and Quantum eMotion already use it to make money.
+
+## How Excite Capital says it trades
+
+- **Navigator, not prophet:** it doesn't try to predict the future; it reads what's happening right now
+  and reacts, like a GPS rerouting.
+- **Inputs:** only price, volume and time. It doesn't care why a stock moves (news, sentiment, hype) or which
+  ticker it is.
+- **What it measures:** velocity (how fast those numbers change) and acceleration (whether the change is
+  speeding up or slowing down).
+- **Three rule tiers:** absolute rules never broken (e.g. only stocks and currency pairs, a risk limit),
+  hard rules that define correct behavior, and soft rules updated with real-time data.
+- **Observation, state, constraint:** the $100 price is just what you see; the state underneath is buyers,
+  sellers and liquidity; constraints are your capital and risk limits.
 
 ## Fact-check
 
@@ -34,15 +48,24 @@ so his full name and company are unconfirmed.
 - **Point 5:** the speedup for searching is roughly the square root of the number of options, not
   "all at once". Portfolio optimization on quantum hardware is still at the research and pilot stage. Our
   bot's problem (a few stocks and coins, $4) is solved exactly and instantly on a regular computer.
-- **Point 7:** Quantum eMotion (QNC) sells quantum random-number security products and is a small,
-  early-stage company. The only 2026 revenue numbers found online came from spam pages with conflicting
-  figures. Check its filings before trusting any claim that it's profitable. "Excite Capital" couldn't
-  be identified.
+- **Point 7:** Excite Capital is Nadab's own firm, so "it makes money" is the speaker's claim about his
+  own fund; no public track record was found. Quantum eMotion (QNC, NYSE American / TSX Venture) sells
+  quantum random-number security products and reported no revenue and a $10.55M net loss for 2025
+  ([Quantum eMotion IR](https://www.quantumemotion.com/press-release/quantum-emotion-announces-brokered-life-financing-of-c-6-000-000),
+  [edgar.tools](https://app.edgar.tools/companies/QNC)): early-stage and speculative.
+- **Excite's method needs no quantum computer.** Velocity and acceleration of price and volume are
+  ordinary momentum measures any computer can calculate; the quantum part is how they say they search
+  the options.
 - **Point 3 is a metaphor only.** Virtual particles have nothing to do with markets.
 
 ## What we took from it
 
-The pond idea is now a watchlab source, **stacked**: a stock flagged by two or more independent signals
+Excite's method is now a watchlab source, **velocity**: any liquid stock up more than 2% today, more than
+0.5% in the last hour (speeding up) and trading 2x+ its normal volume. The bot's rules already follow
+the three tiers: absolute (paper only, liquid stocks, $1 size), hard (-8% stop, +15% target, time exit),
+soft (fresh scanner data every day).
+
+The pond idea is a second source, **stacked**: a stock flagged by two or more independent signals
 on the same day (top gainer, unusual volume, politician buy, social buzz) gets its own paper trade.
 The scoreboard will show whether agreeing signals beat single ones. See
 [watchlab-strategies.md](watchlab-strategies.md).

@@ -58,3 +58,18 @@ Added 2026-10-21, from the "pond" idea in the RebelCon quantum talk
 two or more of the sources above on the same day gets its own paper trade (up to 3 a day, most sources
 first, 5-day hold). If agreeing signals really are stronger, this source should beat each single source.
 On day one, ASST was both a top gainer and trending on StockTwits.
+
+## Options (unusual options activity)
+
+Added 2026-10-21, from the RebelCon early-stage panel ([notes](rebelcon-2026-early-stage-panel-notes.md)):
+the Najarians' "Heat Seeker" scans options order flow for big, out-of-pattern bets that may be "smart
+money" ahead of news. Watchlab's version: stocks whose options volume is 3x+ normal, with calls at least
+2x puts (a bullish lean), up to 3 a day, biggest volume jump first, 5-day hold. Market Rebellion calls
+this an indicator, not a guarantee: a big options trade can be a hedge. Day one: FHN (27x, almost all
+calls), CECO, UAL.
+
+## Velocity (price and volume speeding up)
+
+Added 2026-10-21, from Excite Capital's method in the quantum talk ([notes](rebelcon-2026-quantum-notes.md)):
+don't predict, read the present. Any liquid stock up more than 2% today and more than 0.5% in the last
+hour, on 2x+ normal volume, ranked by last-hour move x volume; up to 3 a day, 5-day hold. Day one: KYIV.
