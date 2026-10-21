@@ -25,3 +25,15 @@
 - Orders: sell BTC $0.66 market, filled 0.0000081 BTC @ $81,430.67 ($0.65);
   sell ETH $0.46 market, filled 0.000189 ETH @ $2,432.06 ($0.45).
 - After: account $4.16, crypto $1.13, cash $3.03 (stock half can now use up to ~$2.08). Fees: $0.
+
+## 2026-10-21 (10:38 AM PT, hourly scheduled run)
+- Account $4.23 (cash $0.53, crypto $1.67, stocks $2.03).
+- Crypto: rh-plan sleeve $2.12; target (ETF prices as of 2026-10-20) BTC 39.6%, ETH 29.6%, SOL 0%;
+  holdings BTC $0.94, ETH $0.73. No orders.
+- Stocks: **skipped, nothing placed.** The account holds NVDA 0.004625 sh (bought 2026-10-19 @ $216.20)
+  and QQQ 0.001389 sh (bought 2026-10-19 @ $719.58), both agent-initiated, but
+  `data/robinhood-stocks.sqlite3` on this branch has no positions, orders or events: the runs that
+  placed them never committed the bot state. Planning on that blank state could re-buy, and these
+  holdings have no stops or loss limits tracked. Needs the bot state reconciled before the stock half resumes.
+- Also not in the repo: a BTC buy of ~$0.25 today (0.00000297 BTC, intraday cost basis) and no results
+  rows since 2026-10-15, so earlier runs' logs were lost the same way.
