@@ -47,3 +47,10 @@
 - Dry run of today's plan on a copy of the state: no orders, nothing unmanaged. The stock half
   resumes on the next hourly run.
 - Bars for NVDA/AMD/PLTR/QQQ updated through 2026-10-20.
+
+## 2026-10-21 (11:37 AM PT, hourly run)
+- Account $4.23 (cash $0.53, crypto $1.67, stocks $2.04).
+- Crypto: rh-plan target BTC 39.6%, ETH 29.6%, SOL 0%; holdings BTC $0.94, ETH $0.73. No orders.
+- Stocks: rh-stock-plan no orders, nothing skipped; NVDA stop $204.26, QQQ stop $698.49 tracked.
+- SPCX test: waiting (cash $0.53 < $1.00); SPCX $158.68.
+- Watchlab: already ran today (14 paper trades opened at 11:18 AM PT).
