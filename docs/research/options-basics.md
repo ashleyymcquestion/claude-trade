@@ -51,3 +51,52 @@ $14,900 for $535 (3.6%). SPCX pays more because it's more volatile: the market p
 own move over the same days (to see whether the option beat simply owning the stock), and the wheel's
 premium kept and share gains or losses. A strategy is only worth real money after a solid record AND
 enough cash to trade it properly, and only with your OK.
+
+## The edge filter (added Oct 21): only take trades where the odds and the payoff favor us
+
+No options strategy wins every time. What the lab can do is skip trades where the math is against us.
+For every idea it now prices several structures and keeps the best one that passes BOTH tests:
+
+1. **Probability of profit at least 55%**, and
+2. **Positive expected profit**: (chance of winning x average win) + (chance of losing x average loss) > 0.
+
+Both numbers come from [optionlab](https://github.com/rgaveiga/optionlab) using the stock's **realized**
+volatility (how much it actually moved over the last 30 trading days), not the volatility baked into the
+option's price ("implied"). That gap is the edge: when options are priced for bigger swings than the
+stock really makes, **selling** them has the odds; when they're priced cheap, **buying** them does.
+
+| Structure | What it is | When it tends to pass |
+|---|---|---|
+| Long call | Buy a call at or just above the price | Options cheap vs real moves |
+| Bull call spread | Buy that call, sell one ~10% higher | Cheaper than a call; still needs a rise |
+| Bull put spread | Sell a put ~5% below, buy one ~10% below (a credit with capped risk) | Options rich; the stock just has to not fall much |
+| Cash-secured put (wheel) | Sell a put ~5% below | Options rich |
+| Covered call (wheel) | Sell a call ~5% above cost, while holding 100 shares | Options rich |
+
+**Day one, scored with the filter** (these six were opened before it existed and are kept as a test):
+
+| Position | Option price implies | Stock actually moved | Odds | Expected | Filter |
+|---|---|---|---|---|---|
+| UAL call (bought) | 48% | 38% | 28% | -$161 | Fail |
+| ASST call (bought) | 101% | 71% | 26% | -$116 | Fail |
+| SEI call (bought) | 92% | 81% | 29% | -$110 | Fail |
+| NVDA put (sold) | 41% | 26% | 86% | +$268 | Pass |
+| QQQ put (sold) | 26% | 17% | 90% | +$432 | Pass |
+| SPCX put (sold) | 54% | 51% | 71% | +$2 | Pass (barely) |
+
+The lesson: today, options were priced for bigger moves than these stocks actually made, so buying
+calls had the odds against us and selling puts had them for us. From now on the lab would have traded
+the selling side and skipped the calls. The scoreboard compares the odds the model promised
+("model_odds") with the real win rate, so we'll see whether the model can be trusted.
+
+**Two caveats:** past volatility doesn't promise future volatility (a surprise drop can blow through a
+sold put), and selling options means many small wins and occasional big losses. That's why spreads cap
+the loss, and why real money waits for a long record.
+
+## Tools installed (free)
+
+| Tool | Used for |
+|---|---|
+| [optionlab](https://github.com/rgaveiga/optionlab) | Odds, expected profit, max win/loss for every candidate trade (in use) |
+| [py_vollib](https://github.com/vollib/py_vollib) | Standard option pricing, implied volatility and Greeks (available) |
+| [optopsy](https://github.com/michaelchu/optopsy) | Testing strategies on years of past option chains (ready once we have past option data) |

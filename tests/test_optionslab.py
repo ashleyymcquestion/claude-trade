@@ -1,3 +1,4 @@
+import math
 from types import SimpleNamespace
 
 import pytest
@@ -7,77 +8,130 @@ from trader import optionslab as o
 DAY1 = "2026-10-21T15:00:00Z"
 DAY2 = "2026-10-22T15:00:00Z"
 EXP = "2026-11-27"        # 37 days after day 1
-SPOTS = {"NVDA": 200.0, "QQQ": 700.0, "SPCX": 160.0, "FHN": 23.0}
+SYMS = ("FHN", "NVDA", "QQQ", "SPCX")
+STRIKES = (85, 90, 95, 100, 105, 110, 115)
+
+
+def history(vol=0.20, n=45):
+    x = vol / math.sqrt(252)          # alternating +x/-x log returns -> realized vol ~= vol
+    closes, c = [], 100.0
+    for i in range(n):
+        c *= math.exp(x if i % 2 else -x)
+        closes.append(c)
+    return closes
 
 
 def watch(sym="FHN", source="options", opened="2026-10-21"):
     return [SimpleNamespace(symbol=sym, source=source, opened=opened)]
 
 
-def chain(sym, spot, typ):
-    return [{"id": f"{sym}-{typ}-{k}", "strike": k, "type": typ, "expiration": EXP}
-            for k in (spot * 0.9, spot * 0.95, spot, spot * 1.05, spot * 1.1)]
+def chain(sym):
+    return [{"id": f"{sym}-{t}-{k}", "strike": k, "type": t, "expiration": EXP} for t in ("call", "put") for k in STRIKES]
 
 
-def full_input(now=DAY1, spots=SPOTS, quotes=None, typ=None):
-    insts = {s: chain(s, p, (typ or {}).get(s, "put" if s in o.WHEEL else "call")) for s, p in SPOTS.items()}
-    q = quotes or {i["id"]: {"bid": 1.0, "ask": 1.1} for rows in insts.values() for i in rows}
-    return {"now": now, "spots": spots, "expirations": {s: [EXP, "2026-10-30"] for s in SPOTS},
-            "instruments": insts, "quotes": q}
+# puts priced far above what 20% realized volatility justifies; calls priced expensive for buyers
+RICH_PUTS = {("put", 95): (3.0, 3.1), ("put", 90): (1.0, 1.05), ("put", 85): (0.4, 0.45),
+             ("call", 100): (4.8, 5.0), ("call", 105): (2.5, 2.6), ("call", 110): (1.0, 1.05),
+             ("call", 115): (0.4, 0.45)}
+CHEAP_PUTS = {**RICH_PUTS, ("put", 95): (0.3, 0.35), ("put", 90): (0.1, 0.12)}
+
+
+def quotes(table):
+    return {f"{s}-{t}-{k}": {"bid": table.get((t, k), (0.5, 0.55))[0], "ask": table.get((t, k), (0.5, 0.55))[1]}
+            for s in SYMS for t in ("call", "put") for k in STRIKES}
+
+
+def full(now=DAY1, spot=100.0, table=RICH_PUTS, vol=0.20):
+    return {"now": now, "spots": {s: spot for s in SYMS}, "history": {s: history(vol) for s in SYMS},
+            "expirations": {s: [EXP, "2026-10-30"] for s in SYMS}, "instruments": {s: chain(s) for s in SYMS},
+            "quotes": quotes(table)}
+
+
+EMPTY = {"last_run": "", "wheel": {}}
+
+
+def rolled(inp, exp="2027-01-08"):
+    """The same chain one expiration later, for runs after the first contracts expired."""
+    inp["expirations"] = {s: [exp] for s in SYMS}
+    for rows in inp["instruments"].values():
+        for r in rows:
+            r["expiration"] = exp
+    return inp
+
+
+def test_realized_vol():
+    assert o.realized_vol(history(0.30)) == pytest.approx(0.30, rel=0.05)
+    assert o.realized_vol([100.0] * 10) is None
 
 
 def test_asks_for_data_in_order_and_changes_nothing():
-    res, pos, st = o.step({"now": DAY1}, [], {"last_run": "", "wheel": {}}, watch())
-    assert res == {"need": {"spots": ["FHN", "NVDA", "QQQ", "SPCX"]}} and pos == []
-    res, *_ = o.step({"now": DAY1, "spots": SPOTS}, [], {"last_run": "", "wheel": {}}, watch())
-    assert res["need"]["expirations"] == ["FHN", "NVDA", "QQQ", "SPCX"]
-    res, *_ = o.step({"now": DAY1, "spots": SPOTS, "expirations": {s: [EXP] for s in SPOTS}}, [],
-                     {"last_run": "", "wheel": {}}, watch())
-    assert {"symbol": "FHN", "expiration": EXP, "type": "call"} in res["need"]["instruments"]
+    res, pos, st = o.step({"now": DAY1}, [], EMPTY, watch())
+    assert res == {"need": {"spots": list(SYMS)}} and pos == [] and st is EMPTY
+    inp = {"now": DAY1, "spots": {s: 100.0 for s in SYMS}}
+    assert o.step(inp, [], EMPTY, watch())[0]["need"] == {"history": list(SYMS)}
+    inp["history"] = {s: history() for s in SYMS}
+    assert o.step(inp, [], EMPTY, watch())[0]["need"] == {"expirations": list(SYMS)}
+    inp["expirations"] = {s: [EXP] for s in SYMS}
+    need = o.step(inp, [], EMPTY, watch())[0]["need"]["instruments"]
+    assert {"symbol": "FHN", "expiration": EXP, "type": "call"} in need
+    assert {"symbol": "FHN", "expiration": EXP, "type": "put"} in need
+    assert {"symbol": "NVDA", "expiration": EXP, "type": "put"} in need
+    assert {"symbol": "NVDA", "expiration": EXP, "type": "call"} not in need
 
 
-def test_opens_atm_call_at_ask_and_otm_puts_at_bid():
-    res, pos, st = o.step(full_input(), [], {"last_run": "", "wheel": {}}, watch())
-    by = {p["underlying"]: p for p in pos}
-    assert by["FHN"]["strike"] == 23.0 and by["FHN"]["entry"] == 1.1 and by["FHN"]["side"] == "long"
-    assert by["NVDA"]["type"] == "put" and by["NVDA"]["strike"] == pytest.approx(190.0) and by["NVDA"]["entry"] == 1.0
+def test_picks_the_structure_with_an_edge():
+    res, pos, st = o.step(full(), [], EMPTY, watch())
+    flow = next(p for p in pos if p["underlying"] == "FHN")
+    assert flow["structure"] == "bull_put_spread"           # rich puts: selling them has the edge
+    assert [l["action"] for l in flow["legs"]] == ["sell", "buy"]
+    assert flow["legs"][0]["entry"] == 3.0 and flow["legs"][1]["entry"] == 1.05   # sell at bid, buy at ask
+    assert flow["pop"] >= o.MIN_POP and flow["ev"] > 0
+    assert {p["underlying"] for p in pos if p["structure"] == "cash_secured_put"} == {"NVDA", "QQQ", "SPCX"}
     assert st["last_run"] == "2026-10-21"
 
 
-def test_skips_wide_spreads():
-    inp = full_input()
-    inp["quotes"] = {k: {"bid": 0.1, "ask": 1.0} for k in inp["quotes"]}
-    res, pos, _ = o.step(inp, [], {"last_run": "", "wheel": {}}, watch())
-    assert pos == [] and len(res["done"]["skipped"]) == 4
+def test_skips_when_nothing_has_an_edge():
+    res, pos, _ = o.step(full(table=CHEAP_PUTS), [], EMPTY, watch())
+    assert pos == []
+    assert any(s.startswith("follow_flow FHN: no edge") for s in res["done"]["skipped"])
 
 
-def test_long_call_target_and_put_assignment_then_covered_call():
-    _, pos, st = o.step(full_input(), [], {"last_run": "", "wheel": {}}, watch())
-    call = next(p for p in pos if p["underlying"] == "FHN")
-    q2 = {call["instrument_id"]: {"bid": 2.5, "ask": 2.6}}
-    _, pos, st = o.step({"now": DAY2, "spots": SPOTS, "quotes": q2}, pos, st, [])
-    assert call["status"] == "open"                      # the arguments were not modified
-    call = next(p for p in pos if p["underlying"] == "FHN")
-    assert call["exit_reason"] == "target" and call["pnl"] == pytest.approx(140.0)
+def test_spread_takes_profit_then_expired_spread_settles():
+    _, pos, st = o.step(full(), [], EMPTY, watch())
+    flow = next(p for p in pos if p["underlying"] == "FHN")
+    q = {f"FHN-put-95": {"bid": 0.2, "ask": 0.25}, f"FHN-put-90": {"bid": 0.05, "ask": 0.1}}
+    res, pos2, _ = o.step({"now": DAY2, "spots": {s: 110.0 for s in SYMS}, "quotes": q}, pos, st, [])
+    closed = next(p for p in pos2 if p["id"] == flow["id"])
+    assert closed["exit_reason"] == "took 50% of max profit"
+    assert closed["pnl"] == pytest.approx((-0.25 + 0.05 - flow["net_debit"]) * 100)
 
-    # NVDA falls below the 190 put strike; after expiration it is assigned and a covered call follows
+    # a spread left open past expiration settles at intrinsic value
     after = "2026-11-30T15:00:00Z"
-    low = {**SPOTS, "NVDA": 180.0}
-    inp = full_input(after, low, typ={"NVDA": "call", "QQQ": "put", "SPCX": "put"})
-    inp["instruments"]["NVDA"] = chain("NVDA", 200.0, "call")
-    inp["expirations"] = {s: ["2027-01-08"] for s in SPOTS}
-    for rows in inp["instruments"].values():
-        for r in rows:
-            r["expiration"] = "2027-01-08"
-    inp["quotes"] = {i["id"]: {"bid": 1.0, "ask": 1.1} for rows in inp["instruments"].values() for i in rows}
-    res, pos, st = o.step(inp, pos, st, [])
-    assert st["wheel"]["NVDA"]["shares_cost"] == pytest.approx(190.0)
+    res, pos3, _ = o.step(rolled(full(after, spot=92.0)), pos, st, [])
+    settled = next(p for p in pos3 if p["id"] == flow["id"])
+    assert settled["exit_reason"] == "expired"
+    assert settled["pnl"] == pytest.approx((-(95 - 92) + 0 - flow["net_debit"]) * 100)
+
+
+def test_wheel_assignment_then_covered_call():
+    _, pos, st = o.step(full(), [], EMPTY, watch())
+    after = "2026-11-30T15:00:00Z"
+    res, pos, st = o.step(rolled(full(after, spot=90.0, table={**RICH_PUTS, ("call", 100): (3.0, 3.1)})), pos, st, [])
+    assert st["wheel"]["NVDA"]["shares_cost"] == 95
     cc = next(p for p in pos if p["underlying"] == "NVDA" and p["status"] == "open")
-    assert cc["type"] == "call" and cc["strike"] >= 190.0 * 1.05
-    assert res["done"]["scoreboard"]["wheel"]["NVDA"]["unrealized_shares_usd"] == pytest.approx(-1000.0)
+    assert cc["structure"] == "covered_call" and cc["legs"][0]["strike"] >= 95 * o.CC_OTM
+    assert res["done"]["scoreboard"]["wheel"]["NVDA"]["unrealized_shares_usd"] == pytest.approx(-500.0)
+
+
+def test_old_single_leg_positions_still_load():
+    old = {"id": "a", "strategy": "follow_flow", "underlying": "UAL", "type": "call", "side": "long", "strike": 102.0,
+           "expiration": EXP, "instrument_id": "x", "opened": "2026-10-21", "entry": 6.1, "underlying_entry": 101.4,
+           "status": "open", "closed": "", "exit": 0.0, "exit_reason": "", "pnl": 0.0, "ret": 0.0}
+    p = o._migrate(old)
+    assert p["structure"] == "long_call" and p["net_debit"] == 6.1 and p["legs"][0]["action"] == "buy"
 
 
 def test_runs_once_a_day():
-    _, pos, st = o.step(full_input(), [], {"last_run": "", "wheel": {}}, watch())
-    res, pos2, _ = o.step(full_input(), pos, st, watch())
+    _, pos, st = o.step(full(), [], EMPTY, watch())
+    res, pos2, _ = o.step(full(), pos, st, watch())
     assert res["done"] == {"already_ran": True} and pos2 is pos

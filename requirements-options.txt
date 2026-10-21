@@ -1,0 +1,5 @@
+# options lab (trader/optionslab.py) and options research; versions the test suite was run with.
+# optionlab needs pandas < 3, so requirements.txt pins pandas 2.3.3.
+optionlab==1.9.1
+py_vollib==1.0.12
+optopsy==2.3.0

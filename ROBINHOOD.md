@@ -23,7 +23,7 @@ invent orders.
 ## Setup
 
 1. `git fetch origin claude/jolly-fermi-tvlmpb && git checkout claude/jolly-fermi-tvlmpb && git pull origin claude/jolly-fermi-tvlmpb`
-   then `python3 -m venv .venv && . .venv/bin/activate && pip install -r requirements.txt`.
+   then `python3 -m venv .venv && . .venv/bin/activate && pip install -r requirements.txt -r requirements-quantbot.txt -r requirements-options.txt`.
 2. `get_portfolio(account_number="746480458")` → keep `total_value` (the account value), `cash` and
    `crypto_buying_power.buying_power`. Write all JSON files below outside the repo.
 
@@ -126,12 +126,15 @@ Paper-tests ideas from top gainers, unusual volume, politician filings and socia
 
 ## Part B4: options lab (paper only, once a day, after Part B3)
 
-Paper-tests three options strategies with real option prices (`trader/optionslab.py`, guide in
+Paper-tests options strategies with real option prices; for each idea it picks the structure (long call, bull call
+spread, bull put spread, cash-secured put, covered call) whose odds and expected profit beat its price (`trader/optionslab.py`, guide in
 `docs/research/options-basics.md`). **Places no orders.**
 
 17h. Start `opt_in.json` as `{}` and run `python -m trader opt-step --input opt_in.json`. Each run prints either
      `{"need": ...}` or `{"done": ...}`. Fetch what it asks, add it to the file, and run again:
      - `spots`: `get_equity_quotes` for those symbols → `{"SYM": last_trade_price}`
+     - `history`: `get_equity_historicals(symbols (10 per call), interval="day", start_time=<50 days ago>)` →
+       `{"SYM": [close_price, ... oldest first]}`, then append today's spot as the last close
      - `expirations`: `get_option_chains(underlying_symbol=SYM)` → `{"SYM": [all expiration_dates]}`
      - `instruments`: `get_option_instruments(chain_symbol, expiration_dates, type)` for each request → `{"SYM":
        [{"id", "strike", "type", "expiration"}]}` (strikes near the stock price are enough)

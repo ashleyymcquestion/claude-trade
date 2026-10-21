@@ -1,32 +1,45 @@
 """Options lab: paper-test options strategies with real Robinhood option prices. Places no orders.
 
-Strategies (one contract = 100 shares each, as on Robinhood):
-  follow_flow     buy a near-the-money call 30-45 days out on stocks with call-heavy unusual options
-                  activity (watchlab source "options" opened today), copying the "smart money" bet
-  momentum_calls  the same call on watchlab's velocity / top-gainer picks, instead of the stock
-  wheel           on NVDA, QQQ, SPCX: sell a cash-secured put ~5% below the price; if assigned, hold the
-                  100 shares and sell covered calls ~5% above cost until they're called away; repeat
+Ideas come from watchlab (trades it opened today) and from the wheel list:
+  follow_flow     stocks with call-heavy unusual options activity (watchlab source "options")
+  momentum_calls  watchlab's velocity / top-gainer picks
+  wheel           NVDA, QQQ, SPCX: cash-secured puts; if assigned, covered calls until called away
 
-Pricing is pessimistic on purpose: buy at the ask, sell at the bid, and skip contracts whose
-bid/ask spread is more than 30% of the midpoint. Long calls close at +100%, -50%, or 7 days before
-expiration. Short options are held to expiration and settled on the underlying's price at the next
-daily run (an approximation of the expiration-day close).
+Strategy choice ("only take trades with an edge"): for every bullish idea the lab prices three
+structures with optionlab and keeps the one with the best expected profit per dollar at risk:
+  long_call         buy the first strike at or above the price
+  bull_call_spread  buy that call, sell the first strike >= 10% above the price (cheaper, capped)
+  bull_put_spread   sell the highest put <= 95% of the price, buy the highest put <= 90% (a credit)
+A structure only qualifies if its probability of profit is at least MIN_POP AND its expected profit is
+positive. Both come from optionlab's Black-Scholes model run with the stock's REALIZED volatility over
+the last 30 days, not the volatility the option price implies: selling options that are priced richer
+than the stock really moves (or buying ones priced cheaper) is the edge being tested. If nothing
+qualifies, the idea is skipped and the report says why. No setup wins every time; this filter only
+keeps the odds and the expected payoff on our side, and the scoreboard checks whether the model's
+odds come true. The wheel's puts and covered calls go through the same filter.
+
+Pricing is pessimistic: buy legs at the ask, sell legs at the bid; skip a leg whose bid/ask spread is
+more than 30% of its midpoint. Exits: long calls close at +100%, -50%, or 7 days before expiration;
+spreads close once they've made 50% of their maximum profit, or 7 days before expiration; wheel legs
+are held to expiration. Expired positions settle on the stock price at the next daily run.
 
 Run with `python -m trader opt-step --input opt_in.json` repeatedly. Each call either prints what the
-session must fetch next ({"need": ...}) or, once the file holds everything, records the day and prints
-the report. The session adds what was asked to the same file:
-    {"now": "...",                                             # optional
-     "spots": {"FHN": 23.2, ...},                              # get_equity_quotes last trade price
-     "expirations": {"FHN": ["2026-11-20", ...]},              # get_option_chains expiration_dates (all chains)
-     "instruments": {"FHN": [{"id", "strike", "type", "expiration"}, ...]},   # get_option_instruments
-     "quotes": {"<instrument id>": {"bid": 1.1, "ask": 1.2}}}  # get_option_quotes
+session must fetch next ({"need": ...}) or, once the file holds everything, records the day:
+    {"now": "...",                                              # optional
+     "spots": {"FHN": 23.2, ...},                               # get_equity_quotes last trade price
+     "history": {"FHN": [closes, oldest first], ...},           # get_equity_historicals day closes, ~45 days
+     "expirations": {"FHN": ["2026-11-20", ...]},               # get_option_chains expiration_dates
+     "instruments": {"FHN": [{"id", "strike", "type", "expiration"}, ...]},    # get_option_instruments
+     "quotes": {"<instrument id>": {"bid": 1.1, "ask": 1.2}}}   # get_option_quotes
 """
 
 from __future__ import annotations
 
 import copy
 import json
+import math
 import uuid
+import warnings
 from datetime import UTC, date, datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -40,9 +53,13 @@ WHEEL = ("NVDA", "QQQ", "SPCX")
 IDEA_SOURCES = {"follow_flow": ("options",), "momentum_calls": ("velocity", "gainers")}
 PER_DAY = {"follow_flow": 3, "momentum_calls": 3}
 MAX_OPEN = {"follow_flow": 10, "momentum_calls": 10}
+BULLISH = ("long_call", "bull_call_spread", "bull_put_spread")
 DTE = (30, 45)
-PUT_OTM, CALL_OTM = 0.95, 1.05
-TARGET, STOP, CLOSE_DTE = 1.0, -0.5, 7
+PUT_OTM, PUT_WING, CALL_WING, CC_OTM = 0.95, 0.90, 1.10, 1.05
+MIN_POP = 0.55
+RATE = 0.04
+VOL_DAYS = 30
+TARGET, STOP, CLOSE_DTE, SPREAD_TAKE = 1.0, -0.5, 7, 0.5
 MAX_SPREAD = 0.30
 
 
@@ -51,12 +68,24 @@ def _now(inp: dict) -> datetime:
     return datetime.fromisoformat(ts.replace("Z", "+00:00")).astimezone(UTC) if ts else datetime.now(UTC)
 
 
-def _load(path: Path, default):
-    return json.loads(path.read_text()) if path.exists() else default
+def _migrate(p: dict) -> dict:
+    """Positions recorded before multi-leg support had one leg stored flat."""
+    if "legs" in p:
+        return p
+    action = "buy" if p["side"] == "long" else "sell"
+    structure = "long_call" if p["side"] == "long" else ("cash_secured_put" if p["type"] == "put" else "covered_call")
+    leg = {"instrument_id": p["instrument_id"], "type": p["type"], "action": action, "strike": p["strike"],
+           "entry": p["entry"]}
+    keep = {k: p[k] for k in ("id", "strategy", "underlying", "expiration", "opened", "underlying_entry",
+                              "status", "closed", "exit_reason", "pnl", "ret") if k in p}
+    return {**keep, "structure": structure, "legs": [leg], "net_debit": _net_debit([leg]), "pop": None,
+            "ev": None, "note": "opened before the edge filter"}
 
 
 def load() -> tuple[list[dict], dict]:
-    return _load(POSITIONS, []), _load(STATE, {"last_run": "", "wheel": {}})
+    positions = json.loads(POSITIONS.read_text()) if POSITIONS.exists() else []
+    state = json.loads(STATE.read_text()) if STATE.exists() else {"last_run": "", "wheel": {}}
+    return [_migrate(p) for p in positions], state
 
 
 def save(positions: list[dict], state: dict) -> None:
@@ -65,8 +94,18 @@ def save(positions: list[dict], state: dict) -> None:
     STATE.write_text(json.dumps(state, indent=1) + "\n")
 
 
+def realized_vol(closes: list[float]) -> float | None:
+    """Annualized volatility of the last VOL_DAYS daily log returns."""
+    c = [float(x) for x in closes][-(VOL_DAYS + 1):]
+    if len(c) < 21:
+        return None
+    r = [math.log(b / a) for a, b in zip(c, c[1:])]
+    mean = sum(r) / len(r)
+    return math.sqrt(sum((x - mean) ** 2 for x in r) / (len(r) - 1) * 252)
+
+
 def todays_ideas(watch_trades: list, today: str) -> dict[str, list[str]]:
-    """Underlyings for the call strategies, from watchlab trades opened today."""
+    """Underlyings for the bullish strategies, from watchlab trades opened today."""
     out = {}
     for strat, sources in IDEA_SOURCES.items():
         syms: list[str] = []
@@ -78,23 +117,21 @@ def todays_ideas(watch_trades: list, today: str) -> dict[str, list[str]]:
     return out
 
 
-def _wanted(positions: list[dict], state: dict, ideas: dict[str, list[str]], spots: dict) -> list[dict]:
-    """New contracts wanted today: [{strategy, underlying, type, side, target_strike?}]."""
+def _wanted(positions: list[dict], state: dict, ideas: dict[str, list[str]]) -> list[dict]:
     want = []
     open_pos = [p for p in positions if p["status"] == "open"]
     for strat, syms in ideas.items():
         room = MAX_OPEN[strat] - sum(p["strategy"] == strat for p in open_pos)
         held = {p["underlying"] for p in open_pos if p["strategy"] == strat}
         for s in [s for s in syms if s not in held][:max(0, room)]:
-            want.append({"strategy": strat, "underlying": s, "type": "call", "side": "long"})
+            want.append({"strategy": strat, "underlying": s, "structures": BULLISH, "types": ("call", "put")})
     for s in WHEEL:
         if any(p["strategy"] == "wheel" and p["underlying"] == s for p in open_pos):
             continue
-        w = state.get("wheel", {}).get(s) or {}
-        if w.get("shares_cost"):
-            want.append({"strategy": "wheel", "underlying": s, "type": "call", "side": "short"})
+        if (state.get("wheel", {}).get(s) or {}).get("shares_cost"):
+            want.append({"strategy": "wheel", "underlying": s, "structures": ("covered_call",), "types": ("call",)})
         else:
-            want.append({"strategy": "wheel", "underlying": s, "type": "put", "side": "short"})
+            want.append({"strategy": "wheel", "underlying": s, "structures": ("cash_secured_put",), "types": ("put",)})
     return want
 
 
@@ -103,161 +140,252 @@ def _pick_expiration(dates: list[str], today: date) -> str | None:
     return ok[0] if ok else None
 
 
-def _pick_strike(w: dict, spot: float, cost: float | None, strikes: list[float]) -> float | None:
-    strikes = sorted(set(strikes))
-    if w["side"] == "long":                                   # first strike at or above the price
-        above = [k for k in strikes if k >= spot]
-        return above[0] if above else None
-    if w["type"] == "put":                                    # highest strike <= 95% of the price
-        below = [k for k in strikes if k <= spot * PUT_OTM]
-        return below[-1] if below else None
-    floor = max(cost or 0.0, spot) * CALL_OTM                 # covered call: >= 5% above cost and price
-    above = [k for k in strikes if k >= floor]
+def _first_at_or_above(rows: list[dict], x: float) -> dict | None:
+    above = sorted((r for r in rows if float(r["strike"]) >= x - 1e-9), key=lambda r: float(r["strike"]))
     return above[0] if above else None
+
+
+def _last_at_or_below(rows: list[dict], x: float) -> dict | None:
+    below = sorted((r for r in rows if float(r["strike"]) <= x + 1e-9), key=lambda r: float(r["strike"]))
+    return below[-1] if below else None
+
+
+def build(structure: str, spot: float, cost: float | None, calls: list[dict], puts: list[dict]) -> list[dict] | None:
+    """Legs [{row, action}] for a structure, or None if the chain can't make it."""
+    if structure in ("long_call", "bull_call_spread"):
+        atm = _first_at_or_above(calls, spot)
+        if not atm:
+            return None
+        if structure == "long_call":
+            return [{"row": atm, "action": "buy"}]
+        wing = _first_at_or_above(calls, spot * CALL_WING)
+        if not wing or float(wing["strike"]) <= float(atm["strike"]):
+            return None
+        return [{"row": atm, "action": "buy"}, {"row": wing, "action": "sell"}]
+    if structure in ("bull_put_spread", "cash_secured_put"):
+        short = _last_at_or_below(puts, spot * PUT_OTM)
+        if not short:
+            return None
+        if structure == "cash_secured_put":
+            return [{"row": short, "action": "sell"}]
+        wing = _last_at_or_below(puts, spot * PUT_WING)
+        if not wing or float(wing["strike"]) >= float(short["strike"]):
+            return None
+        return [{"row": short, "action": "sell"}, {"row": wing, "action": "buy"}]
+    if structure == "covered_call":
+        row = _first_at_or_above(calls, max(cost or 0.0, spot) * CC_OTM)
+        return [{"row": row, "action": "sell"}] if row else None
+    raise ValueError(structure)
 
 
 def _quote_ok(q: dict | None) -> bool:
     if not q:
         return False
     bid, ask = float(q.get("bid") or 0), float(q.get("ask") or 0)
-    mid = (bid + ask) / 2
-    return bid > 0 and ask > 0 and (ask - bid) <= MAX_SPREAD * mid
+    return bid > 0 and ask > 0 and (ask - bid) <= MAX_SPREAD * (bid + ask) / 2
+
+
+def evaluate(legs: list[dict], spot: float, vol: float, start: date, expiration: str) -> dict:
+    """optionlab: probability of profit and expected profit (per contract, $) at expiration."""
+    from optionlab import Inputs, run_strategy
+
+    strategy = [{"type": l["type"], "strike": float(l["strike"]), "premium": float(l["entry"]), "n": 100,
+                 "action": l["action"]} for l in legs]
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        out = run_strategy(Inputs(stock_price=spot, volatility=vol, interest_rate=RATE, min_stock=spot * 0.3,
+                                  max_stock=spot * 2.5, price_step=max(0.01, round(spot / 2000, 2)),
+                                  start_date=start, target_date=date.fromisoformat(expiration),
+                                  strategy=strategy))
+    pop = float(out.probability_of_profit)
+    ev = pop * float(out.expected_profit_if_profitable or 0) + (1 - pop) * float(out.expected_loss_if_unprofitable or 0)
+    return {"pop": round(pop, 4), "ev": round(ev, 2), "max_profit": round(float(out.maximum_return_in_the_domain), 2),
+            "max_loss": round(-float(out.minimum_return_in_the_domain), 2)}
+
+
+def _net_debit(legs: list[dict]) -> float:
+    """Per share: positive = paid (debit), negative = received (credit)."""
+    return round(sum(l["entry"] if l["action"] == "buy" else -l["entry"] for l in legs), 4)
 
 
 def step(inp: dict, positions: list[dict], state: dict, watch_trades: list) -> tuple[dict, list[dict], dict]:
     """Return ({"need": {...}}, unchanged, unchanged) until the input holds everything, then
     ({"done": report}, new positions, new state). The arguments are never modified."""
     orig = (positions, state)
-    positions, state = copy.deepcopy(positions), copy.deepcopy(state)
+    positions, state = copy.deepcopy([_migrate(p) for p in positions]), copy.deepcopy(state)
     now = _now(inp)
     today = now.astimezone(NY).date()
     if state.get("last_run") == today.isoformat():
         return {"done": {"already_ran": True}}, *orig
     spots = {k.upper(): float(v) for k, v in (inp.get("spots") or {}).items()}
     ideas = todays_ideas(watch_trades, today.isoformat())
-    open_pos = [p for p in positions if p["status"] == "open"]
     wheel_state = state.setdefault("wheel", {})
+    open_pos = [p for p in positions if p["status"] == "open"]
 
     unders = {p["underlying"] for p in open_pos} | set(WHEEL) | {s for v in ideas.values() for s in v}
-    missing = sorted(u for u in unders if u not in spots)
-    if missing:
+    if missing := sorted(u for u in unders if u not in spots):
         return {"need": {"spots": missing}}, *orig
 
-    # settle expirations first, so a wheel can roll into its next leg today
     report = {"opened": [], "closed": [], "skipped": []}
     for p in open_pos:
         if date.fromisoformat(p["expiration"]) < today:
             _settle(p, spots[p["underlying"]], today, wheel_state, report)
     open_pos = [p for p in positions if p["status"] == "open"]
 
-    want = _wanted(positions, state, ideas, spots)
+    want = _wanted(positions, state, ideas)
+    hist = {k.upper(): v for k, v in (inp.get("history") or {}).items()}
+    if need_h := sorted({w["underlying"] for w in want if w["underlying"] not in hist}):
+        return {"need": {"history": need_h}}, *orig
     exps = inp.get("expirations") or {}
-    need_exp = sorted({w["underlying"] for w in want if w["underlying"] not in exps})
-    if need_exp:
-        return {"need": {"expirations": need_exp}}, *orig
+    if need_e := sorted({w["underlying"] for w in want if w["underlying"] not in exps}):
+        return {"need": {"expirations": need_e}}, *orig
+
     insts = inp.get("instruments") or {}
-    need_inst, chosen = [], []
+    need_i, plans = [], []
     for w in want:
-        exp = _pick_expiration(exps.get(w["underlying"]) or [], today)
-        if not exp:
-            report["skipped"].append(f"{w['strategy']} {w['underlying']}: no expiration {DTE[0]}-{DTE[1]} days out")
+        u = w["underlying"]
+        exp = _pick_expiration(exps.get(u) or [], today)
+        vol = realized_vol(hist.get(u) or [])
+        if not exp or not vol:
+            report["skipped"].append(f"{w['strategy']} {u}: " + ("no expiration 30-45 days out" if not exp
+                                                                 else "not enough price history"))
             continue
-        rows = [r for r in insts.get(w["underlying"]) or [] if r["type"] == w["type"] and r["expiration"] == exp]
-        if not rows:
-            need_inst.append({"symbol": w["underlying"], "expiration": exp, "type": w["type"]})
+        rows = {t: [r for r in insts.get(u) or [] if r["type"] == t and r["expiration"] == exp] for t in w["types"]}
+        if missing_t := [t for t in w["types"] if not rows[t]]:
+            need_i += [{"symbol": u, "expiration": exp, "type": t} for t in missing_t]
             continue
-        cost = (wheel_state.get(w["underlying"]) or {}).get("shares_cost")
-        k = _pick_strike(w, spots[w["underlying"]], cost, [float(r["strike"]) for r in rows])
-        if k is None:
-            report["skipped"].append(f"{w['strategy']} {w['underlying']}: no suitable strike")
-            continue
-        r = next(r for r in rows if float(r["strike"]) == k)
-        chosen.append({**w, "expiration": exp, "strike": k, "instrument_id": r["id"]})
-    if need_inst:
-        return {"need": {"instruments": need_inst}}, *orig
+        cost = (wheel_state.get(u) or {}).get("shares_cost")
+        for s in w["structures"]:
+            if legs := build(s, spots[u], cost, rows.get("call", []), rows.get("put", [])):
+                plans.append({**w, "structure": s, "expiration": exp, "vol": vol, "legs": legs})
+    if need_i:
+        return {"need": {"instruments": need_i}}, *orig
 
     quotes = inp.get("quotes") or {}
-    need_q = sorted({c["instrument_id"] for c in chosen} | {p["instrument_id"] for p in open_pos if p["side"] == "long"})
-    need_q = [i for i in need_q if i not in quotes]
-    if need_q:
+    ids = {l["row"]["id"] for p in plans for l in p["legs"]} | {
+        l["instrument_id"] for p in open_pos if p["strategy"] != "wheel" for l in p["legs"]}
+    if need_q := sorted(i for i in ids if i not in quotes):
         return {"need": {"quotes": need_q}}, *orig
 
-    # exits for long calls
     for p in open_pos:
-        if p["side"] != "long":
-            continue
-        q = quotes.get(p["instrument_id"]) or {}
-        bid = float(q.get("bid") or 0)
-        r = bid / p["entry"] - 1
-        dte = (date.fromisoformat(p["expiration"]) - today).days
-        why = "target" if r >= TARGET else "stop" if r <= STOP else "expiring" if dte <= CLOSE_DTE else ""
-        if why:
-            _close(p, bid, today, why, report, spots[p["underlying"]])
+        if p["strategy"] != "wheel":
+            _check_exit(p, quotes, spots[p["underlying"]], today, report)
 
-    # new positions
-    for c in chosen:
-        q = quotes.get(c["instrument_id"])
-        if not _quote_ok(q):
-            report["skipped"].append(f"{c['strategy']} {c['underlying']} {c['strike']:g}{c['type'][0].upper()}: "
-                                     f"no usable bid/ask {q}")
+    # pick the best qualifying structure per idea
+    by_idea: dict[tuple, list[dict]] = {}
+    for pl in plans:
+        by_idea.setdefault((pl["strategy"], pl["underlying"]), []).append(pl)
+    for (strat, u), cands in by_idea.items():
+        scored, notes = [], []
+        for pl in cands:
+            qs = [quotes.get(l["row"]["id"]) for l in pl["legs"]]
+            if not all(_quote_ok(q) for q in qs):
+                notes.append(f"{pl['structure']}: bid/ask too wide")
+                continue
+            legs = [{"instrument_id": l["row"]["id"], "type": l["row"]["type"], "action": l["action"],
+                     "strike": float(l["row"]["strike"]),
+                     "entry": float(q["ask"]) if l["action"] == "buy" else float(q["bid"])}
+                    for l, q in zip(pl["legs"], qs)]
+            ev = evaluate(legs, spots[u], pl["vol"], today, pl["expiration"])
+            if ev["pop"] < MIN_POP or ev["ev"] <= 0:
+                notes.append(f"{pl['structure']}: odds {ev['pop']:.0%}, expected ${ev['ev']:+.0f}")
+                continue
+            scored.append((ev["ev"] / max(ev["max_loss"], 1.0), pl, legs, ev))
+        if not scored:
+            report["skipped"].append(f"{strat} {u}: no edge ({'; '.join(notes)})")
             continue
-        price = float(q["ask"]) if c["side"] == "long" else float(q["bid"])
-        p = {"id": str(uuid.uuid4())[:8], **c, "opened": today.isoformat(), "entry": price,
-             "underlying_entry": spots[c["underlying"]], "status": "open",
-             "closed": "", "exit": 0.0, "exit_reason": "", "pnl": 0.0, "ret": 0.0}
-        positions.append(p)
-        report["opened"].append({k: p[k] for k in ("strategy", "underlying", "side", "type", "strike",
-                                                    "expiration", "entry")})
+        _, pl, legs, ev = max(scored, key=lambda x: x[0])
+        pos = {"id": str(uuid.uuid4())[:8], "strategy": strat, "structure": pl["structure"], "underlying": u,
+               "expiration": pl["expiration"], "legs": legs, "net_debit": _net_debit(legs),
+               "opened": today.isoformat(), "underlying_entry": spots[u], "vol": round(pl["vol"], 4), **ev,
+               "status": "open", "closed": "", "exit_reason": "", "pnl": 0.0, "ret": 0.0}
+        positions.append(pos)
+        report["opened"].append({k: pos[k] for k in ("strategy", "structure", "underlying", "expiration",
+                                                      "net_debit", "pop", "ev")}
+                                | {"legs": [f"{l['action']} {l['strike']:g}{l['type'][0].upper()} @ {l['entry']}"
+                                            for l in legs]})
     state["last_run"] = today.isoformat()
     return {"done": {**report, "scoreboard": scoreboard(positions, state, spots)}}, positions, state
 
 
+def _close_value(legs: list[dict], quotes: dict) -> float:
+    """What closing now brings in, per share: sell longs at the bid, buy back shorts at the ask."""
+    return sum(float(quotes[l["instrument_id"]].get("bid") or 0) if l["action"] == "buy"
+               else -float(quotes[l["instrument_id"]].get("ask") or 0) for l in legs)
+
+
+def _check_exit(p: dict, quotes: dict, spot: float, today: date, report: dict) -> None:
+    value = _close_value(p["legs"], quotes)
+    pnl = (value - p["net_debit"]) * 100
+    dte = (date.fromisoformat(p["expiration"]) - today).days
+    if p["structure"] == "long_call":
+        r = pnl / (p["net_debit"] * 100)
+        why = "target" if r >= TARGET else "stop" if r <= STOP else "expiring" if dte <= CLOSE_DTE else ""
+    else:
+        max_profit = p.get("max_profit") or 0
+        why = ("took 50% of max profit" if max_profit and pnl >= SPREAD_TAKE * max_profit
+               else "expiring" if dte <= CLOSE_DTE else "")
+    if why:
+        _close(p, value, pnl, today, why, report, spot)
+
+
+def _close(p: dict, value: float, pnl: float, today: date, why: str, report: dict, spot: float) -> None:
+    risk = p["net_debit"] * 100 if p["net_debit"] > 0 else (p.get("max_loss") or abs(p["net_debit"]) * 100)
+    p.update(status="closed", closed=today.isoformat(), exit_value=round(value, 4), exit_reason=why,
+             pnl=round(pnl, 2), ret=round(pnl / risk, 4) if risk else 0.0, underlying_exit=spot)
+    report["closed"].append({"strategy": p["strategy"], "structure": p["structure"], "underlying": p["underlying"],
+                             "pnl": p["pnl"], "stock_ret": round(spot / p["underlying_entry"] - 1, 4), "why": why})
+
+
+def _intrinsic(leg: dict, spot: float) -> float:
+    return max(0.0, spot - leg["strike"]) if leg["type"] == "call" else max(0.0, leg["strike"] - spot)
+
+
 def _settle(p: dict, spot: float, today: date, wheel_state: dict, report: dict) -> None:
-    intrinsic = max(0.0, spot - p["strike"]) if p["type"] == "call" else max(0.0, p["strike"] - spot)
-    if p["side"] == "long":
-        _close(p, intrinsic, today, "expired", report, spot)
+    if p["strategy"] != "wheel":
+        value = sum(_intrinsic(l, spot) * (1 if l["action"] == "buy" else -1) for l in p["legs"])
+        _close(p, value, (value - p["net_debit"]) * 100, today, "expired", report, spot)
         return
+    leg = p["legs"][0]
     w = wheel_state.setdefault(p["underlying"], {"shares_cost": None, "share_pnl": 0.0, "premium": 0.0})
-    w["premium"] = w.get("premium", 0.0) + p["entry"] * 100
-    p.update(status="closed", closed=today.isoformat(), exit=0.0, pnl=round(p["entry"] * 100, 2))
-    if intrinsic > 0 and p["type"] == "put":
-        w["shares_cost"] = p["strike"]
+    w["premium"] = w.get("premium", 0.0) + leg["entry"] * 100
+    p.update(status="closed", closed=today.isoformat(), exit_value=0.0, pnl=round(leg["entry"] * 100, 2),
+             underlying_exit=spot)
+    if _intrinsic(leg, spot) > 0 and leg["type"] == "put":
+        w["shares_cost"] = leg["strike"]
         p["exit_reason"] = "assigned: bought 100 shares"
-    elif intrinsic > 0 and p["type"] == "call":
-        w["share_pnl"] = w.get("share_pnl", 0.0) + (p["strike"] - w["shares_cost"]) * 100
+    elif _intrinsic(leg, spot) > 0 and leg["type"] == "call":
+        w["share_pnl"] = w.get("share_pnl", 0.0) + (leg["strike"] - w["shares_cost"]) * 100
         w["shares_cost"] = None
         p["exit_reason"] = "called away: sold 100 shares"
     else:
         p["exit_reason"] = "expired worthless (premium kept)"
-    p["ret"] = round(p["pnl"] / (p["strike"] * 100), 4)
-    report["closed"].append({"strategy": "wheel", "underlying": p["underlying"], "leg": p["type"],
+    p["ret"] = round(p["pnl"] / (leg["strike"] * 100), 4)
+    report["closed"].append({"strategy": "wheel", "structure": p["structure"], "underlying": p["underlying"],
                              "pnl": p["pnl"], "why": p["exit_reason"]})
 
 
-def _close(p: dict, price: float, today: date, why: str, report: dict, spot: float) -> None:
-    p.update(status="closed", closed=today.isoformat(), exit=price, exit_reason=why,
-             pnl=round((price - p["entry"]) * 100, 2), ret=round(price / p["entry"] - 1, 4),
-             underlying_exit=spot)
-    report["closed"].append({"strategy": p["strategy"], "underlying": p["underlying"], "pnl": p["pnl"],
-                             "ret": p["ret"], "stock_ret": round(spot / p["underlying_entry"] - 1, 4), "why": why})
+def _stats(closed: list[dict]) -> dict:
+    n = len(closed)
+    pops = [p["pop"] for p in closed if p.get("pop") is not None]
+    return {"closed": n, "win_rate": round(sum(p["pnl"] > 0 for p in closed) / n, 3) if n else None,
+            "model_odds": round(sum(pops) / len(pops), 3) if pops else None,   # what the model promised
+            "total_pnl_usd": round(sum(p["pnl"] for p in closed), 2)}
 
 
 def scoreboard(positions: list[dict], state: dict, spots: dict) -> dict:
-    out = {}
+    positions = [_migrate(p) for p in positions]
+    out: dict = {"by_idea": {}, "by_structure": {}}
     for strat in ("follow_flow", "momentum_calls"):
-        closed = [p for p in positions if p["strategy"] == strat and p["status"] == "closed"]
-        n = len(closed)
-        out[strat] = {"open": sum(p["strategy"] == strat and p["status"] == "open" for p in positions),
-                      "closed": n,
-                      "win_rate": round(sum(p["pnl"] > 0 for p in closed) / n, 3) if n else None,
-                      "avg_return_on_premium": round(sum(p["ret"] for p in closed) / n, 4) if n else None,
-                      "avg_stock_return": round(sum(p.get("underlying_exit", 0) / p["underlying_entry"] - 1
-                                                    for p in closed) / n, 4) if n else None,
-                      "total_pnl_usd": round(sum(p["pnl"] for p in closed), 2)}
+        out["by_idea"][strat] = {"open": sum(p["strategy"] == strat and p["status"] == "open" for p in positions),
+                                 **_stats([p for p in positions if p["strategy"] == strat and p["status"] == "closed"])}
+    for s in BULLISH:
+        out["by_structure"][s] = {"open": sum(p["structure"] == s and p["status"] == "open" for p in positions),
+                                  **_stats([p for p in positions if p["structure"] == s and p["status"] == "closed"])}
     wheel = {}
     for s in WHEEL:
         w = state.get("wheel", {}).get(s) or {}
-        unreal = (spots.get(s, 0) - w["shares_cost"]) * 100 if w.get("shares_cost") and s in spots else 0.0
+        unreal = (spots[s] - w["shares_cost"]) * 100 if w.get("shares_cost") and s in spots else 0.0
         wheel[s] = {"premium_kept_usd": round(w.get("premium", 0.0), 2),
                     "share_pnl_usd": round(w.get("share_pnl", 0.0), 2),
                     "holding_shares_at": w.get("shares_cost"), "unrealized_shares_usd": round(unreal, 2)}
