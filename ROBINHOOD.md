@@ -97,6 +97,27 @@ this step checks it every run. To turn it off, set `"enabled": false` in the led
      <cumulative_quantity> --price <average_price> --at <last_transaction_at>`. If it isn't filled yet, the next run
      sees `open_order` and waits; record it then.
 
+## Part B3: watchlab (paper only, once a day)
+
+Paper-tests ideas from top gainers, unusual volume, politician filings and social buzz
+(`trader/watchlab.py`, notes in `docs/research/watchlab-strategies.md`). **Places no orders.**
+
+17d. `python -m trader watch-due`. If `due` is false, skip the rest of this part.
+17e. Gather and write `watch_in.json` (format in `trader/watchlab.py`):
+     - `gainers`: `preview_scan` with % Change (1d, Close) > 0.05, Asset type = STOCK, Market cap > 2000000000,
+       Last > 5, Volume (1d) > 1000000 → each row's symbol, Last as `price`, % Change as `pct`.
+     - `buzz`: `preview_scan` with Relative volume (1d, length 30) >= 3, % Change (1d, Close) > 0, and the same
+       STOCK / market cap / Last / Volume filters → symbol, `price`, `rel_volume`.
+     - `politicians`: `get_politician_trades` for each of Nancy Pelosi, Michael McCaul, Ro Khanna, Cleo Fields,
+       Josh Gottheimer, Tommy Tuberville; put every returned entry, as returned, in one list.
+     - `social`: one WebSearch for today's most-discussed tickers on X / Threads / StockTwits / Reddit. Up to 3
+       US-listed tickers from a page clearly dated today or yesterday, each with `why` and `url`; else `[]`.
+17f. `python -m trader watch-needs --input watch_in.json` → `get_equity_quotes` for those symbols; add each last
+     trade price to `quotes` in `watch_in.json`.
+17g. `python -m trader watch-run --input watch_in.json`. Report the opened / closed paper trades and the scoreboard.
+     If any source shows `ready_for_real_money: true`, tell the user and ask before trading it; never trade it
+     on your own.
+
 ## Part C: results and commit
 
 18. Append a dated entry to `journal/robinhood-log.md`: account value; crypto targets, orders and fills;
@@ -114,6 +135,6 @@ this step checks it every run. To turn it off, set `"enabled": false` in the led
       `source: {kind: "file", url: <the upload's /_blob/... url>, name: "daily-results.json"}` and
       `updated: {at: <now, ISO>, by: "Claude (daily run)"}`. If those tools aren't available, skip this
       and say so in the final message; the CSV in the repo still has the row.
-20. Commit `data/proxy_history.csv`, `data/bars/`, `data/robinhood-stocks.sqlite3`, `data/spcx-test.json`,
+20. Commit `data/proxy_history.csv`, `data/bars/`, `data/robinhood-stocks.sqlite3`, `data/spcx-test.json`, `data/watchlab/`,
     `data/robinhood-results.csv` and `journal/robinhood-log.md` together, and push to
     `claude/jolly-fermi-tvlmpb`.

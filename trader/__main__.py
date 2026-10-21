@@ -45,7 +45,33 @@ def main(argv=None):
     sr.add_argument("--price", required=True, help="the order's average_price")
     sr.add_argument("--at", required=True, help="fill time (ISO)")
 
+    wd = sub.add_parser("watch-due", help="watchlab: is today's paper-test research run due now?")
+    wd.add_argument("--now", help="ISO time (default: now)")
+    wn = sub.add_parser("watch-needs", help="watchlab: symbols to quote before watch-run")
+    wn.add_argument("--input", required=True, help="ideas JSON (see trader/watchlab.py)")
+    wr = sub.add_parser("watch-run", help="watchlab: open/close paper trades and print the scoreboard")
+    wr.add_argument("--input", required=True, help="ideas JSON with quotes (see trader/watchlab.py)")
+    sub.add_parser("watch-score", help="watchlab: print the scoreboard")
+
     args = parser.parse_args(argv)
+    if args.cmd.startswith("watch-"):
+        import json
+
+        from . import watchlab
+
+        trades, state = watchlab.load_trades(), watchlab.load_state()
+        if args.cmd == "watch-due":
+            print(json.dumps({"due": watchlab.due(state, watchlab._now({"now": args.now}))}))
+        elif args.cmd == "watch-needs":
+            print(json.dumps(watchlab.needs(json.loads(Path(args.input).read_text()), trades, state)))
+        elif args.cmd == "watch-run":
+            trades, state, rep = watchlab.run(json.loads(Path(args.input).read_text()), trades, state)
+            watchlab.save_trades(trades)
+            watchlab.STATE.write_text(json.dumps(state, indent=1) + "\n")
+            print(json.dumps({**rep, "scoreboard": watchlab.scoreboard(trades)}, indent=2))
+        else:
+            print(json.dumps(watchlab.scoreboard(trades), indent=2))
+        return
     if args.cmd in ("rh-spcx-plan", "rh-spcx-record"):
         import json
 
