@@ -13,7 +13,7 @@ invent orders.
   - **Stocks (Part B):** NVDA, AMD, PLTR, QQQ with quantbot (`configs/robinhood_stocks.toml`, `sleeve = 0.5`):
     trend + mean-reversion strategies, ATR stops, loss limits, kill switch. Its state lives in
     `data/robinhood-stocks.sqlite3` (committed every run so it survives fresh containers).
-- Never trade any other symbol. If any other holding or open order shows up, leave it alone.
+- Never trade any other symbol (the one exception is the SPCX test in Part B2). If any other holding or open order shows up, leave it alone.
 - To stop:
   - everything: disable the scheduled task, or turn trade approvals on in the Robinhood app;
   - crypto only: `kill_switch = true` in `config.robinhood.toml`;
@@ -78,6 +78,25 @@ invent orders.
 17. `python -m quantbot rh-stock-record --config configs/robinhood_stocks.toml --state stock_after.json`
     (records fills, sets stops, records realized P&L, updates the loss limits).
 
+## Part B2: SpaceX test position (SPCX)
+
+A one-off test outside both strategies (`trader/spcx_test.py`, ledger `data/spcx-test.json`): buy
+$1.00 of SPCX once free cash reaches $1.00 during regular hours, then sell all of it if the price
+falls 8% below the fill. Fractional shares only take market orders, so there is no resting stop;
+this step checks it every run. To turn it off, set `"enabled": false` in the ledger.
+
+17a. `get_portfolio` → `cash` (after Parts A and B); `get_equity_positions` → SPCX `quantity` (0 if none);
+     `get_equity_quotes(["SPCX"])` → last trade price as `mark`; `get_equity_orders(account_number="746480458",
+     symbol="SPCX", created_at_gte=<7 days ago>)` → `open_order` = true if any is not filled/cancelled/rejected/failed.
+     Write `spcx_state.json`: `{"cash": "...", "mark": ..., "quantity": "...", "open_order": false}`.
+17b. `python -m trader rh-spcx-plan --state spcx_state.json`. For its order, if any: `review_equity_order` with
+     exactly its values (an `order_checks` alert → don't place; log it), then `place_equity_order` with the same
+     values and its `ref_id`.
+17c. If an order was placed, wait about 30 seconds and look it up with `get_equity_orders(order_id=...)`. Once it
+     is `filled`, run `python -m trader rh-spcx-record --side <buy|sell> --order-id <id> --quantity
+     <cumulative_quantity> --price <average_price> --at <last_transaction_at>`. If it isn't filled yet, the next run
+     sees `open_order` and waits; record it then.
+
 ## Part C: results and commit
 
 18. Append a dated entry to `journal/robinhood-log.md`: account value; crypto targets, orders and fills;
@@ -95,6 +114,6 @@ invent orders.
       `source: {kind: "file", url: <the upload's /_blob/... url>, name: "daily-results.json"}` and
       `updated: {at: <now, ISO>, by: "Claude (daily run)"}`. If those tools aren't available, skip this
       and say so in the final message; the CSV in the repo still has the row.
-20. Commit `data/proxy_history.csv`, `data/bars/`, `data/robinhood-stocks.sqlite3`,
+20. Commit `data/proxy_history.csv`, `data/bars/`, `data/robinhood-stocks.sqlite3`, `data/spcx-test.json`,
     `data/robinhood-results.csv` and `journal/robinhood-log.md` together, and push to
     `claude/jolly-fermi-tvlmpb`.

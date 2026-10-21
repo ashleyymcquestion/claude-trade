@@ -1,0 +1,9 @@
+{
+  "enabled": true,
+  "amount": "1.00",
+  "stop_pct": 0.08,
+  "status": "waiting",
+  "buy": null,
+  "stop": null,
+  "sell": null
+}

@@ -36,7 +36,30 @@ def main(argv=None):
     rh.add_argument("--bars", help="raw get_equity_historicals JSON to merge into the history")
     rh.add_argument("--state", required=True, help="account state JSON (see trader/robinhood.py)")
 
+    sp = sub.add_parser("rh-spcx-plan", help="SPCX test position: print the order to place, if any")
+    sp.add_argument("--state", required=True, help="SPCX state JSON (see trader/spcx_test.py)")
+    sr = sub.add_parser("rh-spcx-record", help="SPCX test position: record a filled order")
+    sr.add_argument("--side", required=True, choices=["buy", "sell"])
+    sr.add_argument("--order-id", required=True)
+    sr.add_argument("--quantity", required=True)
+    sr.add_argument("--price", required=True, help="the order's average_price")
+    sr.add_argument("--at", required=True, help="fill time (ISO)")
+
     args = parser.parse_args(argv)
+    if args.cmd in ("rh-spcx-plan", "rh-spcx-record"):
+        import json
+
+        from . import spcx_test
+
+        ledger = spcx_test.load_ledger()
+        if args.cmd == "rh-spcx-plan":
+            print(json.dumps(spcx_test.plan(ledger, json.loads(Path(args.state).read_text())), indent=2))
+        else:
+            ledger = spcx_test.record(ledger, args.side, args.order_id, args.quantity, args.price, args.at)
+            spcx_test.LEDGER.write_text(json.dumps(ledger, indent=2) + "\n")
+            print(json.dumps(ledger, indent=2))
+        return
+
     if args.cmd == "rh-plan" and args.config == str(DEFAULT_PATH):
         args.config = str(DEFAULT_PATH.with_name("config.robinhood.toml"))
     cfg = load_config(args.config)
