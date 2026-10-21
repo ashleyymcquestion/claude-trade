@@ -38,6 +38,23 @@ doc: [The Quantum Future – RebelCon Notes](https://claude.ai/artifact/BLw1bZWv
 - **Observation, state, constraint:** the $100 price is just what you see; the state underneath is buyers,
   sellers and liquidity; constraints are your capital and risk limits.
 
+## Closing takeaways
+
+- Learn how to act when the old plan stops working and nothing is certain.
+- You can't control everything that shapes your future, but you can:
+  1. Notice what's changing
+  2. Recognize which paths are still open
+  3. Choose your next move
+- His final line: "The future isn't predicted, it's sensed and shaped."
+
+How the bot already follows those three steps:
+
+| Step | In the bot |
+|---|---|
+| Notice what's changing | Hourly account checks, plus the daily scans (gainers, volume, options, velocity, politician filings, social buzz) |
+| Recognize which paths are still open | Hard limits: cash only, $1 orders, stops, loss limits, kill switch, paper-only for unproven ideas |
+| Choose your next move | Each planner prints its orders; the scoreboard decides which ideas earn real money, with your approval |
+
 ## Fact-check
 
 - **Point 1 oversells it.** A quantum computer doesn't see every path and pick the exit. It holds many
