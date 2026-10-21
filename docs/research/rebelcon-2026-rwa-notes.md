@@ -25,6 +25,8 @@ Notes for Joe Cox's RWA session at RebelCon 2026, Las Vegas. Jot his points in t
 
 **Slide: how ownership records evolved**
 
+![Slide 1: ownership timeline](rebelcon-2026-slides/slide-01-ownership-timeline.png)
+
 1. **1602 — Paper certificates.** Ownership on paper; investors buy a share of a company (Dutch East India Company's tradable shares).
 2. **1973 — Electronic records.** Ownership in centralized databases; institutions transfer securities electronically (DTC book-entry).
 3. **Today — Tokenized liquid assets.** Ownership on blockchains: dollars, Treasuries and equities issued and traded on-chain, via wrappers and native issuance.
@@ -33,6 +35,8 @@ Notes for Joe Cox's RWA session at RebelCon 2026, Las Vegas. Jot his points in t
 Takeaway: blockchains expand *what can be made investable*, not just how it settles. Note the tension with today's data — illiquid assets like real estate are still under 1% of the market, so this is his bet on where it goes, not where it is.
 
 **Slide: "It's still early" — only 0.004% of global assets are tokenized**
+
+![Slide 2: only 0.004% tokenized](rebelcon-2026-slides/slide-02-only-0.004pct-tokenized.png)
 
 Tokenized RWAs are about $0.04T ($40B) out of roughly $940T in total global assets.
 
@@ -53,6 +57,8 @@ Takeaway: the opportunity is the gap. Real estate alone is ~10,000× the whole t
 
 **Slide: "Step one has been tokenizing liquid assets. The illiquid end is barely touched."**
 
+![Slide 3: liquid vs illiquid](rebelcon-2026-slides/slide-03-liquid-vs-illiquid.png)
+
 Asset classes run from most liquid (top) to least liquid (bottom).
 
 | Asset class | Value tokenized | Share of RWAs (ex-stablecoins) | % of asset class tokenized | Status |
@@ -72,6 +78,8 @@ Asset classes run from most liquid (top) to least liquid (bottom).
 Takeaway: stablecoins dwarf everything else ($306B vs ~$34B for all other RWAs combined). Even the "done" categories are tiny slices of their markets — Treasuries are only 0.05% tokenized. Four whole asset classes haven't started.
 
 **Slide: "Liquid assets went from $0 to $400B onchain in six years"**
+
+![Slide 4: $0 to $400B on-chain](rebelcon-2026-slides/slide-04-0-to-400b-onchain.png)
 
 The order things came on-chain: currencies first, then Treasuries, then commodities, and now equities.
 
