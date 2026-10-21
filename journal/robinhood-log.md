@@ -37,3 +37,13 @@
   holdings have no stops or loss limits tracked. Needs the bot state reconciled before the stock half resumes.
 - Also not in the repo: a BTC buy of ~$0.25 today (0.00000297 BTC, intraday cost basis) and no results
   rows since 2026-10-15, so earlier runs' logs were lost the same way.
+
+## 2026-10-21 (10:50 AM PT, stock bot state reconciled at the user's request)
+- Replayed the 2026-10-19 13:34 UTC stock plan with the bot's own code (bars through 2026-10-16):
+  it planned exactly the two buys that were placed, both mean_reversion (AMD/PLTR signals were
+  below the $1 minimum).
+- Recorded the real fills with `rh-stock-record`: NVDA 0.004625 @ $216.1999 (order 6ad61c5b…),
+  stop $204.26; QQQ 0.001389 @ $719.5784 (order 6ad61c5f…), stop $698.49.
+- Dry run of today's plan on a copy of the state: no orders, nothing unmanaged. The stock half
+  resumes on the next hourly run.
+- Bars for NVDA/AMD/PLTR/QQQ updated through 2026-10-20.
