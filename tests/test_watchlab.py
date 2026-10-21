@@ -64,3 +64,12 @@ def test_save_load_roundtrip(tmp_path):
     trades, _, _ = w.run(inp(gainers=[{"symbol": "AAA", "price": 100.0, "pct": 0.1}]), [], {"last_run": ""})
     w.save_trades(trades, tmp_path / "t.csv")
     assert w.load_trades(tmp_path / "t.csv") == trades
+
+
+def test_stacked_needs_two_sources():
+    ideas = w.candidates(inp(gainers=[{"symbol": "AAA", "price": 10.0, "pct": 0.1},
+                                      {"symbol": "BBB", "price": 10.0, "pct": 0.1}],
+                             social=[{"symbol": "aaa", "why": "x", "url": "u"}],
+                             politicians=[pol("BBB"), pol("CCC")]), [], {"seen_politician_trades": []})
+    assert [s for s, _ in ideas["stacked"]] == ["AAA", "BBB"]
+    assert "gainers + social" in ideas["stacked"][0][1]

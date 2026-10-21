@@ -10,6 +10,8 @@ Sources:
   buzz         unusual volume today (relative volume >= 3x) while up, a proxy for social buzz
   politicians  newly disclosed congressional BUYs (stock or options) from get_politician_trades
   social       tickers the session found trending on X / Threads / StockTwits / Reddit via web search
+  stacked      tickers flagged by 2+ of the sources above on the same day: signals that "stack up"
+               like crossing ripples in a pond, while a lone signal is more likely noise
 
 Input file for `run` (written by the session):
     {"now": "...",                                  # optional
@@ -35,8 +37,8 @@ STATE = DIR / "state.json"
 NY = ZoneInfo("America/New_York")
 BENCH = "QQQ"
 
-PICKS = {"gainers": 5, "buzz": 3, "politicians": 5, "social": 3}           # new paper trades per day, max
-MAX_HOLD = {"gainers": 5, "buzz": 5, "politicians": 20, "social": 5}      # trading days
+PICKS = {"gainers": 5, "buzz": 3, "politicians": 5, "social": 3, "stacked": 3}           # new paper trades per day, max
+MAX_HOLD = {"gainers": 5, "buzz": 5, "politicians": 20, "social": 5, "stacked": 5}      # trading days
 STOP, TARGET = -0.08, 0.15
 POLITICIAN_FRESH_DAYS = 14
 
@@ -146,6 +148,19 @@ def candidates(inp: dict, trades: list[Trade], state: dict) -> dict[str, list[tu
                                         f"{t['transaction_date']} (disclosed {t['disclosure_date']})")
     for s in inp.get("social") or []:
         add("social", s["symbol"], f"{s.get('why', 'trending')} ({s.get('url', '')})")
+
+    # every symbol each source flagged today (before the per-source caps), most sources first
+    flagged = {"gainers": {g["symbol"] for g in inp.get("gainers") or []},
+               "buzz": {b["symbol"] for b in inp.get("buzz") or []},
+               "politicians": {t["symbol"] for t in _fresh_politician_buys(inp.get("politicians") or [], seen, today)},
+               "social": {s["symbol"] for s in inp.get("social") or []}}
+    hits: dict[str, list[str]] = {}
+    for source, syms in flagged.items():
+        for sym in syms:
+            hits.setdefault(sym.upper().strip(), []).append(source)
+    for sym, sources in sorted(hits.items(), key=lambda kv: (-len(kv[1]), kv[0])):
+        if len(sources) >= 2:
+            add("stacked", sym, "flagged by " + " + ".join(sources))
     return out
 
 

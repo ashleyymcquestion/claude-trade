@@ -50,3 +50,11 @@ so the daily run uses a web search for today's most-discussed tickers (e.g. the
 [AltIndex WallStreetBets](https://altindex.com/wallstreetbets) and [X](https://altindex.com/x-stocks)
 trackers and StockTwits trending) and records up to 3, with the link it used. Dates on these pages
 are often unclear; only tickers clearly from today or yesterday are taken.
+
+## Stacked (signals that agree)
+
+Added 2026-10-21, from the "pond" idea in the RebelCon quantum talk
+([notes](rebelcon-2026-quantum-notes.md)): where ripples cross, waves stack up. A stock flagged by
+two or more of the sources above on the same day gets its own paper trade (up to 3 a day, most sources
+first, 5-day hold). If agreeing signals really are stronger, this source should beat each single source.
+On day one, ASST was both a top gainer and trending on StockTwits.
