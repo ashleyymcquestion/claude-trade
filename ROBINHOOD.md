@@ -124,6 +124,21 @@ Paper-tests ideas from top gainers, unusual volume, politician filings and socia
      If any source shows `ready_for_real_money: true`, tell the user and ask before trading it; never trade it
      on your own.
 
+## Part B4: options lab (paper only, once a day, after Part B3)
+
+Paper-tests three options strategies with real option prices (`trader/optionslab.py`, guide in
+`docs/research/options-basics.md`). **Places no orders.**
+
+17h. Start `opt_in.json` as `{}` and run `python -m trader opt-step --input opt_in.json`. Each run prints either
+     `{"need": ...}` or `{"done": ...}`. Fetch what it asks, add it to the file, and run again:
+     - `spots`: `get_equity_quotes` for those symbols → `{"SYM": last_trade_price}`
+     - `expirations`: `get_option_chains(underlying_symbol=SYM)` → `{"SYM": [all expiration_dates]}`
+     - `instruments`: `get_option_instruments(chain_symbol, expiration_dates, type)` for each request → `{"SYM":
+       [{"id", "strike", "type", "expiration"}]}` (strikes near the stock price are enough)
+     - `quotes`: `get_option_quotes(ids)` → `{"<id>": {"bid": bid_price, "ask": ask_price}}`
+17i. Report the opened / closed paper positions and the scoreboard. If it prints `{"done": {"already_ran": true}}`,
+     today's options run is already recorded.
+
 ## Part C: results and commit
 
 18. Append a dated entry to `journal/robinhood-log.md`: account value; crypto targets, orders and fills;
@@ -141,6 +156,6 @@ Paper-tests ideas from top gainers, unusual volume, politician filings and socia
       `source: {kind: "file", url: <the upload's /_blob/... url>, name: "daily-results.json"}` and
       `updated: {at: <now, ISO>, by: "Claude (daily run)"}`. If those tools aren't available, skip this
       and say so in the final message; the CSV in the repo still has the row.
-20. Commit `data/proxy_history.csv`, `data/bars/`, `data/robinhood-stocks.sqlite3`, `data/spcx-test.json`, `data/watchlab/`,
+20. Commit `data/proxy_history.csv`, `data/bars/`, `data/robinhood-stocks.sqlite3`, `data/spcx-test.json`, `data/watchlab/`, `data/optionslab/`,
     `data/robinhood-results.csv` and `journal/robinhood-log.md` together, and push to
     `claude/jolly-fermi-tvlmpb`.

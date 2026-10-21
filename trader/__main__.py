@@ -53,7 +53,26 @@ def main(argv=None):
     wr.add_argument("--input", required=True, help="ideas JSON with quotes (see trader/watchlab.py)")
     sub.add_parser("watch-score", help="watchlab: print the scoreboard")
 
+    os_ = sub.add_parser("opt-step", help="options lab (paper): print what to fetch next, or record the day")
+    os_.add_argument("--input", required=True, help="options lab JSON (see trader/optionslab.py)")
+    sub.add_parser("opt-score", help="options lab: print the scoreboard")
+
     args = parser.parse_args(argv)
+    if args.cmd.startswith("opt-"):
+        import json
+
+        from . import optionslab, watchlab
+
+        positions, state = optionslab.load()
+        if args.cmd == "opt-score":
+            print(json.dumps(optionslab.scoreboard(positions, state, {}), indent=2))
+            return
+        result, positions, state = optionslab.step(json.loads(Path(args.input).read_text()), positions, state,
+                                                   watchlab.load_trades())
+        if "done" in result and not result["done"].get("already_ran"):
+            optionslab.save(positions, state)
+        print(json.dumps(result, indent=2))
+        return
     if args.cmd.startswith("watch-"):
         import json
 
