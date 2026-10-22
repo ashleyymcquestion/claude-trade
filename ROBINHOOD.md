@@ -82,7 +82,7 @@ invent orders.
 
 A one-off test outside both strategies (`trader/spcx_test.py`, ledger `data/spcx-test.json`): buy
 $1.00 of SPCX once free cash reaches $1.00 during regular hours, then sell all of it once the price
-is 5% or more above the fill (the ledger's `target`; the user picked 5-8%, so it sells at the first check at +5% or higher). Since Oct 22 there is no stop-loss: the user wants it sold
+is 5% above the fill (the ledger's `target`, $161.05), which arms a trailing exit: from then on it holds while the price climbs and sells once it falls 3% below the highest price seen, never below the +5% target. `rh-spcx-plan` saves the peak to the ledger itself. Since Oct 22 there is no stop-loss: the user wants it sold
 only at a profit. Fractional shares only take market orders, so nothing rests at the broker; this step
 checks the target every run. To turn it off, set `"enabled": false` in the ledger.
 

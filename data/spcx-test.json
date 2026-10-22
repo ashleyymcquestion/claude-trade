@@ -12,5 +12,7 @@
   "stop": null,
   "sell": null,
   "target_pct": 0.05,
-  "target": 161.0523
+  "target": 161.0523,
+  "trail_pct": 0.03,
+  "peak": null
 }

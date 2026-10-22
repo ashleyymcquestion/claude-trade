@@ -125,7 +125,10 @@ def main(argv=None):
 
         ledger = spcx_test.load_ledger()
         if args.cmd == "rh-spcx-plan":
-            print(json.dumps(spcx_test.plan(ledger, json.loads(Path(args.state).read_text())), indent=2))
+            out = spcx_test.plan(ledger, json.loads(Path(args.state).read_text()))
+            if "ledger" in out:   # trailing exit: remember the new peak
+                spcx_test.LEDGER.write_text(json.dumps(out.pop("ledger"), indent=2) + "\n")
+            print(json.dumps(out, indent=2))
         else:
             ledger = spcx_test.record(ledger, args.side, args.order_id, args.quantity, args.price, args.at)
             spcx_test.LEDGER.write_text(json.dumps(ledger, indent=2) + "\n")

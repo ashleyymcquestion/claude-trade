@@ -54,3 +54,29 @@ def test_profit_only_ledger_holds_through_drops_and_sells_at_target():
     assert plan(held, state(quantity="0.00625", mark=172.0))["orders"] == []
     [o] = plan(held, state(quantity="0.00625", mark=173.0))["orders"]
     assert o["side"] == "sell" and o["reason"].startswith("target hit")
+
+
+def test_trailing_exit_arms_at_target_and_keeps_the_gain():
+    ledger = {**DEFAULT_LEDGER, "stop_pct": None, "target_pct": 0.05, "trail_pct": 0.03}
+    held = record(ledger, "buy", "b1", "0.00625", "100.00", OPEN)
+    q = "0.00625"
+    assert held["target"] == pytest.approx(105.0)
+    out = plan(held, state(quantity=q, mark=104.0))              # not armed yet
+    assert out["orders"] == [] and "ledger" not in out
+    out = plan(held, state(quantity=q, mark=106.0))              # armed: peak 106, exit at 105 (target floor)
+    assert out["orders"] == [] and out["ledger"]["peak"] == 106.0
+    held = out["ledger"]
+    out = plan(held, state(quantity=q, mark=112.0))              # higher: exit moves to 112 x 0.97 = 108.64
+    assert out["orders"] == [] and out["ledger"]["peak"] == 112.0
+    held = out["ledger"]
+    assert plan(held, state(quantity=q, mark=109.0))["orders"] == []
+    [o] = plan(held, state(quantity=q, mark=108.5))["orders"]
+    assert o["side"] == "sell" and o["reason"].startswith("trailing exit")
+
+
+def test_trailing_exit_never_sells_below_the_target_floor():
+    ledger = {**DEFAULT_LEDGER, "stop_pct": None, "target_pct": 0.05, "trail_pct": 0.03}
+    held = {**record(ledger, "buy", "b1", "0.00625", "100.00", OPEN), "peak": 106.0}
+    assert plan(held, state(quantity="0.00625", mark=105.5))["orders"] == []
+    [o] = plan(held, state(quantity="0.00625", mark=105.0))["orders"]
+    assert o["side"] == "sell"

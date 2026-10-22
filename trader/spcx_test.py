@@ -4,11 +4,15 @@ Outside both strategies: buy a fixed dollar amount of SPCX once, as soon as the 
 that much free cash during regular hours, then sell the whole position when the price reaches
 the profit target (fill price x (1 + target_pct)) or falls to the stop (fill price x (1 - stop_pct)).
 Either can be off (null): since Oct 22 the user wants it sold only at a profit, so the stop is off.
+With "trail_pct" set, the target arms a trailing exit instead of selling: from then on the ledger keeps
+the highest price seen ("peak") and sells when the price falls to max(target, peak x (1 - trail_pct)),
+so a run higher is kept but the gain never drops below the target.
 Robinhood only takes market orders for fractional shares, so both are checked by each hourly run
 instead of resting at the broker.
 
 Ledger (committed, data/spcx-test.json):
     {"enabled": true, "amount": "1.00", "stop_pct": 0.08 | null, "target_pct": 0.08 | null,
+     "trail_pct": 0.03 | null, "peak": <float> | null,
      "status": "waiting" | "holding" | "done",
      "buy": {"order_id", "quantity", "price", "at"} | null, "stop": <float> | null, "target": <float> | null,
      "sell": {"order_id", "quantity", "price", "at"} | null}
@@ -29,7 +33,8 @@ LEDGER = Path("data/spcx-test.json")
 SYMBOL = "SPCX"
 REF_NAMESPACE = uuid.UUID("3b8f0a52-6d1e-4c7b-9f2a-5e4d1c0b7a93")
 
-DEFAULT_LEDGER = {"enabled": True, "amount": "1.00", "stop_pct": 0.08, "target_pct": None, "status": "waiting",
+DEFAULT_LEDGER = {"enabled": True, "amount": "1.00", "stop_pct": 0.08, "target_pct": None, "trail_pct": None, "peak": None,
+                  "status": "waiting",
                   "buy": None, "stop": None, "target": None, "sell": None}
 
 
@@ -50,11 +55,13 @@ def load_ledger(path: Path = LEDGER) -> dict:
 
 
 def plan(ledger: dict, state: dict) -> dict:
-    """Return {"orders": [...], "notes": [...]}; at most one order, printed exactly as to place."""
+    """Return {"orders": [...], "notes": [...]}; at most one order, printed exactly as to place.
+    With a trailing exit armed it also returns "ledger" (the new peak), which the caller saves."""
     from quantbot.robinhood_stocks import nyse_open
 
     now = _now(state)
     notes, orders = [], []
+    out_ledger = None
     qty, mark = _f(state.get("quantity")), _f(state.get("mark"))
     if not ledger.get("enabled", True):
         return {"orders": [], "notes": ["disabled in the ledger"]}
@@ -82,6 +89,16 @@ def plan(ledger: dict, state: dict) -> dict:
             notes.append("ledger says holding but no SPCX is held; not selling (needs a look)")
         elif mark <= 0:
             notes.append("no SPCX price; not checking the stop or target")
+        elif ledger.get("trail_pct") is not None and target is not None and (
+                ledger.get("peak") is not None or mark >= _f(target)):
+            peak = max(_f(ledger.get("peak")), mark)
+            exit_at = max(_f(target), peak * (1 - _f(ledger["trail_pct"])))
+            if mark <= exit_at:
+                why = f"trailing exit: {mark:.2f} <= {exit_at:.2f} (peak {peak:.2f})"
+            else:
+                notes.append(f"trailing: {mark:.2f}, peak {peak:.2f}, sells at or below {exit_at:.2f}")
+            if peak != ledger.get("peak"):
+                out_ledger = {**ledger, "peak": round(peak, 4)}
         elif target is not None and mark >= _f(target):
             why = f"target hit: {mark:.2f} >= {_f(target):.2f}"
         elif stop is not None and mark <= _f(stop):
@@ -96,7 +113,7 @@ def plan(ledger: dict, state: dict) -> dict:
                            "reason": why})
     else:
         notes.append("test finished; nothing to do")
-    return {"orders": orders, "notes": notes}
+    return {"orders": orders, "notes": notes, **({"ledger": out_ledger} if out_ledger else {})}
 
 
 def record(ledger: dict, side: str, order_id: str, quantity: str, price: str, at: str) -> dict:
