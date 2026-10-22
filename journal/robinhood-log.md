@@ -138,3 +138,7 @@
 - Options lab (paper): SEI $70 call closed at its -50% stop (-$510; the stock fell 14%). This was one of the three
   pre-filter calls the edge filter rated "fail". No new positions: CSX and SPOT spreads too wide, SPOT call odds
   32% / expected -$113; RTO and WCN have no 30-45 day expiration.
+
+## 2026-10-22 (8:37 AM PT, hourly run)
+- Account $4.11 (cash $1.53, crypto $1.60, SPCX $0.98). No orders: crypto at target; stock bot flat (PLTR entry
+  below the $1 minimum); SPCX test holding at $150.68, stop $141.11.
