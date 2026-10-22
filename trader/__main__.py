@@ -36,6 +36,13 @@ def main(argv=None):
     rh.add_argument("--bars", help="raw get_equity_historicals JSON to merge into the history")
     rh.add_argument("--state", required=True, help="account state JSON (see trader/robinhood.py)")
 
+    cn = sub.add_parser("cb-needs", help="Coinbase bot: what to fetch this hour (prints JSON)")
+    cn.add_argument("--now", help="ISO time (default: now)")
+    cr = sub.add_parser("cb-run", help="Coinbase bot: paper fills, weekly targets, new limit orders, journal")
+    cr.add_argument("--input", required=True, help="fetched data JSON (see trader/coinbase.py)")
+    cr.add_argument("--no-journal", action="store_true", help="don't append to journal/coinbase-log.md")
+    sub.add_parser("cb-score", help="Coinbase bot: paper scoreboard from the ledger")
+
     sp = sub.add_parser("rh-spcx-plan", help="SPCX test position: print the order to place, if any")
     sp.add_argument("--state", required=True, help="SPCX state JSON (see trader/spcx_test.py)")
     sr = sub.add_parser("rh-spcx-record", help="SPCX test position: record a filled order")
@@ -143,6 +150,23 @@ def main(argv=None):
             ledger = spcx_test.record(ledger, args.side, args.order_id, args.quantity, args.price, args.at)
             spcx_test.LEDGER.write_text(json.dumps(ledger, indent=2) + "\n")
             print(json.dumps(ledger, indent=2))
+        return
+
+    if args.cmd.startswith("cb-"):
+        import json
+
+        from . import coinbase as cb
+
+        cfg = cb.load_config()
+        if args.cmd == "cb-needs":
+            print(json.dumps(cb.needs(cb.load_ledger(cfg), cfg, cb._now(args.now)), indent=2))
+        elif args.cmd == "cb-run":
+            print(json.dumps(cb.run(args.input, journal_path=None if args.no_journal else cb.JOURNAL), indent=2))
+        else:
+            ledger = cb.load_ledger(cfg)
+            print(json.dumps({"strategies": {n: {k: st[k] for k in ("cash", "start", "coins", "target", "week")}
+                                             for n, st in ledger["strategies"].items()},
+                              "fills": ledger["fills"][-20:]}, indent=2))
         return
 
     if args.cmd == "rh-plan" and args.config == str(DEFAULT_PATH):

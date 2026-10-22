@@ -1,0 +1,44 @@
+# Coinbase bot (trader/coinbase.py, runbook COINBASE.md).
+# Two weekly strategies from docs/research/crypto-coins.md, each with half of the USDC:
+#   btc_trend  hold BTC only while BTC's weekly close is above its 10-week average
+#   momentum   hold the strongest coins (4-week return) that are above their own 10-week
+#              average, only while BTC is above its 10-week average
+# Orders are post-only limit orders at the best bid/ask (0.5% maker fee instead of 0.9% taker).
+# mode = "paper": fills are simulated from Coinbase's own 15-minute candles; nothing is sent.
+
+portfolio_id = "8350d6dc-8eac-5d98-a186-c4d0fc3ebbba"
+quote = "USDC"
+mode = "paper"             # the planner never sends orders; real orders need the user's yes in chat
+kill_switch = false        # true = no new orders (paper or real proposals)
+
+paper_start_usd = 10.0     # paper account size, split evenly between the strategies
+strategies = ["btc_trend", "momentum"]
+
+trend_weeks = 10
+lookback_weeks = 4
+top = 2                    # momentum: how many coins to hold
+maker_fee = 0.005
+min_order_usd = 1.0        # Coinbase quote_min_size for these pairs
+max_order_usd = 25.0       # runaway guard
+reprice_hours = 6          # an unfilled limit order is moved to the new best price after this long
+
+# Momentum candidates. BTC/ETH/SOL plus the old coins in the account that Coinbase trades
+# against USDC with real volume (the user allowed trading them if they look profitable).
+universe = ["BTC", "ETH", "SOL", "ADA", "XLM", "ALGO", "CRV", "XCN", "SKY"]
+
+# Coins already in the account that the strategies don't own. They are only reported on (trend
+# check, value); a real sell is proposed when one is below its 10-week average, never placed.
+leftovers = ["XLM", "ALGO", "XCN", "SKY", "SPELL", "ASM", "ADA", "CRV"]
+
+# From coinbase_products_list: [base_increment, quote_increment]
+[increments]
+BTC = ["0.00000001", "0.01"]
+ETH = ["0.00000001", "0.01"]
+SOL = ["0.00000001", "0.01"]
+ADA = ["0.00000001", "0.00001"]
+XLM = ["0.00000001", "0.000001"]
+ALGO = ["0.1", "0.00001"]
+CRV = ["0.01", "0.0001"]
+XCN = ["0.1", "0.000001"]
+SKY = ["0.1", "0.00001"]
+ASM = ["1", "0.00001"]

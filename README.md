@@ -1,5 +1,8 @@
 # claude-trade
 
+> **New: [Coinbase bot](COINBASE.md)**, two weekly crypto strategies (BTC trend, coin momentum with a BTC
+> filter) paper traded hourly on Coinbase's own prices with limit orders. Log: `journal/coinbase-log.md`.
+
 > **New: [quantbot](docs/QUANTBOT.md)**, a research + paper-trading system with three strategies,
 > walk-forward backtests, circuit breakers, a kill switch and a Streamlit dashboard. The section
 > below describes the original hourly paper trader in `trader/`, which is unchanged.

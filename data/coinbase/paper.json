@@ -1,0 +1,112 @@
+{
+  "strategies": {
+    "btc_trend": {
+      "cash": 0.0007385600000002768,
+      "start": 5.0,
+      "coins": {},
+      "orders": [
+        {
+          "id": "cbp-btc_trend-1",
+          "coin": "BTC",
+          "side": "BUY",
+          "limit": "81241.05",
+          "qty": "0.00006123",
+          "placed_at": "2026-10-22T20:20:00Z",
+          "reserved": 4.99926144
+        }
+      ],
+      "target": {
+        "BTC": 1.0
+      },
+      "week": "2026-10-18"
+    },
+    "momentum": {
+      "cash": 0.003977630000000065,
+      "start": 5.0,
+      "coins": {},
+      "orders": [
+        {
+          "id": "cbp-momentum-2",
+          "coin": "ALGO",
+          "side": "BUY",
+          "limit": "0.10617",
+          "qty": "23.4",
+          "placed_at": "2026-10-22T20:20:00Z",
+          "reserved": 2.49679989
+        },
+        {
+          "id": "cbp-momentum-3",
+          "coin": "BTC",
+          "side": "BUY",
+          "limit": "81241.05",
+          "qty": "0.00003061",
+          "placed_at": "2026-10-22T20:20:00Z",
+          "reserved": 2.49922248
+        }
+      ],
+      "target": {
+        "ALGO": 0.5,
+        "BTC": 0.5
+      },
+      "week": "2026-10-18"
+    }
+  },
+  "fills": [],
+  "seq": 3,
+  "signals": {
+    "BTC": {
+      "close": 82006.85,
+      "avg10": 79318.417,
+      "above": true,
+      "ret": 0.0104
+    },
+    "ETH": {
+      "close": 2407.51,
+      "avg10": 2474.548,
+      "above": false,
+      "ret": -0.0896
+    },
+    "SOL": {
+      "close": 103.99,
+      "avg10": 104.743,
+      "above": false,
+      "ret": -0.0644
+    },
+    "ADA": {
+      "close": 0.22098,
+      "avg10": 0.223685,
+      "above": false,
+      "ret": -0.0306
+    },
+    "XLM": {
+      "close": 0.177684,
+      "avg10": 0.1912879,
+      "above": false,
+      "ret": -0.0993
+    },
+    "ALGO": {
+      "close": 0.11101,
+      "avg10": 0.104642,
+      "above": true,
+      "ret": 0.0198
+    },
+    "CRV": {
+      "close": 0.3542,
+      "avg10": 0.34133,
+      "above": true,
+      "ret": -0.0008
+    },
+    "XCN": {
+      "close": 0.004089,
+      "avg10": 0.0040947,
+      "above": false,
+      "ret": -0.0133
+    },
+    "SKY": {
+      "close": 0.06957,
+      "avg10": 0.072388,
+      "above": false,
+      "ret": -0.0197
+    }
+  }
+}
