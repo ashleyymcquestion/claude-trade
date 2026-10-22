@@ -50,6 +50,12 @@ def full(now=DAY1, spot=100.0, table=RICH_PUTS, vol=0.20):
 EMPTY = {"last_run": "", "wheel": {}}
 
 
+@pytest.fixture(autouse=True)
+def no_budget(monkeypatch):
+    """The $100 test adds its own symbols; the older tests run without it."""
+    monkeypatch.setattr(o, "BUDGET_SYMBOLS", ())
+
+
 def rolled(inp, exp="2027-01-08"):
     """The same chain one expiration later, for runs after the first contracts expired."""
     inp["expirations"] = {s: [exp] for s in SYMS}
@@ -154,3 +160,18 @@ def test_pullback_signal_opens_calls_on_a_dip_in_an_uptrend():
     assert o.pullback_ideas(inp["long_closes"], inp["spots"]) == ["NVDA"]
     _, pos, _ = o.step(inp, [], EMPTY, [])
     assert {p["strategy"] for p in pos if p["underlying"] == "NVDA"} >= {"pullback_calls/call"}
+
+
+def test_budget100_buys_the_best_spread_under_100(monkeypatch):
+    monkeypatch.setattr(o, "BUDGET_SYMBOLS", ("QQQ",))
+    monkeypatch.setattr(o, "BUDGET_RULE", "call_spread")
+    res, pos, st = o.step(full(), [], EMPTY, [])          # 100C/105C nets ~$2.40: over budget
+    assert not [p for p in pos if p["strategy"] == "budget100"]
+    assert any(s.startswith("budget100 QQQ") for s in res["done"]["skipped"])
+    cheap = {**RICH_PUTS, ("call", 100): (1.0, 1.05), ("call", 105): (0.4, 0.45)}
+    res, pos, st = o.step(full(table=cheap), [], EMPTY, [])
+    b = [p for p in pos if p["strategy"] == "budget100"]
+    assert len(b) == 1 and b[0]["underlying"] == "QQQ"
+    assert b[0]["net_debit"] == 0.65                       # buy 100C at the 1.05 ask, sell 105C at the 0.40 bid
+    assert b[0]["legs"][0]["action"] == "buy" and b[0]["legs"][1]["action"] == "sell"
+    assert "budget100" in res["done"]["scoreboard"]["by_idea"]

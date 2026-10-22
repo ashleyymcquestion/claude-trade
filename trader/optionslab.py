@@ -6,6 +6,8 @@ Ideas come from watchlab (trades it opened today), a pullback signal and the whe
   pullback_calls  NVDA, AMD, PLTR or QQQ above its 200-day average with RSI(14) under 35: a strong stock on a
                   short dip, the best call signal in the backtest (python -m trader opt-backtest)
   wheel           NVDA, QQQ, SPCX: cash-secured puts; if assigned, covered calls until called away
+  budget100       NVDA, AMD, PLTR, QQQ: the best contract costing $100 or less, picked by BUDGET_RULE (the
+                  winner of the real-price backtest, python -m trader.budgetbacktest); no edge filter
 
 Strategy choice ("only take trades with an edge"): for every bullish idea the lab prices three
 structures with optionlab and keeps the one with the best expected profit per dollar at risk:
@@ -69,6 +71,10 @@ RATE = 0.04
 VOL_DAYS = 30
 TARGET, STOP, CLOSE_DTE, SPREAD_TAKE = 1.0, -0.5, 7, 0.5
 MAX_SPREAD = 0.30
+BUDGET = 1.00                  # $ per share: one contract for $100 or less
+BUDGET_RULE = "call_spread"    # see trader/budgetbacktest.py RULES
+BUDGET_RANGE = (0.6, 1.4)      # strikes to price, as a share of the stock price
+BUDGET_SYMBOLS = PULLBACK
 
 
 def _now(inp: dict) -> datetime:
@@ -146,6 +152,10 @@ def _wanted(positions: list[dict], state: dict, ideas: dict[str, list[str]]) -> 
         held = {p["underlying"] for p in open_pos if p["strategy"] == test}
         for s in [s for s in syms if s not in held][:max(0, room)]:
             want.append({"strategy": test, "underlying": s, "structures": ("long_call",), "types": ("call",),
+                         "test": True})
+    for s in BUDGET_SYMBOLS:
+        if not any(p["strategy"] == "budget100" and p["underlying"] == s for p in open_pos):
+            want.append({"strategy": "budget100", "underlying": s, "structures": ("budget",), "types": ("call", "put"),
                          "test": True})
     for s in WHEEL:
         if any(p["strategy"] == "wheel" and p["underlying"] == s for p in open_pos):
@@ -246,7 +256,7 @@ def step(inp: dict, positions: list[dict], state: dict, watch_trades: list) -> t
 
     long_closes = inp.get("long_closes") or {}
     unders = ({p["underlying"] for p in open_pos} | set(WHEEL) | {s for v in ideas.values() for s in v}
-              | {s for s in PULLBACK if s in long_closes})
+              | {s for s in PULLBACK if s in long_closes} | set(BUDGET_SYMBOLS))
     if missing := sorted(u for u in unders if u not in spots):
         return {"need": {"spots": missing}}, *orig
     ideas["pullback_calls"] = pullback_ideas(long_closes, spots)
@@ -279,6 +289,12 @@ def step(inp: dict, positions: list[dict], state: dict, watch_trades: list) -> t
         if missing_t := [t for t in w["types"] if not rows[t]]:
             need_i += [{"symbol": u, "expiration": exp, "type": t} for t in missing_t]
             continue
+        if w["structures"] == ("budget",):
+            lo, hi = BUDGET_RANGE
+            cands = [r for t in w["types"] for r in rows[t] if lo * spots[u] <= float(r["strike"]) <= hi * spots[u]]
+            plans.append({**w, "structure": "budget", "expiration": exp, "vol": vol,
+                          "legs": [{"row": r, "action": "buy"} for r in cands]})
+            continue
         cost = (wheel_state.get(u) or {}).get("shares_cost")
         for s in w["structures"]:
             if legs := build(s, spots[u], cost, rows.get("call", []), rows.get("put", [])):
@@ -301,6 +317,9 @@ def step(inp: dict, positions: list[dict], state: dict, watch_trades: list) -> t
     for pl in plans:
         by_idea.setdefault((pl["strategy"], pl["underlying"]), []).append(pl)
     for (strat, u), cands in by_idea.items():
+        if cands[0]["structure"] == "budget":
+            _open_budget(cands[0], quotes, spots[u], today, positions, report)
+            continue
         scored, notes = [], []
         test = cands[0].get("test", False)
         for pl in cands:
@@ -334,6 +353,39 @@ def step(inp: dict, positions: list[dict], state: dict, watch_trades: list) -> t
     return {"done": {**report, "scoreboard": scoreboard(positions, state, spots)}}, positions, state
 
 
+def _open_budget(pl: dict, quotes: dict, spot: float, today: date, positions: list[dict], report: dict) -> None:
+    """budget100: let budgetbacktest.pick choose among the priced contracts, buying at the ask and selling at the bid."""
+    from . import budgetbacktest as bb
+
+    rows = {(r["row"]["type"], float(r["row"]["strike"])): r["row"] for r in pl["legs"]
+            if _quote_ok(quotes.get(r["row"]["id"]))}
+    day, exp = today.isoformat(), pl["expiration"]
+    # pick() adds SLIP to buys and subtracts it from sells; feed it the mid so buys land near the ask
+    chain = {(exp, t, k): {day: (float(quotes[r["id"]]["bid"]) + float(quotes[r["id"]]["ask"])) / 2}
+             for (t, k), r in rows.items()}
+    picked = bb.pick(BUDGET_RULE, chain, spot, day, exp)
+    if not picked:
+        report["skipped"].append(f"budget100 {pl['underlying']}: nothing under ${BUDGET * 100:.0f} for {BUDGET_RULE}")
+        return
+    legs = []
+    for t, k, side in picked:
+        q = quotes[rows[(t, k)]["id"]]
+        legs.append({"instrument_id": rows[(t, k)]["id"], "type": t, "action": "buy" if side > 0 else "sell",
+                     "strike": k, "entry": float(q["ask"]) if side > 0 else float(q["bid"])})
+    debit = _net_debit(legs)
+    if not 0 < debit <= BUDGET:
+        report["skipped"].append(f"budget100 {pl['underlying']}: costs ${debit * 100:.0f} at the ask/bid")
+        return
+    ev = evaluate(legs, spot, pl["vol"], today, exp)
+    pos = {"id": str(uuid.uuid4())[:8], "strategy": "budget100", "structure": BUDGET_RULE, "underlying": pl["underlying"],
+           "expiration": exp, "legs": legs, "net_debit": debit, "opened": today.isoformat(), "underlying_entry": spot,
+           "vol": round(pl["vol"], 4), **ev, "status": "open", "closed": "", "exit_reason": "", "pnl": 0.0, "ret": 0.0}
+    positions.append(pos)
+    report["opened"].append({k: pos[k] for k in ("strategy", "structure", "underlying", "expiration", "net_debit",
+                                                  "pop", "ev")}
+                            | {"legs": [f"{l['action']} {l['strike']:g}{l['type'][0].upper()} @ {l['entry']}" for l in legs]})
+
+
 def _close_value(legs: list[dict], quotes: dict) -> float:
     """What closing now brings in, per share: sell longs at the bid, buy back shorts at the ask."""
     return sum(float(quotes[l["instrument_id"]].get("bid") or 0) if l["action"] == "buy"
@@ -344,7 +396,10 @@ def _check_exit(p: dict, quotes: dict, spot: float, today: date, report: dict) -
     value = _close_value(p["legs"], quotes)
     pnl = (value - p["net_debit"]) * 100
     dte = (date.fromisoformat(p["expiration"]) - today).days
-    if p["structure"] == "long_call":
+    if p["strategy"] == "budget100":
+        r = pnl / (p["net_debit"] * 100)
+        why = "doubled" if r >= TARGET else ("expiring" if dte <= 0 else "")
+    elif p["structure"] == "long_call":
         r = pnl / (p["net_debit"] * 100)
         why = "target" if r >= TARGET else "stop" if r <= STOP else "expiring" if dte <= CLOSE_DTE else ""
     else:
@@ -402,7 +457,7 @@ def _stats(closed: list[dict]) -> dict:
 def scoreboard(positions: list[dict], state: dict, spots: dict) -> dict:
     positions = [_migrate(p) for p in positions]
     out: dict = {"by_idea": {}, "by_structure": {}}
-    for strat in [x for i in IDEAS for x in (i, f"{i}/call")]:
+    for strat in [x for i in IDEAS for x in (i, f"{i}/call")] + ["budget100"]:
         out["by_idea"][strat] = {"open": sum(p["strategy"] == strat and p["status"] == "open" for p in positions),
                                  **_stats([p for p in positions if p["strategy"] == strat and p["status"] == "closed"])}
     for s in BULLISH:
