@@ -44,3 +44,13 @@ def test_holding_but_nothing_held_does_not_trade():
 def test_record_rejects_out_of_order():
     with pytest.raises(ValueError):
         record(dict(DEFAULT_LEDGER), "sell", "s1", "1", "1", OPEN)
+
+
+def test_profit_only_ledger_holds_through_drops_and_sells_at_target():
+    ledger = {**DEFAULT_LEDGER, "stop_pct": None, "target_pct": 0.08}
+    held = record(ledger, "buy", "b1", "0.00625", "160.00", OPEN)
+    assert held["stop"] is None and held["target"] == pytest.approx(172.8)
+    assert plan(held, state(quantity="0.00625", mark=100.0))["orders"] == []      # no stop
+    assert plan(held, state(quantity="0.00625", mark=172.0))["orders"] == []
+    [o] = plan(held, state(quantity="0.00625", mark=173.0))["orders"]
+    assert o["side"] == "sell" and o["reason"].startswith("target hit")

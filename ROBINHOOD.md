@@ -81,9 +81,10 @@ invent orders.
 ## Part B2: SpaceX test position (SPCX)
 
 A one-off test outside both strategies (`trader/spcx_test.py`, ledger `data/spcx-test.json`): buy
-$1.00 of SPCX once free cash reaches $1.00 during regular hours, then sell all of it if the price
-falls 8% below the fill. Fractional shares only take market orders, so there is no resting stop;
-this step checks it every run. To turn it off, set `"enabled": false` in the ledger.
+$1.00 of SPCX once free cash reaches $1.00 during regular hours, then sell all of it once the price
+is 8% above the fill (the ledger's `target`). Since Oct 22 there is no stop-loss: the user wants it sold
+only at a profit. Fractional shares only take market orders, so nothing rests at the broker; this step
+checks the target every run. To turn it off, set `"enabled": false` in the ledger.
 
 17a. `get_portfolio` → `cash` (after Parts A and B); `get_equity_positions` → SPCX `quantity` (0 if none);
      `get_equity_quotes(["SPCX"])` → last trade price as `mark`; `get_equity_orders(account_number="746480458",
