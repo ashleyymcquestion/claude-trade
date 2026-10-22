@@ -34,3 +34,20 @@ planner does with BTC/ETH (trend-filtered), so no new coins are added. Caveats: 
 today's coin list only (survivorship), not a paper record.
 
 Revisit with more history once Robinhood's scanner or an allowed data source gives 2+ years of daily data.
+
+## Update: 9 years of daily prices from Yahoo (Oct 22, 2026)
+Yahoo (`query1.finance.yahoo.com`) is now allowed, so `data/crypto/daily/` has daily closes back to 2016-2020
+for 17 coins (BTC ETH SOL XRP DOGE ADA AVAX LINK LTC BCH DOT AAVE XLM SHIB HBAR CRV BNB). Same weekly rule,
+12 settings each (lookback 2/4/8/12 weeks x top 1/3/5), 1% per side:
+
+| Period | BTC hold | BTC only above 10-wk avg | Coin momentum + coin trend + BTC trend filter |
+|---|---|---|---|
+| 2019-2020 | +656% | +340% | 12/12 profitable, median +382% |
+| 2021-2022 | -58% | +33% | 11/12 profitable, median +597% |
+| 2023-2024 | +469% | +144% | 12/12 profitable, median +249% |
+| 2025-Oct 2026 | -16% | -20% | **0/12 profitable, median -64%** |
+
+So the longer history changes the story: buying the strongest coins (only while BTC is trending up) made
+huge gains in 2019-2024, and has lost badly for almost two years. Two warnings: the coin list is today's
+survivors (coins that died aren't in it, which flatters the old years a lot), and DOGE's 2021 spike carries
+much of 2021. Verdict: a candidate for paper trading, not real money; it needs to start working again first.
