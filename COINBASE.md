@@ -10,6 +10,8 @@ data, runs the planner and logs.** Research behind it: `docs/research/crypto-coi
   - `momentum`: while BTC is above its 10-week average, hold the 2 coins with the best 4-week return
     that are also above their own 10-week average. Candidates: BTC, ETH, SOL and the old coins Coinbase
     trades against USDC (ADA, XLM, ALGO, CRV, XCN, SKY).
+- Futures paper test: $1,000 of paper money in whole BTC (BIP) and ETH (ETP) contracts, long only,
+  sized by trend and volatility (see `docs/research/futures.md`). Rebalanced once a day.
 - Orders are post-only limit orders at the best bid/ask (0.5% maker fee, not 0.9% for market orders).
   Paper orders fill only when a later 15-minute candle trades through the limit; an unfilled order is
   moved to the new best price after 6 hours.
@@ -40,7 +42,13 @@ data, runs the planner and logs.** Research behind it: `docs/research/crypto-coi
 4. `python -m trader cb-run --input cb_in.json`. It updates the paper ledger `data/coinbase/paper.json`
    and appends the entry to `journal/coinbase-log.md`. If it fails, fix nothing in the strategy: append a
    short note with the error to the journal instead.
-5. Commit `data/coinbase/paper.json` and `journal/coinbase-log.md` ("Coinbase hourly run <date> <time> PT: ...")
+4b. Futures paper test (`trader/cbfutures.py`, research in `docs/research/futures.md`): `python -m trader cb-fut-needs`.
+    Write `fut_in.json` with `"now"`, `"best_bid_ask"`: `coinbase_products_best_bid_ask(product_ids=<its list>,
+    product_type="FUTURE")` as returned, and, only if `candles_1d` is not null, `"candles_1d"`: for BTC-USDC and
+    ETH-USDC `coinbase_products_candles(product_id, granularity="1d", start=<start>)` keyed by product id. Then
+    `python -m trader cb-fut-run --input fut_in.json` (adds a line to the journal). Paper only: never place a
+    futures order.
+5. Commit `data/coinbase/paper.json`, `data/coinbase/futures_paper.json`, `data/coinbase/daily_closes.csv` and `journal/coinbase-log.md` ("Coinbase hourly run <date> <time> PT: ...")
    and push to `claude/clever-archimedes-ixq37a` (retry up to 4 times on network errors).
 6. If the output has new `leftovers` proposals or the paper results look worth acting on, say so in the
    final message. Don't place anything.

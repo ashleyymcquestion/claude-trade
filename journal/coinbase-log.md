@@ -13,3 +13,4 @@ Paper trading (config.coinbase.toml, COINBASE.md).
 - XLM: limit sell 26.9036724 @ 0.175461 (post-only), FILLED: $4.70 after a $0.024 fee.
 - XCN: limit sell 268.1 @ 0.003951 (post-only), OPEN, about $1.05 after fees when it fills. 0.0947 XCN of dust remains.
 - SKY (1:34 PM PT, user asked): limit sell 12.4 @ 0.07255 (post-only), OPEN, about $0.90 after fees when it fills. 0.0209 SKY of dust remains. XCN still open.
+- Futures paper test: $998.95 (-0.1%), holds 1 BTC contract, 1 ETH contract. Trades: BTC 0->1 contracts @ 81205.0; ETH 0->1 contracts @ 2380.5.

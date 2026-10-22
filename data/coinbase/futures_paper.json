@@ -1,0 +1,48 @@
+{
+  "cash": 998.9499,
+  "start": 1000.0,
+  "contracts": {
+    "BTC": 1,
+    "ETH": 1
+  },
+  "entry": {
+    "BTC": 81205.0,
+    "ETH": 2380.5
+  },
+  "day": "2026-10-21",
+  "last_run": "2026-10-22T20:39:00Z",
+  "trades": [
+    {
+      "at": "2026-10-22T20:39:00Z",
+      "coin": "BTC",
+      "product": "BIP-20DEC30-CDE",
+      "from": 0,
+      "to": 1,
+      "price": 81205.0,
+      "fee": 0.8121
+    },
+    {
+      "at": "2026-10-22T20:39:00Z",
+      "coin": "ETH",
+      "product": "ETP-20DEC30-CDE",
+      "from": 0,
+      "to": 1,
+      "price": 2380.5,
+      "fee": 0.2381
+    }
+  ],
+  "signals": {
+    "BTC": {
+      "close": 84024.67,
+      "signal": 1.0,
+      "vol": 0.233,
+      "lev": 1.72
+    },
+    "ETH": {
+      "close": 2471.78,
+      "signal": 0.5,
+      "vol": 0.32,
+      "lev": 1.25
+    }
+  }
+}

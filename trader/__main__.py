@@ -42,6 +42,10 @@ def main(argv=None):
     cr.add_argument("--input", required=True, help="fetched data JSON (see trader/coinbase.py)")
     cr.add_argument("--no-journal", action="store_true", help="don't append to journal/coinbase-log.md")
     sub.add_parser("cb-score", help="Coinbase bot: paper scoreboard from the ledger")
+    fn = sub.add_parser("cb-fut-needs", help="Coinbase futures paper test: what to fetch (prints JSON)")
+    fn.add_argument("--now", help="ISO time (default: now)")
+    fr = sub.add_parser("cb-fut-run", help="Coinbase futures paper test: mark to market, daily rebalance, journal")
+    fr.add_argument("--input", required=True, help="fetched data JSON (see trader/cbfutures.py)")
 
     sp = sub.add_parser("rh-spcx-plan", help="SPCX test position: print the order to place, if any")
     sp.add_argument("--state", required=True, help="SPCX state JSON (see trader/spcx_test.py)")
@@ -150,6 +154,18 @@ def main(argv=None):
             ledger = spcx_test.record(ledger, args.side, args.order_id, args.quantity, args.price, args.at)
             spcx_test.LEDGER.write_text(json.dumps(ledger, indent=2) + "\n")
             print(json.dumps(ledger, indent=2))
+        return
+
+    if args.cmd.startswith("cb-fut-"):
+        import json
+
+        from . import cbfutures as cf
+
+        if args.cmd == "cb-fut-needs":
+            ledger = json.loads(cf.LEDGER.read_text()) if cf.LEDGER.exists() else cf.new_ledger()
+            print(json.dumps(cf.needs(ledger, cf._now(args.now)), indent=2))
+        else:
+            print(json.dumps(cf.run(args.input), indent=2))
         return
 
     if args.cmd.startswith("cb-"):
