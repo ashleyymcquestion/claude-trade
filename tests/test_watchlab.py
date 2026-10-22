@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import date, datetime
 
 import pytest
 
@@ -129,3 +129,31 @@ def test_old_trades_csv_without_target_loads(tmp_path):
     p.write_text("source,symbol,opened,entry,bench_entry,reason,status,days,closed,exit,bench_exit,exit_reason\n"
                  "gainers,ASST,2026-10-21,31.255,727.09,up,open,1,,0.0,0.0,\n")
     assert w.load_trades(p)[0].target == 0.0
+
+
+def test_dual_thrust_levels_open_stop_and_end_of_day(tmp_path):
+    rows = "timestamp,open,high,low,close,volume,source\n" + "".join(
+        f"2026-10-{d:02d}T00:00:00Z,100,{h},{l},{c},1,x\n" for d, h, l, c in
+        [(14, 104, 98, 100), (15, 103, 97, 99), (16, 105, 99, 102), (19, 102, 96, 101), (21, 200, 1, 150)])
+    for s in w.DT_SYMBOLS:
+        (tmp_path / f"{s}.csv").write_text(rows)
+    ranges = w.dt_levels(date(2026, 10, 21), tmp_path)        # the Oct 21 row is "today": not used
+    assert ranges["NVDA"] == pytest.approx(max(105 - 99, 102 - 96))
+    trades = []
+    morning = "2026-10-21T15:40:00Z"                            # 11:40 New York
+    rep = w.dt_check({"now": morning, "opens": {"NVDA": 100.0, "AMD": 100.0},
+                      "quotes": {"QQQ": 500.0, "NVDA": 103.5, "AMD": 102.0}}, trades, ranges)
+    assert [o["symbol"] for o in rep["opened"]] == ["NVDA"] and trades[0].stop == 97.0
+    rep = w.dt_check({"now": morning, "opens": {"NVDA": 100.0}, "quotes": {"QQQ": 500.0, "NVDA": 104.0}},
+                     trades, ranges)
+    assert rep["opened"] == [] and rep["closed"] == []          # once per symbol per day
+    late = "2026-10-21T19:40:00Z"                               # 3:40 PM New York
+    rep = w.dt_check({"now": late, "opens": {}, "quotes": {"QQQ": 505.0, "NVDA": 105.0}}, trades, ranges)
+    assert [(c["symbol"], c["why"]) for c in rep["closed"]] == [("NVDA", "end of day")]
+    assert w.scoreboard(trades)["dual_thrust"]["closed"] == 1
+
+
+def test_dual_thrust_stop():
+    t = w.Trade("dual_thrust", "AMD", "2026-10-21", 103.0, 500.0, "x", stop=97.0)
+    rep = w.dt_check({"now": "2026-10-21T16:40:00Z", "quotes": {"QQQ": 500.0, "AMD": 96.5}}, [t], {})
+    assert rep["closed"][0]["why"] == "stop" and t.ret < 0

@@ -135,6 +135,13 @@ Paper-tests ideas from top gainers, unusual volume, politician filings and socia
      `gap_in.json`, and run `python -m trader watch-gap-check --input gap_in.json`. It closes gap trades that are
      back at yesterday's close ("filled") and, after 3:30 PM New York, all of them ("end of day"). Paper only.
 
+17g3. Every run between 10:00 AM and 4:00 PM New York: `python -m trader watch-dt-needs`. If it prints symbols,
+     `get_equity_quotes` for them (last trade price) and `get_equity_historicals(symbols=[the four stocks],
+     interval="10minute", start_time=<today 13:00 UTC>)` (today's first bar's open_price is the day's open). Write
+     `{"opens": {"NVDA": ...}, "quotes": {"QQQ": ..., "NVDA": ...}}` to `dt_in.json` and run
+     `python -m trader watch-dt-check --input dt_in.json`. It opens Dual Thrust paper trades on a breakout and closes
+     them at the stop or after 3:30 PM. Paper only.
+
 ## Part B4: options lab (paper only, once a day, after Part B3)
 
 Paper-tests options strategies with real option prices; for each idea it picks the structure (long call, bull call

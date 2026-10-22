@@ -20,6 +20,10 @@ Sources:
   gaps         stocks that opened 3%+ below yesterday's close and haven't recovered yet: bet the gap
                "fills". Same-day trade: `gap_check` runs every hourly run and closes it once the price
                is back at yesterday's close, or near the end of the day (backtest: docs/research/watchlab-strategies.md)
+  dual_thrust  NVDA, AMD, PLTR, QQQ: range = max(highest high - lowest close, highest close - lowest low) over
+               the last 4 days; paper-buy when the price is DT_K x range above today's open, sell if it falls
+               DT_K x range below the open, or near the end of the day. Checked every hourly run by `dt_check`
+               (backtest on 10-minute bars: python -m trader.intradaybacktest)
 
 Input file for `run` (written by the session):
     {"now": "...",                                  # optional
@@ -49,15 +53,17 @@ NY = ZoneInfo("America/New_York")
 BENCH = "QQQ"
 
 PICKS = {"gainers": 5, "buzz": 3, "politicians": 5, "social": 3, "options": 3, "velocity": 3, "stacked": 3,
-         "gaps": 5}                                                                                    # new paper trades per day, max
+         "gaps": 5, "dual_thrust": 4}                                                                                    # new paper trades per day, max
 MAX_HOLD = {"gainers": 5, "buzz": 5, "politicians": 20, "social": 5, "options": 5, "velocity": 5, "stacked": 5,
-            "gaps": 1}                                                                                 # trading days
+            "gaps": 1, "dual_thrust": 1}                                                                                 # trading days
 STOP, TARGET = -0.08, 0.15
 MIN_CALL_PUT = 2.0
 VELOCITY_MIN = {"pct_1d": 0.02, "pct_1h": 0.005, "rel_volume": 2.0}
 POLITICIAN_FRESH_DAYS = 14
 GAP_MIN = 0.03                 # opened at least 3% below yesterday's close
-GAP_CLOSE_AFTER = time(15, 30)  # New York time: gap trades still open after this close at the current price
+GAP_CLOSE_AFTER = time(15, 30)
+DT_SYMBOLS, DT_DAYS, DT_K = ("NVDA", "AMD", "PLTR", "QQQ"), 4, 0.5
+BARS = Path("data/bars")  # New York time: gap trades still open after this close at the current price
 
 
 @dataclass
@@ -75,6 +81,7 @@ class Trade:
     bench_exit: float = 0.0
     exit_reason: str = ""
     target: float = 0.0            # gaps: yesterday's close, where the gap counts as filled
+    stop: float = 0.0              # dual_thrust: sell at or below this
 
     @property
     def ret(self) -> float:
@@ -226,7 +233,7 @@ def run(inp: dict, trades: list[Trade], state: dict) -> tuple[list[Trade], dict,
 
     # exits first (one check per trading day)
     for t in trades:
-        if t.status != "open" or t.opened == today or t.source == "gaps":   # gaps exit in gap_check
+        if t.status != "open" or t.opened == today or t.source in ("gaps", "dual_thrust"):   # exit hourly
             continue
         px = quotes.get(t.symbol)
         if not px:
@@ -285,6 +292,70 @@ def gap_check(inp: dict, trades: list[Trade]) -> dict:
             t.status, t.closed, t.exit, t.bench_exit, t.exit_reason, t.days = "closed", today, px, bench, why, 1
             report["closed"].append({"source": t.source, "symbol": t.symbol, "ret": round(t.ret, 4),
                                      "excess": round(t.excess, 4), "why": why})
+    return report
+
+
+def dt_levels(today: date, folder: Path = BARS) -> dict[str, float]:
+    """Dual Thrust range per symbol from the DT_DAYS daily bars before `today`."""
+    out = {}
+    for sym in DT_SYMBOLS:
+        try:
+            with open(folder / f"{sym}.csv") as f:
+                rows = [r for r in csv.DictReader(f) if r["timestamp"][:10] < today.isoformat()][-DT_DAYS:]
+        except FileNotFoundError:
+            continue
+        if len(rows) < DT_DAYS:
+            continue
+        hi, lo, cl = ([float(r[k]) for r in rows] for k in ("high", "low", "close"))
+        out[sym] = max(max(hi) - min(cl), max(cl) - min(lo))
+    return out
+
+
+def dt_needs(trades: list[Trade], now: datetime) -> list[str]:
+    """Symbols to quote (and get today's open for) on this run; empty outside 10:00-15:59 New York."""
+    ny = now.astimezone(NY)
+    if not (time(10, 0) <= ny.time() < time(16, 0)):
+        return []
+    return [BENCH, *DT_SYMBOLS]
+
+
+def dt_check(inp: dict, trades: list[Trade], ranges: dict[str, float]) -> dict:
+    """Every hourly run: close open dual_thrust trades at the stop or after GAP_CLOSE_AFTER, then open new ones
+    whose price is DT_K x range above today's open (once per symbol per day, not after GAP_CLOSE_AFTER).
+    inp: {"now", "opens": {"SYM": today's open}, "quotes": {"QQQ": ..., "SYM": last price}}"""
+    ny = _now(inp).astimezone(NY)
+    today = ny.date().isoformat()
+    quotes = {k.upper(): float(v) for k, v in (inp.get("quotes") or {}).items()}
+    opens = {k.upper(): float(v) for k, v in (inp.get("opens") or {}).items()}
+    bench = quotes.get(BENCH)
+    report = {"opened": [], "closed": [], "unpriced": []}
+    if not bench:
+        raise ValueError(f"no {BENCH} quote")
+    late = ny.time() >= GAP_CLOSE_AFTER
+    for t in trades:
+        if t.source != "dual_thrust" or t.status != "open":
+            continue
+        px = quotes.get(t.symbol)
+        if not px:
+            report["unpriced"].append(t.symbol)
+            continue
+        why = "stop" if px <= t.stop else "end of day" if late or t.opened != today else ""
+        if why:
+            t.status, t.closed, t.exit, t.bench_exit, t.exit_reason, t.days = "closed", today, px, bench, why, 1
+            report["closed"].append({"source": t.source, "symbol": t.symbol, "ret": round(t.ret, 4),
+                                     "excess": round(t.excess, 4), "why": why})
+    if late:
+        return report
+    done_today = {t.symbol for t in trades if t.source == "dual_thrust" and t.opened == today}
+    for sym in DT_SYMBOLS:
+        if sym in done_today or sym not in ranges or sym not in opens or sym not in quotes:
+            continue
+        o, rng, px = opens[sym], ranges[sym], quotes[sym]
+        if px >= o + DT_K * rng:
+            t = Trade("dual_thrust", sym, today, px, bench,
+                      f"{px:.2f} >= open {o:.2f} + {DT_K} x 4-day range {rng:.2f}", stop=round(o - DT_K * rng, 4))
+            trades.append(t)
+            report["opened"].append({"source": t.source, "symbol": sym, "price": px, "reason": t.reason})
     return report
 
 

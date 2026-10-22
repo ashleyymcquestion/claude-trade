@@ -96,3 +96,22 @@ further drop. The paper trades are entered at the price when the scan runs (~10:
 **Real money and day trading:** a same-day buy and sell is a "day trade". In a margin account under $25,000
 (this one is "limited margin"), 4+ day trades in 5 business days flags the account as a Pattern Day Trader
 and restricts it. Any real-money version must stay at 3 day trades per rolling 5 business days.
+
+## Dual Thrust (intraday breakout)
+
+Added Oct 22, after testing two day-trading breakouts from github.com/je-suis-tm/quant-trading on Robinhood
+10-minute bars for NVDA, AMD, PLTR and QQQ (`python -m trader.intradaybacktest`, 0.05% slippage per side, long
+only, flat by the close). "Hourly" means entries and exits only at our hourly checks, the way the bots run.
+
+| Strategy | Period | Trades (hourly) | Win rate | Avg per trade |
+|---|---|---|---|---|
+| Opening range breakout (30 min) | Feb 19 - Apr 30 | 94 | 49% | +0.18% |
+| | May 1 - Oct 22 | 207 | 40% | -0.15% |
+| Dual Thrust (4 days, k 0.5) | Feb 19 - Apr 30 | 15 | 67% | +0.51% |
+| | May 1 - Oct 22 | 29 | 52% | +0.30% |
+
+The opening range breakout flipped from winning to losing, so it is not used. Dual Thrust made money in both
+periods, but on only 44 trades, so it is paper-traded now: every hourly run from 10 AM to 4 PM New York checks the
+four stocks, paper-buys a breakout above today's open + 0.5 x the 4-day range, and sells at the stop (open - 0.5 x
+range) or after 3:30 PM. Buying and holding the same stocks made more over both periods; Dual Thrust is only in
+the market a few days a month, so the test is whether its per-trade edge is real.

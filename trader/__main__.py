@@ -52,6 +52,9 @@ def main(argv=None):
     wr = sub.add_parser("watch-run", help="watchlab: open/close paper trades and print the scoreboard")
     wr.add_argument("--input", required=True, help="ideas JSON with quotes (see trader/watchlab.py)")
     sub.add_parser("watch-score", help="watchlab: print the scoreboard")
+    sub.add_parser("watch-dt-needs", help="watchlab dual thrust: symbols to quote and get today's open for")
+    wd2 = sub.add_parser("watch-dt-check", help="watchlab dual thrust: open / close paper trades (every run)")
+    wd2.add_argument("--input", required=True, help='{"now": optional, "opens": {...}, "quotes": {...}}')
     sub.add_parser("watch-gap-needs", help="watchlab gaps: symbols to quote for watch-gap-check ([] = nothing open)")
     wg = sub.add_parser("watch-gap-check", help="watchlab gaps: close filled / end-of-day gap trades (every run)")
     wg.add_argument("--input", required=True, help='{"now": optional, "quotes": {"QQQ": ..., "SYM": ...}}')
@@ -104,6 +107,13 @@ def main(argv=None):
             print(json.dumps({"due": watchlab.due(state, watchlab._now({"now": args.now}))}))
         elif args.cmd == "watch-needs":
             print(json.dumps(watchlab.needs(json.loads(Path(args.input).read_text()), trades, state)))
+        elif args.cmd == "watch-dt-needs":
+            print(json.dumps(watchlab.dt_needs(trades, watchlab._now({}))))
+        elif args.cmd == "watch-dt-check":
+            inp = json.loads(Path(args.input).read_text())
+            rep = watchlab.dt_check(inp, trades, watchlab.dt_levels(watchlab._now(inp).astimezone(watchlab.NY).date()))
+            watchlab.save_trades(trades)
+            print(json.dumps({**rep, "scoreboard": watchlab.scoreboard(trades)["dual_thrust"]}, indent=2))
         elif args.cmd == "watch-gap-needs":
             print(json.dumps(watchlab.gap_needs(trades)))
         elif args.cmd == "watch-gap-check":
