@@ -11,3 +11,6 @@ output/
 state/
 *.sqlite3*
 !data/robinhood-stocks.sqlite3
+
+# trader-skill pack (.claude/skills/trader-*) writes its data next to our package; keep it out of git
+trader/*.json
