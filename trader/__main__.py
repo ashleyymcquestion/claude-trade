@@ -56,8 +56,22 @@ def main(argv=None):
     os_ = sub.add_parser("opt-step", help="options lab (paper): print what to fetch next, or record the day")
     os_.add_argument("--input", required=True, help="options lab JSON (see trader/optionslab.py)")
     sub.add_parser("opt-score", help="options lab: print the scoreboard")
+    ob = sub.add_parser("opt-backtest", help="backtest buying calls on past bars (modeled option prices)")
+    ob.add_argument("--symbols", nargs="*", help="default: every file in data/bars/")
+    ob.add_argument("--start", default="2019-01-01")
+    ob.add_argument("--iv-markup", type=float, default=1.3, help="implied vol as a multiple of realized vol")
+    ob.add_argument("--half-spread", type=float, default=0.05, help="cost per side, as a share of the price")
 
     args = parser.parse_args(argv)
+    if args.cmd == "opt-backtest":
+        import json
+        from datetime import date
+
+        from . import callbacktest
+
+        print(json.dumps(callbacktest.backtest(args.symbols, date.fromisoformat(args.start), args.iv_markup,
+                                               args.half_spread), indent=2))
+        return
     if args.cmd.startswith("opt-"):
         import json
 

@@ -100,3 +100,28 @@ the loss, and why real money waits for a long record.
 | [optionlab](https://github.com/rgaveiga/optionlab) | Odds, expected profit, max win/loss for every candidate trade (in use) |
 | [py_vollib](https://github.com/vollib/py_vollib) | Standard option pricing, implied volatility and Greeks (available) |
 | [optopsy](https://github.com/michaelchu/optopsy) | Testing strategies on years of past option chains (ready once we have past option data) |
+
+## Backtest: buying calls on past prices (added Oct 22)
+
+`python -m trader opt-backtest` replays daily prices for NVDA, AMD, PLTR and QQQ since 2019. It buys a
+35-day at-the-money call each time a signal fires and uses the lab's exit rules (+100%, -50%, or 7 days
+before expiry). There's no free history of real option prices, so the option prices are **modeled**:
+implied volatility = the stock's realized volatility x a markup, minus a bid/ask cost on each side.
+
+| Assumption | Signal | Trades | Win rate | Avg call return | Avg stock return, same days |
+|---|---|---|---|---|---|
+| Cheap options (1.0x, 3% cost) | Momentum | 324 | 38% | +10.5% | +1.6% |
+| | Pullback | 135 | 47% | +24.4% | +2.6% |
+| **Typical (1.3x, 5% cost)** | Momentum | 274 | 33% | **-3.7%** | +1.9% |
+| | Pullback | 125 | 39% | **+2.2%** | +2.7% |
+| Pricey options (1.6x, 8% cost) | Momentum | 250 | 27% | -15.1% | +2.3% |
+| | Pullback | 117 | 30% | -10.2% | +3.4% |
+
+**What it says:** whether buying calls pays depends almost entirely on how expensive the options are.
+At typical prices, calls on momentum lost a little and calls on pullbacks (strong stock, short-term dip)
+roughly broke even. Most trades lose (60-70%); a few big winners carry the rest. The pullback signal was
+the better of the two in every case, which matches the stock bot's mean-reversion entries.
+
+**Caveats:** these four stocks were huge winners since 2019 (picked with hindsight), so real results
+would likely be worse; modeled prices miss earnings jumps and volatility spikes. The live paper lab
+will tell us whether real option prices look more like the "cheap" or "pricey" row.
