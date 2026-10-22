@@ -117,3 +117,13 @@
 
 ## 2026-10-22 (5:37 AM PT, hourly run)
 - Account $4.13 (cash $0.53, crypto $1.60, stocks $2.00). No orders: crypto at target; stock market closed; SPCX test waiting.
+
+## 2026-10-22 (6:37 AM PT, hourly run, market open)
+- Account $4.13 (cash $1.53, crypto $1.60, SPCX $1.00).
+- Crypto: no orders (targets BTC $0.36 / ETH $0.32 of the $2.07 sleeve; BTC trim of $0.16 is below the $0.25 minimum).
+  Proxy history updated through Oct 21.
+- Stocks: mean-reversion exit signals on both positions. Sold NVDA 0.004625 @ $218.0594 (proceeds $1.01,
+  realized +$0.01) and QQQ 0.001389 @ $713.2601 (proceeds $0.99, realized -$0.01). Stock bot now flat.
+  PLTR trend entry signal was blocked (max open positions 2/2 at plan time); it can enter on a later run.
+- SPCX test: cash reached $2.53, so bought $1.00 = 0.006519 sh @ $153.3831; stop $141.11 (-8%).
+- Watchlab / options lab: not due until 10:00 ET.

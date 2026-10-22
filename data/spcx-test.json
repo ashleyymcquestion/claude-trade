@@ -2,8 +2,13 @@
   "enabled": true,
   "amount": "1.00",
   "stop_pct": 0.08,
-  "status": "waiting",
-  "buy": null,
-  "stop": null,
+  "status": "holding",
+  "buy": {
+    "order_id": "6ada129f-7328-4b6e-b83e-b38cf915089b",
+    "quantity": "0.006519",
+    "price": "153.3831",
+    "at": "2026-10-22T13:41:51.513Z"
+  },
+  "stop": 141.1125,
   "sell": null
 }
