@@ -50,8 +50,13 @@ def load_options(symbol: str, folder: Path = DIR) -> dict:
     """{(expiration, type, strike): {date: close}}"""
     out: dict = defaultdict(dict)
     with open(folder / f"{symbol}.csv") as f:
-        for r in csv.DictReader(f):
-            out[(r["expiration"], r["type"], float(r["strike"]))][r["date"]] = float(r["close"])
+        rows = sorted(csv.DictReader(f), key=lambda r: r["date"])
+    for r in rows:
+        key = (r["expiration"], r["type"], float(r["strike"]))
+        # a new strike's first bars can be flat 0.01 placeholders; skip them until it really trades
+        if key not in out and r["open"] == r["high"] == r["low"] == r["close"] and float(r["close"]) <= 0.01:
+            continue
+        out[key][r["date"]] = float(r["close"])
     return out
 
 
