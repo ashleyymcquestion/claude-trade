@@ -89,3 +89,43 @@ def test_velocity_needs_speed_and_volume():
             {"symbol": "CCC", "price": 10.0, "pct_1d": 0.03, "pct_1h": 0.02, "rel_volume": 1.2}]    # thin volume
     trades, _, _ = w.run(inp(velocity=rows), [], {"last_run": ""})
     assert [t.symbol for t in trades] == ["AAA"]
+
+
+def gap(sym, open_, prev, price):
+    return {"symbol": sym, "open": open_, "prev_close": prev, "price": price}
+
+
+def test_gaps_open_only_unfilled_3pct_gap_downs_biggest_first():
+    gaps = [gap("A", 96.0, 100.0, 97.0), gap("B", 90.0, 100.0, 92.0), gap("C", 98.0, 100.0, 99.0),
+            gap("D", 95.0, 100.0, 100.5)]           # C gap too small, D already filled
+    trades, _, rep = w.run(inp(gaps=gaps), [], w.load_state(w.DIR / "nope.json"))
+    opened = [t for t in trades if t.source == "gaps"]
+    assert [t.symbol for t in opened] == ["B", "A"]
+    assert opened[0].entry == 92.0 and opened[0].target == 100.0
+
+
+def test_gap_check_closes_on_fill_then_end_of_day():
+    trades, _, _ = w.run(inp(gaps=[gap("A", 96.0, 100.0, 97.0), gap("B", 90.0, 100.0, 92.0)]), [],
+                         w.load_state(w.DIR / "nope.json"))
+    assert w.gap_needs(trades) == ["QQQ", "A", "B"]
+    midday = "2026-10-21T17:00:00Z"                  # 1 PM New York
+    rep = w.gap_check({"now": midday, "quotes": {"QQQ": 100.0, "A": 100.2, "B": 93.0}}, trades)
+    assert [(c["symbol"], c["why"]) for c in rep["closed"]] == [("A", "filled")]
+    late = "2026-10-21T19:40:00Z"                    # 3:40 PM New York
+    rep = w.gap_check({"now": late, "quotes": {"QQQ": 101.0, "B": 94.0}}, trades)
+    assert [(c["symbol"], c["why"]) for c in rep["closed"]] == [("B", "end of day")]
+    assert w.gap_needs(trades) == []
+    assert w.scoreboard(trades)["gaps"]["closed"] == 2
+
+
+def test_daily_run_leaves_gap_trades_to_gap_check():
+    trades, st, _ = w.run(inp(gaps=[gap("B", 90.0, 100.0, 92.0)]), [], w.load_state(w.DIR / "nope.json"))
+    trades, _, rep = w.run(inp(now=DAY2, quotes={"QQQ": 100.0, "B": 50.0}), trades, {**st, "last_run": ""})
+    assert rep["closed"] == [] and trades[0].status == "open"
+
+
+def test_old_trades_csv_without_target_loads(tmp_path):
+    p = tmp_path / "t.csv"
+    p.write_text("source,symbol,opened,entry,bench_entry,reason,status,days,closed,exit,bench_exit,exit_reason\n"
+                 "gainers,ASST,2026-10-21,31.255,727.09,up,open,1,,0.0,0.0,\n")
+    assert w.load_trades(p)[0].target == 0.0

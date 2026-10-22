@@ -116,6 +116,11 @@ Paper-tests ideas from top gainers, unusual volume, politician filings and socia
      - `velocity`: `preview_scan` with % Change (1d, Close) > 0.02, % Change (1h, Close) > 0.005, Relative volume
        (1d, length 30) >= 2, and the same STOCK / market cap / Last / Volume filters → symbol, `price`, `pct_1d`,
        `pct_1h` (the "% Change (1H, close)" column), `rel_volume`.
+     - `gaps`: `preview_scan` with expression filter `dayOpenPrice(session="regular") / close(candleCount=1,
+       candlePeriod="1d", session="regular") - 1` <= -0.03 (display_title "Opening gap"), plus the STOCK / market cap /
+       Last / Volume filters, and columns "Prev close" = `close(candleCount=1, candlePeriod="1d", session="regular")`,
+       "Open" = `dayOpenPrice(session="regular")` → symbol, Last as `price`, `prev_close`, `open`. The result can be
+       long on a down day: save it to a file and pull these four fields with jq.
      - `social`: one WebSearch for today's most-discussed tickers on X / Threads / StockTwits / Reddit. Up to 3
        US-listed tickers from a page clearly dated today or yesterday, each with `why` and `url`; else `[]`.
 17f. `python -m trader watch-needs --input watch_in.json` → `get_equity_quotes` for those symbols; add each last
@@ -123,6 +128,11 @@ Paper-tests ideas from top gainers, unusual volume, politician filings and socia
 17g. `python -m trader watch-run --input watch_in.json`. Report the opened / closed paper trades and the scoreboard.
      If any source shows `ready_for_real_money: true`, tell the user and ask before trading it; never trade it
      on your own.
+
+17g2. Every run while the market is open (not only once a day): `python -m trader watch-gap-needs`. If it prints
+     symbols, `get_equity_quotes` for them, write `{"quotes": {"QQQ": ..., "SYM": last_trade_price}}` to
+     `gap_in.json`, and run `python -m trader watch-gap-check --input gap_in.json`. It closes gap trades that are
+     back at yesterday's close ("filled") and, after 3:30 PM New York, all of them ("end of day"). Paper only.
 
 ## Part B4: options lab (paper only, once a day, after Part B3)
 

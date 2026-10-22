@@ -17,6 +17,9 @@ Sources:
                acceleration of price, volume and time" idea, without predicting anything)
   stacked      tickers flagged by 2+ of the sources above on the same day: signals that "stack up"
                like crossing ripples in a pond, while a lone signal is more likely noise
+  gaps         stocks that opened 3%+ below yesterday's close and haven't recovered yet: bet the gap
+               "fills". Same-day trade: `gap_check` runs every hourly run and closes it once the price
+               is back at yesterday's close, or near the end of the day (backtest: docs/research/watchlab-strategies.md)
 
 Input file for `run` (written by the session):
     {"now": "...",                                  # optional
@@ -26,6 +29,7 @@ Input file for `run` (written by the session):
      "social": [{"symbol", "why", "url"}],
      "options": [{"symbol", "price", "rel_options_volume", "call_put"}],   # from preview_scan
      "velocity": [{"symbol", "price", "pct_1d", "pct_1h", "rel_volume"}],  # from preview_scan
+     "gaps": [{"symbol", "price", "prev_close", "open"}],                 # from preview_scan
      "quotes": {"QQQ": 726.5, "<symbol>": <last price>, ...}}   # every symbol in `needs`
 """
 
@@ -44,12 +48,16 @@ STATE = DIR / "state.json"
 NY = ZoneInfo("America/New_York")
 BENCH = "QQQ"
 
-PICKS = {"gainers": 5, "buzz": 3, "politicians": 5, "social": 3, "options": 3, "velocity": 3, "stacked": 3}           # new paper trades per day, max
-MAX_HOLD = {"gainers": 5, "buzz": 5, "politicians": 20, "social": 5, "options": 5, "velocity": 5, "stacked": 5}      # trading days
+PICKS = {"gainers": 5, "buzz": 3, "politicians": 5, "social": 3, "options": 3, "velocity": 3, "stacked": 3,
+         "gaps": 5}                                                                                    # new paper trades per day, max
+MAX_HOLD = {"gainers": 5, "buzz": 5, "politicians": 20, "social": 5, "options": 5, "velocity": 5, "stacked": 5,
+            "gaps": 1}                                                                                 # trading days
 STOP, TARGET = -0.08, 0.15
 MIN_CALL_PUT = 2.0
 VELOCITY_MIN = {"pct_1d": 0.02, "pct_1h": 0.005, "rel_volume": 2.0}
 POLITICIAN_FRESH_DAYS = 14
+GAP_MIN = 0.03                 # opened at least 3% below yesterday's close
+GAP_CLOSE_AFTER = time(15, 30)  # New York time: gap trades still open after this close at the current price
 
 
 @dataclass
@@ -66,6 +74,7 @@ class Trade:
     exit: float = 0.0
     bench_exit: float = 0.0
     exit_reason: str = ""
+    target: float = 0.0            # gaps: yesterday's close, where the gap counts as filled
 
     @property
     def ret(self) -> float:
@@ -88,7 +97,7 @@ def load_trades(path: Path = TRADES) -> list[Trade]:
     out = []
     for row in csv.DictReader(path.open()):
         out.append(Trade(**{k: (float(v) if types[k] == "float" else int(v) if types[k] == "int" else v)
-                            for k, v in row.items()}))
+                            for k, v in row.items() if v is not None}))
     return out
 
 
@@ -166,6 +175,9 @@ def candidates(inp: dict, trades: list[Trade], state: dict) -> dict[str, list[tu
         add("velocity", v["symbol"], f"up {float(v['pct_1d']) * 100:.1f}% today, {float(v['pct_1h']) * 100:.1f}% "
                                      f"in the last hour, {float(v['rel_volume']):.1f}x volume")
 
+    for g in sorted(_open_gaps(inp), key=_gap):
+        add("gaps", g["symbol"], f"opened {_gap(g) * -100:.1f}% below yesterday's close {float(g['prev_close']):.2f}")
+
     # every symbol each source flagged today (before the per-source caps), most sources first
     flagged = {"gainers": {g["symbol"] for g in inp.get("gainers") or []},
                "buzz": {b["symbol"] for b in inp.get("buzz") or []},
@@ -183,10 +195,19 @@ def candidates(inp: dict, trades: list[Trade], state: dict) -> dict[str, list[tu
     return out
 
 
+def _gap(g: dict) -> float:
+    return float(g["open"]) / float(g["prev_close"]) - 1
+
+
+def _open_gaps(inp: dict) -> list[dict]:
+    """Gap-downs that haven't filled yet (price still below yesterday's close)."""
+    return [g for g in inp.get("gaps") or [] if _gap(g) <= -GAP_MIN and float(g["price"]) < float(g["prev_close"])]
+
+
 def needs(inp: dict, trades: list[Trade], state: dict) -> list[str]:
     """Symbols the session must quote before `run`: the benchmark, open trades, and new ideas
     that don't already carry a price."""
-    priced = {r["symbol"].upper() for k in ("gainers", "buzz", "options", "velocity") for r in (inp.get(k) or [])}
+    priced = {r["symbol"].upper() for k in ("gainers", "buzz", "options", "velocity", "gaps") for r in (inp.get(k) or [])}
     syms = {BENCH} | {t.symbol for t in trades if t.status == "open"}
     syms |= {s for ideas in candidates(inp, trades, state).values() for s, _ in ideas if s not in priced}
     return sorted(syms)
@@ -196,7 +217,7 @@ def run(inp: dict, trades: list[Trade], state: dict) -> tuple[list[Trade], dict,
     now = _now(inp)
     today = now.astimezone(NY).date().isoformat()
     quotes = {k.upper(): float(v) for k, v in (inp.get("quotes") or {}).items()}
-    for g in (inp.get("gainers") or []) + (inp.get("buzz") or []) + (inp.get("options") or []) + (inp.get("velocity") or []):
+    for g in sum((inp.get(k) or [] for k in ("gainers", "buzz", "options", "velocity", "gaps")), []):
         quotes.setdefault(g["symbol"].upper(), float(g["price"]))
     bench = quotes.get(BENCH)
     if not bench:
@@ -205,7 +226,7 @@ def run(inp: dict, trades: list[Trade], state: dict) -> tuple[list[Trade], dict,
 
     # exits first (one check per trading day)
     for t in trades:
-        if t.status != "open" or t.opened == today:
+        if t.status != "open" or t.opened == today or t.source == "gaps":   # gaps exit in gap_check
             continue
         px = quotes.get(t.symbol)
         if not px:
@@ -221,19 +242,50 @@ def run(inp: dict, trades: list[Trade], state: dict) -> tuple[list[Trade], dict,
                                      "excess": round(t.excess, 4), "why": why})
 
     ideas = candidates(inp, trades, state)
+    targets = {g["symbol"].upper(): float(g["prev_close"]) for g in inp.get("gaps") or []}
     for source, picks in ideas.items():
         for sym, reason in picks:
             px = quotes.get(sym)
             if not px:
                 report["unpriced"].append(sym)
                 continue
-            trades.append(Trade(source, sym, today, px, bench, reason))
+            trades.append(Trade(source, sym, today, px, bench, reason,
+                                target=targets[sym] if source == "gaps" else 0.0))
             report["opened"].append({"source": source, "symbol": sym, "price": px, "reason": reason})
 
     seen = set(state.get("seen_politician_trades") or [])
     seen |= {_pol_key(t) for t in inp.get("politicians") or []}
     state = {**state, "last_run": today, "seen_politician_trades": sorted(seen)}
     return trades, state, report
+
+
+def gap_needs(trades: list[Trade]) -> list[str]:
+    """Symbols to quote for gap_check; empty when no gap trade is open."""
+    syms = sorted({t.symbol for t in trades if t.source == "gaps" and t.status == "open"})
+    return [BENCH] + syms if syms else []
+
+
+def gap_check(inp: dict, trades: list[Trade]) -> dict:
+    """Every hourly run: close gap trades whose price is back at yesterday's close ("filled"), and all
+    of them once it's GAP_CLOSE_AFTER in New York or the trade is from an earlier day ("end of day")."""
+    ny = _now(inp).astimezone(NY)
+    today = ny.date().isoformat()
+    quotes = {k.upper(): float(v) for k, v in (inp.get("quotes") or {}).items()}
+    report = {"closed": [], "unpriced": []}
+    for t in trades:
+        if t.source != "gaps" or t.status != "open":
+            continue
+        px, bench = quotes.get(t.symbol), quotes.get(BENCH)
+        if not px or not bench:
+            report["unpriced"].append(t.symbol)
+            continue
+        why = ("filled" if px >= t.target else
+               "end of day" if ny.time() >= GAP_CLOSE_AFTER or t.opened != today else "")
+        if why:
+            t.status, t.closed, t.exit, t.bench_exit, t.exit_reason, t.days = "closed", today, px, bench, why, 1
+            report["closed"].append({"source": t.source, "symbol": t.symbol, "ret": round(t.ret, 4),
+                                     "excess": round(t.excess, 4), "why": why})
+    return report
 
 
 def scoreboard(trades: list[Trade]) -> dict:

@@ -73,3 +73,26 @@ calls), CECO, UAL.
 Added 2026-10-21, from Excite Capital's method in the quantum talk ([notes](rebelcon-2026-quantum-notes.md)):
 don't predict, read the present. Any liquid stock up more than 2% today and more than 0.5% in the last
 hour, on 2x+ normal volume, ranked by last-hour move x volume; up to 3 a day, 5-day hold. Day one: KYIV.
+
+## Gaps (opening gap-downs that may "fill")
+
+Added Oct 22. A stock that opens well below yesterday's close often drifts back toward it during the day.
+Each morning the scan flags liquid stocks that opened 3%+ lower and are still below yesterday's close; the
+lab paper-buys the biggest 5 gaps, then every hourly run checks them: sell when the price is back at
+yesterday's close ("filled"), or after 3:30 PM New York at whatever the price is ("end of day"). Same-day only.
+
+Backtest on NVDA, AMD, PLTR and QQQ daily bars since 2019 (`python -m trader.gapbacktest`, 0.1% cost per side):
+
+| Gap at the open | Trades | Win rate | Avg per trade |
+|---|---|---|---|
+| 2%+ down | 543 | 54% | +0.12% |
+| 3%+ down | 234 | 53% | +0.40% |
+| 5%+ down | 82 | 56% | +1.00% |
+
+Fading gap-UPs (betting they fall back) lost slightly, and the account can't short, so only gap-downs are tested.
+Caveats: four stocks that rose a lot (hindsight), and daily bars can't show whether the fill came before a
+further drop. The paper trades are entered at the price when the scan runs (~10:30 AM New York), not the open.
+
+**Real money and day trading:** a same-day buy and sell is a "day trade". In a margin account under $25,000
+(this one is "limited margin"), 4+ day trades in 5 business days flags the account as a Pattern Day Trader
+and restricts it. Any real-money version must stay at 3 day trades per rolling 5 business days.

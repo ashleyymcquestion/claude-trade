@@ -52,6 +52,9 @@ def main(argv=None):
     wr = sub.add_parser("watch-run", help="watchlab: open/close paper trades and print the scoreboard")
     wr.add_argument("--input", required=True, help="ideas JSON with quotes (see trader/watchlab.py)")
     sub.add_parser("watch-score", help="watchlab: print the scoreboard")
+    sub.add_parser("watch-gap-needs", help="watchlab gaps: symbols to quote for watch-gap-check ([] = nothing open)")
+    wg = sub.add_parser("watch-gap-check", help="watchlab gaps: close filled / end-of-day gap trades (every run)")
+    wg.add_argument("--input", required=True, help='{"now": optional, "quotes": {"QQQ": ..., "SYM": ...}}')
 
     os_ = sub.add_parser("opt-step", help="options lab (paper): print what to fetch next, or record the day")
     os_.add_argument("--input", required=True, help="options lab JSON (see trader/optionslab.py)")
@@ -97,6 +100,12 @@ def main(argv=None):
             print(json.dumps({"due": watchlab.due(state, watchlab._now({"now": args.now}))}))
         elif args.cmd == "watch-needs":
             print(json.dumps(watchlab.needs(json.loads(Path(args.input).read_text()), trades, state)))
+        elif args.cmd == "watch-gap-needs":
+            print(json.dumps(watchlab.gap_needs(trades)))
+        elif args.cmd == "watch-gap-check":
+            rep = watchlab.gap_check(json.loads(Path(args.input).read_text()), trades)
+            watchlab.save_trades(trades)
+            print(json.dumps({**rep, "scoreboard": watchlab.scoreboard(trades)["gaps"]}, indent=2))
         elif args.cmd == "watch-run":
             trades, state, rep = watchlab.run(json.loads(Path(args.input).read_text()), trades, state)
             watchlab.save_trades(trades)
