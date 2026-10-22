@@ -127,3 +127,14 @@
   PLTR trend entry signal was blocked (max open positions 2/2 at plan time); it can enter on a later run.
 - SPCX test: cash reached $2.53, so bought $1.00 = 0.006519 sh @ $153.3831; stop $141.11 (-8%).
 - Watchlab / options lab: not due until 10:00 ET.
+
+## 2026-10-22 (7:37 AM PT, hourly run + daily paper run)
+- Account $4.11 (cash $1.53, crypto $1.60, SPCX $0.98). No real orders: crypto at target (BTC trim $0.16 below
+  the $0.25 minimum); stocks flat, PLTR trend entry blocked ($0.10 risk-sized order is below the $1 minimum);
+  SPCX test holding at $150.55, stop $141.11.
+- Watchlab (paper): opened RTO, SPOT, WCN, LMT, KSS (gainers), CSX (options: calls 72x puts; also stacked).
+  Closed at stops: SEI -15.0%, GLXY -9.6% (gainers), CECO -8.1% (options). Buzz and velocity scans empty (broad
+  sell-off: QQQ -2.3%). No dated social-trend page found. Gainers now 0/2 wins, avg -9.8% vs QQQ.
+- Options lab (paper): SEI $70 call closed at its -50% stop (-$510; the stock fell 14%). This was one of the three
+  pre-filter calls the edge filter rated "fail". No new positions: CSX and SPOT spreads too wide, SPOT call odds
+  32% / expected -$113; RTO and WCN have no 30-45 day expiration.
