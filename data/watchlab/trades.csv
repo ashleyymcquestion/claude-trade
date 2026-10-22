@@ -1,26 +1,26 @@
-source,symbol,opened,entry,bench_entry,reason,status,days,closed,exit,bench_exit,exit_reason
-gainers,ASST,2026-10-21,31.255,727.09,up 15.5% today,open,1,,0.0,0.0,
-gainers,SEI,2026-10-21,70.19,727.09,up 10.8% today,closed,1,2026-10-22,59.66,708.52,stop
-gainers,GLXY,2026-10-21,17.398,727.09,up 10.4% today,closed,1,2026-10-22,15.72,708.52,stop
-gainers,APPN,2026-10-21,48.9476,727.09,up 10.0% today,open,1,,0.0,0.0,
-gainers,CRL,2026-10-21,346.495,727.09,up 9.8% today,open,1,,0.0,0.0,
-buzz,ROIV,2026-10-21,36.32,727.09,3.1x normal volume,open,1,,0.0,0.0,
-politicians,VVV,2026-10-21,31.05,727.09,Rep. Michael T. McCaul bought equity 2026-08-19 (disclosed 2026-10-16),open,1,,0.0,0.0,
-politicians,ACN,2026-10-21,237.43,727.09,Rep. Michael T. McCaul bought equity 2026-08-25 (disclosed 2026-10-16),open,1,,0.0,0.0,
-politicians,ALH,2026-10-21,21.49,727.09,Rep. Michael T. McCaul bought equity 2026-08-10 (disclosed 2026-10-16),open,1,,0.0,0.0,
-politicians,FCN,2026-10-21,148.15,727.09,Rep. Michael T. McCaul bought equity 2026-08-12 (disclosed 2026-10-16),open,1,,0.0,0.0,
-politicians,ARE,2026-10-21,42.62,727.09,Rep. Ro Khanna bought equity 2026-09-11 (disclosed 2026-10-09),open,1,,0.0,0.0,
-social,SPCX,2026-10-21,157.375,727.09,"top trending on Stocktwits (earnings, upgrades) (https://stocktwits.com/)",open,1,,0.0,0.0,
-social,RIVN,2026-10-21,12.585,727.09,biggest mention spike on r/wallstreetbets (https://altindex.com/wallstreetbets),open,1,,0.0,0.0,
-social,ASST,2026-10-21,31.255,727.09,"trending on Stocktwits (preferred offering, BTC buys) (https://stocktwits.com/)",open,1,,0.0,0.0,
-options,FHN,2026-10-21,23.22,727.06,"options volume 27.4x normal, calls 904.0x puts",open,1,,0.0,0.0,
-options,CECO,2026-10-21,59.19,727.06,"options volume 7.5x normal, calls 234.2x puts",closed,1,2026-10-22,54.42,708.52,stop
-options,UAL,2026-10-21,104.37,727.06,"options volume 5.6x normal, calls 8.2x puts",open,1,,0.0,0.0,
-velocity,KYIV,2026-10-21,13.87,727.06,"up 9.4% today, 1.2% in the last hour, 2.5x volume",open,1,,0.0,0.0,
-gainers,RTO,2026-10-22,22.745,708.52,up 8.1% today,open,0,,0.0,0.0,
-gainers,SPOT,2026-10-22,566.175,708.52,up 7.8% today,open,0,,0.0,0.0,
-gainers,WCN,2026-10-22,181.17,708.52,up 7.7% today,open,0,,0.0,0.0,
-gainers,LMT,2026-10-22,588.9151,708.52,up 6.8% today,open,0,,0.0,0.0,
-gainers,KSS,2026-10-22,23.605,708.52,up 6.5% today,open,0,,0.0,0.0,
-options,CSX,2026-10-22,51.47,708.52,"options volume 5.3x normal, calls 71.9x puts",open,0,,0.0,0.0,
-stacked,CSX,2026-10-22,51.47,708.52,flagged by gainers + options,open,0,,0.0,0.0,
+source,symbol,opened,entry,bench_entry,reason,status,days,closed,exit,bench_exit,exit_reason,target,stop
+gainers,ASST,2026-10-21,31.255,727.09,up 15.5% today,open,1,,0.0,0.0,,0.0,0.0
+gainers,SEI,2026-10-21,70.19,727.09,up 10.8% today,closed,1,2026-10-22,59.66,708.52,stop,0.0,0.0
+gainers,GLXY,2026-10-21,17.398,727.09,up 10.4% today,closed,1,2026-10-22,15.72,708.52,stop,0.0,0.0
+gainers,APPN,2026-10-21,48.9476,727.09,up 10.0% today,open,1,,0.0,0.0,,0.0,0.0
+gainers,CRL,2026-10-21,346.495,727.09,up 9.8% today,open,1,,0.0,0.0,,0.0,0.0
+buzz,ROIV,2026-10-21,36.32,727.09,3.1x normal volume,open,1,,0.0,0.0,,0.0,0.0
+politicians,VVV,2026-10-21,31.05,727.09,Rep. Michael T. McCaul bought equity 2026-08-19 (disclosed 2026-10-16),open,1,,0.0,0.0,,0.0,0.0
+politicians,ACN,2026-10-21,237.43,727.09,Rep. Michael T. McCaul bought equity 2026-08-25 (disclosed 2026-10-16),open,1,,0.0,0.0,,0.0,0.0
+politicians,ALH,2026-10-21,21.49,727.09,Rep. Michael T. McCaul bought equity 2026-08-10 (disclosed 2026-10-16),open,1,,0.0,0.0,,0.0,0.0
+politicians,FCN,2026-10-21,148.15,727.09,Rep. Michael T. McCaul bought equity 2026-08-12 (disclosed 2026-10-16),open,1,,0.0,0.0,,0.0,0.0
+politicians,ARE,2026-10-21,42.62,727.09,Rep. Ro Khanna bought equity 2026-09-11 (disclosed 2026-10-09),open,1,,0.0,0.0,,0.0,0.0
+social,SPCX,2026-10-21,157.375,727.09,"top trending on Stocktwits (earnings, upgrades) (https://stocktwits.com/)",open,1,,0.0,0.0,,0.0,0.0
+social,RIVN,2026-10-21,12.585,727.09,biggest mention spike on r/wallstreetbets (https://altindex.com/wallstreetbets),open,1,,0.0,0.0,,0.0,0.0
+social,ASST,2026-10-21,31.255,727.09,"trending on Stocktwits (preferred offering, BTC buys) (https://stocktwits.com/)",open,1,,0.0,0.0,,0.0,0.0
+options,FHN,2026-10-21,23.22,727.06,"options volume 27.4x normal, calls 904.0x puts",open,1,,0.0,0.0,,0.0,0.0
+options,CECO,2026-10-21,59.19,727.06,"options volume 7.5x normal, calls 234.2x puts",closed,1,2026-10-22,54.42,708.52,stop,0.0,0.0
+options,UAL,2026-10-21,104.37,727.06,"options volume 5.6x normal, calls 8.2x puts",open,1,,0.0,0.0,,0.0,0.0
+velocity,KYIV,2026-10-21,13.87,727.06,"up 9.4% today, 1.2% in the last hour, 2.5x volume",open,1,,0.0,0.0,,0.0,0.0
+gainers,RTO,2026-10-22,22.745,708.52,up 8.1% today,open,0,,0.0,0.0,,0.0,0.0
+gainers,SPOT,2026-10-22,566.175,708.52,up 7.8% today,open,0,,0.0,0.0,,0.0,0.0
+gainers,WCN,2026-10-22,181.17,708.52,up 7.7% today,open,0,,0.0,0.0,,0.0,0.0
+gainers,LMT,2026-10-22,588.9151,708.52,up 6.8% today,open,0,,0.0,0.0,,0.0,0.0
+gainers,KSS,2026-10-22,23.605,708.52,up 6.5% today,open,0,,0.0,0.0,,0.0,0.0
+options,CSX,2026-10-22,51.47,708.52,"options volume 5.3x normal, calls 71.9x puts",open,0,,0.0,0.0,,0.0,0.0
+stacked,CSX,2026-10-22,51.47,708.52,flagged by gainers + options,open,0,,0.0,0.0,,0.0,0.0

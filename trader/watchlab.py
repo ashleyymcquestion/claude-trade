@@ -316,7 +316,7 @@ def dt_needs(trades: list[Trade], now: datetime) -> list[str]:
     ny = now.astimezone(NY)
     if not (time(10, 0) <= ny.time() < time(16, 0)):
         return []
-    return [BENCH, *DT_SYMBOLS]
+    return [BENCH, *(s for s in DT_SYMBOLS if s != BENCH)]
 
 
 def dt_check(inp: dict, trades: list[Trade], ranges: dict[str, float]) -> dict:
