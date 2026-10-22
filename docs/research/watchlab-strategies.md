@@ -115,3 +115,19 @@ periods, but on only 44 trades, so it is paper-traded now: every hourly run from
 four stocks, paper-buys a breakout above today's open + 0.5 x the 4-day range, and sells at the stop (open - 0.5 x
 range) or after 3:30 PM. Buying and holding the same stocks made more over both periods; Dual Thrust is only in
 the market a few days a month, so the test is whether its per-trade edge is real.
+
+### Dual Thrust on 3 years of hourly bars (Oct 22, 2026): it loses
+`python -m trader.dtbacktest --fetch` replays the exact paper rule (hourly checks, 0.05% slippage per side) on
+Yahoo hourly bars, Nov 2023 - Oct 2026, for NVDA/AMD/PLTR/QQQ plus 20 large stocks and ETFs it was never tuned on.
+
+| Setting | Trades | Win rate | Avg per trade | t-stat |
+|---|---|---|---|---|
+| 4-day range, k 0.5 (the paper rule) | 1,563 | 42.5% | **-0.085%** | -2.8 |
+| same, original 4 stocks only | 225 | 45.3% | -0.125% | -1.3 |
+| same, original 4, May - Oct 2026 | 31 | 61% | +0.34% | 1.7 |
+| same, original 4, Nov 2023 - Apr 2026 | 194 | 43% | -0.20% | -1.9 |
+| 2-day / 6-day range, k 0.3 / 0.7 | 665 - 3,793 each | 41-44% | -0.08% to -0.11% | all negative |
+
+The earlier +0.30% per trade was a lucky 6-month window. Over 100+ trades, in both halves of the period,
+on the original stocks and on new ones, with every setting tried, it lost money. The paper test keeps running
+(the user asked for 100 paper trades), but this is the verdict: no edge.
