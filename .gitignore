@@ -14,3 +14,12 @@ state/
 
 # trader-skill pack (.claude/skills/trader-*) writes its data next to our package; keep it out of git
 trader/*.json
+
+# freqtrade: keep strategies and notes, not data or results
+freqtrade_user/data/
+freqtrade_user/backtest_results/
+freqtrade_user/logs/
+freqtrade_user/hyperopt_results/
+freqtrade_user/plot/
+freqtrade_user/*.sqlite
+freqtrade_user/config*.json
