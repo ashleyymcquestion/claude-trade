@@ -84,8 +84,12 @@ def main(argv=None):
         if args.cmd == "opt-score":
             print(json.dumps(optionslab.scoreboard(positions, state, {}), indent=2))
             return
-        result, positions, state = optionslab.step(json.loads(Path(args.input).read_text()), positions, state,
-                                                   watchlab.load_trades())
+        from .callbacktest import load_bars
+
+        inp = json.loads(Path(args.input).read_text())
+        inp.setdefault("long_closes", {s: [c for _, c in load_bars(s)][-260:] for s in optionslab.PULLBACK
+                                       if (Path("data/bars") / f"{s}.csv").exists()})
+        result, positions, state = optionslab.step(inp, positions, state, watchlab.load_trades())
         if "done" in result and not result["done"].get("already_ran"):
             optionslab.save(positions, state)
         print(json.dumps(result, indent=2))

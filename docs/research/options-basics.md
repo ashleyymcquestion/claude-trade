@@ -125,3 +125,20 @@ the better of the two in every case, which matches the stock bot's mean-reversio
 **Caveats:** these four stocks were huge winners since 2019 (picked with hindsight), so real results
 would likely be worse; modeled prices miss earnings jumps and volatility spikes. The live paper lab
 will tell us whether real option prices look more like the "cheap" or "pricey" row.
+
+## Call tests and pullback calls (added Oct 22)
+
+The user wants the lab to keep paper-testing calls until one strategy wins. Two changes:
+
+1. **Every bullish idea now also opens a plain call** ("follow_flow/call", "momentum_calls/call",
+   "pullback_calls/call"): an at-the-money call 30-45 days out, bought at the ask, with no edge filter. The
+   filtered pick still opens next to it when something passes. So each idea gets two scoreboard rows: raw calls
+   and the filter's choice, and every call carries the odds the model gave it, so we can see whether the model
+   is right.
+2. **pullback_calls**, the best signal in the call backtest: NVDA, AMD, PLTR or QQQ above its 200-day average
+   with RSI(14) under 35 (a strong stock on a short dip). The signal is checked every daily run from the stored
+   bars; on Oct 22 NVDA, AMD and QQQ all showed it after the sell-off.
+
+Exits are unchanged: +100%, -50%, or 7 days before expiry, sold at the bid. A strategy "wins" only with a
+real record: 20+ closed trades, a win rate and average return that beat simply holding the stock over the same
+days. Real money stays off until then, and until you OK it.

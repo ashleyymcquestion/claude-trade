@@ -92,14 +92,15 @@ def test_picks_the_structure_with_an_edge():
 
 def test_skips_when_nothing_has_an_edge():
     res, pos, _ = o.step(full(table=CHEAP_PUTS), [], EMPTY, watch())
-    assert pos == []
+    assert [p["strategy"] for p in pos] == ["follow_flow/call"]       # only the unfiltered call test
     assert any(s.startswith("follow_flow FHN: no edge") for s in res["done"]["skipped"])
 
 
 def test_spread_takes_profit_then_expired_spread_settles():
     _, pos, st = o.step(full(), [], EMPTY, watch())
-    flow = next(p for p in pos if p["underlying"] == "FHN")
-    q = {f"FHN-put-95": {"bid": 0.2, "ask": 0.25}, f"FHN-put-90": {"bid": 0.05, "ask": 0.1}}
+    flow = next(p for p in pos if p["underlying"] == "FHN" and p["strategy"] == "follow_flow")
+    q = {f"FHN-put-95": {"bid": 0.2, "ask": 0.25}, f"FHN-put-90": {"bid": 0.05, "ask": 0.1},
+         "FHN-call-100": {"bid": 6.0, "ask": 6.2}}
     res, pos2, _ = o.step({"now": DAY2, "spots": {s: 110.0 for s in SYMS}, "quotes": q}, pos, st, [])
     closed = next(p for p in pos2 if p["id"] == flow["id"])
     assert closed["exit_reason"] == "took 50% of max profit"
@@ -135,3 +136,21 @@ def test_runs_once_a_day():
     _, pos, st = o.step(full(), [], EMPTY, watch())
     res, pos2, _ = o.step(full(), pos, st, watch())
     assert res["done"] == {"already_ran": True} and pos2 is pos
+
+
+def test_raw_call_test_opens_alongside_the_filtered_pick():
+    _, pos, _ = o.step(full(), [], EMPTY, watch())
+    raw = next(p for p in pos if p["strategy"] == "follow_flow/call")
+    assert raw["structure"] == "long_call" and raw["legs"][0]["entry"] == 5.0 and raw["pop"] is not None
+
+
+def test_pullback_signal_opens_calls_on_a_dip_in_an_uptrend():
+    up = [100 * 1.003 ** i for i in range(240)]
+    dip = up + [up[-1] * 0.985 ** k for k in range(1, 9)]          # sharp short drop, still above the 200-day
+    dip = [x * 100 / dip[-1] for x in dip]                          # end at 100, where the test chain's strikes are
+    inp = full()
+    inp["long_closes"] = {"NVDA": dip[:-1]}
+    inp["spots"] = {**inp["spots"], "NVDA": dip[-1]}
+    assert o.pullback_ideas(inp["long_closes"], inp["spots"]) == ["NVDA"]
+    _, pos, _ = o.step(inp, [], EMPTY, [])
+    assert {p["strategy"] for p in pos if p["underlying"] == "NVDA"} >= {"pullback_calls/call"}

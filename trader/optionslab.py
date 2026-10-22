@@ -1,8 +1,10 @@
 """Options lab: paper-test options strategies with real Robinhood option prices. Places no orders.
 
-Ideas come from watchlab (trades it opened today) and from the wheel list:
+Ideas come from watchlab (trades it opened today), a pullback signal and the wheel list:
   follow_flow     stocks with call-heavy unusual options activity (watchlab source "options")
   momentum_calls  watchlab's velocity / top-gainer picks
+  pullback_calls  NVDA, AMD, PLTR or QQQ above its 200-day average with RSI(14) under 35: a strong stock on a
+                  short dip, the best call signal in the backtest (python -m trader opt-backtest)
   wheel           NVDA, QQQ, SPCX: cash-secured puts; if assigned, covered calls until called away
 
 Strategy choice ("only take trades with an edge"): for every bullish idea the lab prices three
@@ -17,6 +19,10 @@ than the stock really moves (or buying ones priced cheaper) is the edge being te
 qualifies, the idea is skipped and the report says why. No setup wins every time; this filter only
 keeps the odds and the expected payoff on our side, and the scoreboard checks whether the model's
 odds come true. The wheel's puts and covered calls go through the same filter.
+
+Call tests ("<idea>/call"): every bullish idea ALSO opens a plain at-the-money long call, with no edge
+filter (its model odds are still recorded). The user wants to find a call strategy that wins, so the
+scoreboard compares each idea's raw calls with what the filter picked, and the model's odds with reality.
 
 Pricing is pessimistic: buy legs at the ask, sell legs at the bid; skip a leg whose bid/ask spread is
 more than 30% of its midpoint. Exits: long calls close at +100%, -50%, or 7 days before expiration;
@@ -51,8 +57,10 @@ NY = ZoneInfo("America/New_York")
 
 WHEEL = ("NVDA", "QQQ", "SPCX")
 IDEA_SOURCES = {"follow_flow": ("options",), "momentum_calls": ("velocity", "gainers")}
-PER_DAY = {"follow_flow": 3, "momentum_calls": 3}
-MAX_OPEN = {"follow_flow": 10, "momentum_calls": 10}
+PULLBACK = ("NVDA", "AMD", "PLTR", "QQQ")      # signal from data/bars (the CLI adds them as "long_closes")
+IDEAS = ("follow_flow", "momentum_calls", "pullback_calls")
+PER_DAY = {"follow_flow": 3, "momentum_calls": 3, "pullback_calls": 4}
+MAX_OPEN = {**{i: 10 for i in IDEAS}, **{f"{i}/call": 10 for i in IDEAS}}
 BULLISH = ("long_call", "bull_call_spread", "bull_put_spread")
 DTE = (30, 45)
 PUT_OTM, PUT_WING, CALL_WING, CC_OTM = 0.95, 0.90, 1.10, 1.05
@@ -117,6 +125,14 @@ def todays_ideas(watch_trades: list, today: str) -> dict[str, list[str]]:
     return out
 
 
+def pullback_ideas(long_closes: dict, spots: dict) -> list[str]:
+    """Underlyings whose closes (oldest first) plus today's spot show the backtest's pullback signal."""
+    from .callbacktest import signal
+
+    return [s for s in PULLBACK if s in long_closes and s in spots
+            and signal("pullback", [float(x) for x in long_closes[s]] + [spots[s]])][:PER_DAY["pullback_calls"]]
+
+
 def _wanted(positions: list[dict], state: dict, ideas: dict[str, list[str]]) -> list[dict]:
     want = []
     open_pos = [p for p in positions if p["status"] == "open"]
@@ -125,6 +141,12 @@ def _wanted(positions: list[dict], state: dict, ideas: dict[str, list[str]]) -> 
         held = {p["underlying"] for p in open_pos if p["strategy"] == strat}
         for s in [s for s in syms if s not in held][:max(0, room)]:
             want.append({"strategy": strat, "underlying": s, "structures": BULLISH, "types": ("call", "put")})
+        test = f"{strat}/call"
+        room = MAX_OPEN[test] - sum(p["strategy"] == test for p in open_pos)
+        held = {p["underlying"] for p in open_pos if p["strategy"] == test}
+        for s in [s for s in syms if s not in held][:max(0, room)]:
+            want.append({"strategy": test, "underlying": s, "structures": ("long_call",), "types": ("call",),
+                         "test": True})
     for s in WHEEL:
         if any(p["strategy"] == "wheel" and p["underlying"] == s for p in open_pos):
             continue
@@ -222,9 +244,12 @@ def step(inp: dict, positions: list[dict], state: dict, watch_trades: list) -> t
     wheel_state = state.setdefault("wheel", {})
     open_pos = [p for p in positions if p["status"] == "open"]
 
-    unders = {p["underlying"] for p in open_pos} | set(WHEEL) | {s for v in ideas.values() for s in v}
+    long_closes = inp.get("long_closes") or {}
+    unders = ({p["underlying"] for p in open_pos} | set(WHEEL) | {s for v in ideas.values() for s in v}
+              | {s for s in PULLBACK if s in long_closes})
     if missing := sorted(u for u in unders if u not in spots):
         return {"need": {"spots": missing}}, *orig
+    ideas["pullback_calls"] = pullback_ideas(long_closes, spots)
 
     report = {"opened": [], "closed": [], "skipped": []}
     for p in open_pos:
@@ -277,6 +302,7 @@ def step(inp: dict, positions: list[dict], state: dict, watch_trades: list) -> t
         by_idea.setdefault((pl["strategy"], pl["underlying"]), []).append(pl)
     for (strat, u), cands in by_idea.items():
         scored, notes = [], []
+        test = cands[0].get("test", False)
         for pl in cands:
             qs = [quotes.get(l["row"]["id"]) for l in pl["legs"]]
             if not all(_quote_ok(q) for q in qs):
@@ -287,7 +313,7 @@ def step(inp: dict, positions: list[dict], state: dict, watch_trades: list) -> t
                      "entry": float(q["ask"]) if l["action"] == "buy" else float(q["bid"])}
                     for l, q in zip(pl["legs"], qs)]
             ev = evaluate(legs, spots[u], pl["vol"], today, pl["expiration"])
-            if ev["pop"] < MIN_POP or ev["ev"] <= 0:
+            if not test and (ev["pop"] < MIN_POP or ev["ev"] <= 0):
                 notes.append(f"{pl['structure']}: odds {ev['pop']:.0%}, expected ${ev['ev']:+.0f}")
                 continue
             scored.append((ev["ev"] / max(ev["max_loss"], 1.0), pl, legs, ev))
@@ -376,7 +402,7 @@ def _stats(closed: list[dict]) -> dict:
 def scoreboard(positions: list[dict], state: dict, spots: dict) -> dict:
     positions = [_migrate(p) for p in positions]
     out: dict = {"by_idea": {}, "by_structure": {}}
-    for strat in ("follow_flow", "momentum_calls"):
+    for strat in [x for i in IDEAS for x in (i, f"{i}/call")]:
         out["by_idea"][strat] = {"open": sum(p["strategy"] == strat and p["status"] == "open" for p in positions),
                                  **_stats([p for p in positions if p["strategy"] == strat and p["status"] == "closed"])}
     for s in BULLISH:
