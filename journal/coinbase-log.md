@@ -12,3 +12,4 @@ Paper trading (config.coinbase.toml, COINBASE.md).
 - Sold leftover coins that were below their 10-week averages; proceeds stay in USDC (no buys).
 - XLM: limit sell 26.9036724 @ 0.175461 (post-only), FILLED: $4.70 after a $0.024 fee.
 - XCN: limit sell 268.1 @ 0.003951 (post-only), OPEN, about $1.05 after fees when it fills. 0.0947 XCN of dust remains.
+- SKY (1:34 PM PT, user asked): limit sell 12.4 @ 0.07255 (post-only), OPEN, about $0.90 after fees when it fills. 0.0209 SKY of dust remains. XCN still open.
