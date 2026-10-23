@@ -70,7 +70,19 @@ def main(argv=None):
     ob.add_argument("--iv-markup", type=float, default=1.3, help="implied vol as a multiple of realized vol")
     ob.add_argument("--half-spread", type=float, default=0.05, help="cost per side, as a share of the price")
 
+    xp = sub.add_parser("xrp-paper", help="XRP paper test: size and log today's paper XRP position (once a day)")
+    xp.add_argument("--price", type=float, required=True, help="XRP-USD mark_price from get_crypto_quotes")
+
     args = parser.parse_args(argv)
+    if args.cmd == "xrp-paper":
+        import json
+        from zoneinfo import ZoneInfo
+
+        from . import xrptest
+
+        today = datetime.now(ZoneInfo("America/Los_Angeles")).date()
+        print(json.dumps(xrptest.paper_step(args.price, today)))
+        return
     if args.cmd == "opt-backtest":
         import json
         from datetime import date

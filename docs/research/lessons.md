@@ -37,3 +37,8 @@ Details live in the linked notes.
 - Robinhood: quotes, daily/10-minute history (5000 bars per call), scanner (crypto history up to 365 days).
 - Yahoo (query1.finance.yahoo.com): long daily history for stocks and crypto, e.g. `/v8/finance/chart/BTC-USD?range=10y&interval=1d`.
 - Coinbase (Coinbase session): candles down to 1 minute, order book, fees.
+
+- 2026-10-23 XRP: adding XRP to the crypto strategy changed little (+2–3%/yr over 2021–2026, slightly worse
+  since 2025; it gets ~8% weight). In every window the strategy trailed plain BTC holding — it cuts drawdowns
+  but the ~2% Robinhood spread and trend-exits cost most of the upside. XRP is now paper-tested daily
+  (data/xrppaper), never traded for real without the user's OK.

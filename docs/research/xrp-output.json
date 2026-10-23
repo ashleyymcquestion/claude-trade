@@ -1,0 +1,137 @@
+{
+ "2021-06-01": {
+  "bot today (BTC/ETH/SOL)": {
+   "CAGR": 0.045,
+   "Volatility": 0.251,
+   "Sharpe": 0.301,
+   "Max drawdown": -0.53,
+   "Calmar": 0.085,
+   "Total return": 0.268,
+   "avg_xrp_weight": null
+  },
+  "bot + XRP": {
+   "CAGR": 0.069,
+   "Volatility": 0.261,
+   "Sharpe": 0.383,
+   "Max drawdown": -0.508,
+   "Calmar": 0.135,
+   "Total return": 0.43,
+   "avg_xrp_weight": 0.083
+  },
+  "XRP alone, same rules": {
+   "CAGR": 0.05,
+   "Volatility": 0.281,
+   "Sharpe": 0.306,
+   "Max drawdown": -0.436,
+   "Calmar": 0.115,
+   "Total return": 0.303,
+   "avg_xrp_weight": 0.276
+  },
+  "hold BTC": {
+   "CAGR": 0.158,
+   "Volatility": 0.53,
+   "Sharpe": 0.542,
+   "Max drawdown": -0.766,
+   "Calmar": 0.207,
+   "Total return": 1.21
+  },
+  "hold XRP": {
+   "CAGR": 0.047,
+   "Volatility": 0.855,
+   "Sharpe": 0.456,
+   "Max drawdown": -0.778,
+   "Calmar": 0.06,
+   "Total return": 0.28
+  }
+ },
+ "2023-01-01": {
+  "bot today (BTC/ETH/SOL)": {
+   "CAGR": 0.184,
+   "Volatility": 0.253,
+   "Sharpe": 0.791,
+   "Max drawdown": -0.441,
+   "Calmar": 0.417,
+   "Total return": 0.9,
+   "avg_xrp_weight": null
+  },
+  "bot + XRP": {
+   "CAGR": 0.219,
+   "Volatility": 0.268,
+   "Sharpe": 0.87,
+   "Max drawdown": -0.466,
+   "Calmar": 0.469,
+   "Total return": 1.123,
+   "avg_xrp_weight": 0.089
+  },
+  "XRP alone, same rules": {
+   "CAGR": 0.15,
+   "Volatility": 0.303,
+   "Sharpe": 0.603,
+   "Max drawdown": -0.436,
+   "Calmar": 0.345,
+   "Total return": 0.704,
+   "avg_xrp_weight": 0.305
+  },
+  "hold BTC": {
+   "CAGR": 0.516,
+   "Volatility": 0.464,
+   "Sharpe": 1.127,
+   "Max drawdown": -0.531,
+   "Calmar": 0.972,
+   "Total return": 3.876
+  },
+  "hold XRP": {
+   "CAGR": 0.422,
+   "Volatility": 0.83,
+   "Sharpe": 0.803,
+   "Max drawdown": -0.721,
+   "Calmar": 0.585,
+   "Total return": 2.82
+  }
+ },
+ "2025-01-01": {
+  "bot today (BTC/ETH/SOL)": {
+   "CAGR": -0.152,
+   "Volatility": 0.24,
+   "Sharpe": -0.565,
+   "Max drawdown": -0.441,
+   "Calmar": -0.344,
+   "Total return": -0.257,
+   "avg_xrp_weight": null
+  },
+  "bot + XRP": {
+   "CAGR": -0.16,
+   "Volatility": 0.244,
+   "Sharpe": -0.592,
+   "Max drawdown": -0.466,
+   "Calmar": -0.343,
+   "Total return": -0.27,
+   "avg_xrp_weight": 0.071
+  },
+  "XRP alone, same rules": {
+   "CAGR": -0.169,
+   "Volatility": 0.21,
+   "Sharpe": -0.778,
+   "Max drawdown": -0.436,
+   "Calmar": -0.388,
+   "Total return": -0.284,
+   "avg_xrp_weight": 0.242
+  },
+  "hold BTC": {
+   "CAGR": -0.081,
+   "Volatility": 0.434,
+   "Sharpe": 0.022,
+   "Max drawdown": -0.531,
+   "Calmar": -0.153,
+   "Total return": -0.142
+  },
+  "hold XRP": {
+   "CAGR": -0.276,
+   "Volatility": 0.757,
+   "Sharpe": -0.057,
+   "Max drawdown": -0.721,
+   "Calmar": -0.383,
+   "Total return": -0.443
+  }
+ }
+}
