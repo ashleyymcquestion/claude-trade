@@ -1,49 +1,25 @@
 {
   "strategies": {
     "btc_trend": {
-      "cash": 0.0007385600000002768,
+      "cash": 0.0007385610425006857,
       "start": 5.0,
-      "coins": {},
-      "orders": [
-        {
-          "id": "cbp-btc_trend-1",
-          "coin": "BTC",
-          "side": "BUY",
-          "limit": "81241.05",
-          "qty": "0.00006123",
-          "placed_at": "2026-10-22T20:20:00Z",
-          "reserved": 4.99926144
-        }
-      ],
+      "coins": {
+        "BTC": 6.123e-05
+      },
+      "orders": [],
       "target": {
         "BTC": 1.0
       },
       "week": "2026-10-18"
     },
     "momentum": {
-      "cash": 0.003977630000000065,
+      "cash": 0.003977626797499936,
       "start": 5.0,
-      "coins": {},
-      "orders": [
-        {
-          "id": "cbp-momentum-2",
-          "coin": "ALGO",
-          "side": "BUY",
-          "limit": "0.10617",
-          "qty": "23.4",
-          "placed_at": "2026-10-22T20:20:00Z",
-          "reserved": 2.49679989
-        },
-        {
-          "id": "cbp-momentum-3",
-          "coin": "BTC",
-          "side": "BUY",
-          "limit": "81241.05",
-          "qty": "0.00003061",
-          "placed_at": "2026-10-22T20:20:00Z",
-          "reserved": 2.49922248
-        }
-      ],
+      "coins": {
+        "ALGO": 23.4,
+        "BTC": 3.061e-05
+      },
+      "orders": [],
       "target": {
         "ALGO": 0.5,
         "BTC": 0.5
@@ -51,7 +27,35 @@
       "week": "2026-10-18"
     }
   },
-  "fills": [],
+  "fills": [
+    {
+      "id": "cbp-btc_trend-1",
+      "coin": "BTC",
+      "side": "BUY",
+      "qty": "0.00006123",
+      "price": "81241.05",
+      "fee": 0.024872,
+      "at": "2026-10-22T20:30:00Z"
+    },
+    {
+      "id": "cbp-momentum-2",
+      "coin": "ALGO",
+      "side": "BUY",
+      "qty": "23.4",
+      "price": "0.10617",
+      "fee": 0.012422,
+      "at": "2026-10-22T20:30:00Z"
+    },
+    {
+      "id": "cbp-momentum-3",
+      "coin": "BTC",
+      "side": "BUY",
+      "qty": "0.00003061",
+      "price": "81241.05",
+      "fee": 0.012434,
+      "at": "2026-10-22T20:30:00Z"
+    }
+  ],
   "seq": 3,
   "signals": {
     "BTC": {

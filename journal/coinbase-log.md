@@ -14,3 +14,10 @@ Paper trading (config.coinbase.toml, COINBASE.md).
 - XCN: limit sell 268.1 @ 0.003951 (post-only), OPEN, about $1.05 after fees when it fills. 0.0947 XCN of dust remains.
 - SKY (1:34 PM PT, user asked): limit sell 12.4 @ 0.07255 (post-only), OPEN, about $0.90 after fees when it fills. 0.0209 SKY of dust remains. XCN still open.
 - Futures paper test: $998.95 (-0.1%), holds 1 BTC contract, 1 ETH contract. Trades: BTC 0->1 contracts @ 81205.0; ETH 0->1 contracts @ 2380.5.
+
+## 2026-10-22 (6:08 PM PT, hourly paper run)
+- Paper: btc_trend $4.98 (-0.4%, holds BTC), momentum $5.00 (-0.1%, holds ALGO, BTC).
+- Fills: btc_trend: BUY 0.00006123 BTC @ 81241.05; momentum: BUY 23.4 ALGO @ 0.10617; momentum: BUY 0.00003061 BTC @ 81241.05.
+- Futures paper test: $999.73 (-0.0%), holds 1 ETH contract. Trades: BTC 1->0 contracts @ 81295.0.
+- Real leftover sells filled: XCN 268.1 @ 0.003951 ($1.05 after fees, 2:09 PM PT Oct 22), SKY 12.4 @ 0.07255 ($0.90 after fees, 1:44 PM PT Oct 22).
+- Note: the 2 PM - 6 PM PT hourly runs were missed (session restarts); this run caught up (paper fills use every 15-minute candle since the orders were placed).
