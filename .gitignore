@@ -23,3 +23,4 @@ freqtrade_user/hyperopt_results/
 freqtrade_user/plot/
 freqtrade_user/*.sqlite
 freqtrade_user/config*.json
+data/yahoo/universe/
