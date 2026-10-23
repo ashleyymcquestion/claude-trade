@@ -21,6 +21,8 @@ Details live in the linked notes.
   Paper only. (options-basics.md)
 - $100 options (real prices, May-Oct 2026): the call nearest the price under $100, sold at +100%, averaged
   +$54 per $100 but half went to zero; puts lost. Only tested in a rising market. (options-100-budget.md)
+- Turtle breakouts (long only) made about half of buy-and-hold since 2016 but halved the worst drop;
+  the overnight effect is real (QQQ +13%/yr overnight, -3% daytime) but costs make trading it a big loser. (classics.md)
 - Tiny accounts: Robinhood's $1 minimum blocks some stock entries; margin accounts under $25k get 3 day trades
   per 5 business days.
 
