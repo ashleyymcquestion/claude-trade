@@ -23,6 +23,9 @@ Details live in the linked notes.
   +$54 per $100 but half went to zero; puts lost. Only tested in a rising market. (options-100-budget.md)
 - Turtle breakouts (long only) made about half of buy-and-hold since 2016 but halved the worst drop;
   the overnight effect is real (QQQ +13%/yr overnight, -3% daytime) but costs make trading it a big loser. (classics.md)
+- Legends as rules (legends.md): monthly 'all-in on the strongest asset' only won thanks to Bitcoin; Turtle on a
+  mixed basket and mixing strategies (Griffin) smooth the ride; RSI(2) dip-buying wins often but tiny; buying SPY after
+  a 20% fall beat a random day over 3 years. Since 2016 nothing beat simply holding NVDA/AMD/AAPL/MSFT.
 - Tiny accounts: Robinhood's $1 minimum blocks some stock entries; margin accounts under $25k get 3 day trades
   per 5 business days.
 
