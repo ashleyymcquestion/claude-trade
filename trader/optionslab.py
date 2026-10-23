@@ -72,7 +72,7 @@ VOL_DAYS = 30
 TARGET, STOP, CLOSE_DTE, SPREAD_TAKE = 1.0, -0.5, 7, 0.5
 MAX_SPREAD = 0.30
 BUDGET = 1.00                  # $ per share: one contract for $100 or less
-BUDGET_RULE = "call_spread"    # see trader/budgetbacktest.py RULES
+BUDGET_RULE = "call_nearest"   # won the real-price backtest (docs/research/options-100-budget.md)
 BUDGET_RANGE = (0.6, 1.4)      # strikes to price, as a share of the stock price
 BUDGET_SYMBOLS = PULLBACK
 

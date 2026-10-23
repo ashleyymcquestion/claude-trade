@@ -19,6 +19,8 @@ Details live in the linked notes.
 - Buying stock gap-downs to fill: edge grows with gap size (3%+ better than 2%). Paper only.
 - Options: momentum calls lost in the model backtest; pullback calls (above 200-day, RSI < 35) were slightly positive.
   Paper only. (options-basics.md)
+- $100 options (real prices, May-Oct 2026): the call nearest the price under $100, sold at +100%, averaged
+  +$54 per $100 but half went to zero; puts lost. Only tested in a rising market. (options-100-budget.md)
 - Tiny accounts: Robinhood's $1 minimum blocks some stock entries; margin accounts under $25k get 3 day trades
   per 5 business days.
 
