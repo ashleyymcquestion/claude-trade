@@ -27,6 +27,11 @@ Sources:
   buffett      "be greedy when others are fearful": paper-buy QQQ once it is 20%+ below its 1-year high (at most
                once a year) and hold 3 years, no stop or target. Rare: it fired 8 times since 2000 on QQQ
                (backtest: python -m trader.legends, docs/research/legends.md)
+  minervini    ~110 stocks (data/yahoo/universe): trend template + a breakout from a tight 20-day range on 1.5x volume
+               at yesterday's close. Sell at -7% or on a close below the 50-day average
+  bnf          the same stocks 20%+ below their 25-day average at yesterday's close (Takashi Kotegawa's dip buy).
+               Sell once back at the 25-day average or after 15 days
+               (both: python -m trader.swing, docs/research/swing-traders.md; scanned by `watch-swing`)
 
 Input file for `run` (written by the session):
     {"now": "...",                                  # optional
@@ -37,6 +42,7 @@ Input file for `run` (written by the session):
      "options": [{"symbol", "price", "rel_options_volume", "call_put"}],   # from preview_scan
      "velocity": [{"symbol", "price", "pct_1d", "pct_1h", "rel_volume"}],  # from preview_scan
      "gaps": [{"symbol", "price", "prev_close", "open"}],                 # from preview_scan
+     "swing": {"minervini": [{"symbol", "reason"}], "bnf": [...]},       # written by `watch-swing`
      "quotes": {"QQQ": 726.5, "<symbol>": <last price>, ...}}   # every symbol in `needs`
 """
 
@@ -56,9 +62,11 @@ NY = ZoneInfo("America/New_York")
 BENCH = "QQQ"
 
 PICKS = {"gainers": 5, "buzz": 3, "politicians": 5, "social": 3, "options": 3, "velocity": 3, "stacked": 3,
-         "gaps": 5, "dual_thrust": 4, "buffett": 1}                                                                                    # new paper trades per day, max
+         "gaps": 5, "dual_thrust": 4, "buffett": 1,
+         "minervini": 3, "bnf": 3}                                                                                    # new paper trades per day, max
 MAX_HOLD = {"gainers": 5, "buzz": 5, "politicians": 20, "social": 5, "options": 5, "velocity": 5, "stacked": 5,
-            "gaps": 1, "dual_thrust": 1, "buffett": 756}                                                                                 # trading days
+            "gaps": 1, "dual_thrust": 1, "buffett": 756,
+            "minervini": 250, "bnf": 15}                                                                                 # trading days
 STOP, TARGET = -0.08, 0.15
 MIN_CALL_PUT = 2.0
 VELOCITY_MIN = {"pct_1d": 0.02, "pct_1h": 0.005, "rel_volume": 2.0}
@@ -67,6 +75,8 @@ GAP_MIN = 0.03                 # opened at least 3% below yesterday's close
 GAP_CLOSE_AFTER = time(15, 30)
 DT_SYMBOLS, DT_DAYS, DT_K = ("NVDA", "AMD", "PLTR", "QQQ"), 4, 0.5
 BUFFETT_SYMBOLS, BUFFETT_DROP, BUFFETT_GAP_DAYS = ("QQQ",), 0.20, 365
+UNIVERSE = Path("data/yahoo/universe")
+SWING = ("minervini", "bnf")
 BARS = Path("data/bars")  # New York time: gap trades still open after this close at the current price
 
 
@@ -186,6 +196,10 @@ def candidates(inp: dict, trades: list[Trade], state: dict) -> dict[str, list[tu
         add("velocity", v["symbol"], f"up {float(v['pct_1d']) * 100:.1f}% today, {float(v['pct_1h']) * 100:.1f}% "
                                      f"in the last hour, {float(v['rel_volume']):.1f}x volume")
 
+    for src in SWING:
+        for r in (inp.get("swing") or {}).get(src) or []:
+            add(src, r["symbol"], r["reason"])
+
     for g in sorted(_open_gaps(inp), key=_gap):
         add("gaps", g["symbol"], f"opened {_gap(g) * -100:.1f}% below yesterday's close {float(g['prev_close']):.2f}")
 
@@ -245,8 +259,12 @@ def run(inp: dict, trades: list[Trade], state: dict) -> tuple[list[Trade], dict,
             continue
         t.days += 1
         r = px / t.entry - 1
-        why = ("time" if t.days >= MAX_HOLD[t.source] else "") if t.source == "buffett" else (
-            "stop" if r <= STOP else "target" if r >= TARGET else "time" if t.days >= MAX_HOLD[t.source] else "")
+        if t.source == "buffett":
+            why = "time" if t.days >= MAX_HOLD[t.source] else ""
+        elif t.source in SWING:
+            why = swing_exit(t, px, now.astimezone(NY).date())
+        else:
+            why = ("stop" if r <= STOP else "target" if r >= TARGET else "time" if t.days >= MAX_HOLD[t.source] else "")
         if why:
             t.status, t.closed, t.exit, t.bench_exit, t.exit_reason = "closed", today, px, bench, why
             report["closed"].append({"source": t.source, "symbol": t.symbol, "ret": round(t.ret, 4),
@@ -292,6 +310,47 @@ def buffett_signals(quotes: dict[str, float], trades: list[Trade], today: date,
         if px <= high * (1 - BUFFETT_DROP):
             out.append((sym, f"{(1 - px / high) * 100:.0f}% below its 1-year high {high:.2f}"))
     return out
+
+
+def _universe_bars(sym: str, today: date, folder: Path) -> list[dict]:
+    """Daily bars before today (Yahoo includes today's unfinished bar during market hours)."""
+    from .swing import load
+
+    path = folder / f"{sym}.csv"
+    return [b for b in load(path) if b["date"] < today.isoformat()] if path.exists() else []
+
+
+def swing_scan(today: date, folder: Path = UNIVERSE) -> dict[str, list[dict]]:
+    """Minervini and BNF signals at yesterday's close, strongest first, for the `swing` input key."""
+    from .swing import indicators, signal
+
+    found: dict[str, list[tuple]] = {s: [] for s in SWING}
+    for path in sorted(folder.glob("*.csv")):
+        b = _universe_bars(path.stem, today, folder)
+        if len(b) < 261:
+            continue
+        ind = indicators(b)
+        for src in SWING:
+            sig = signal(src, b, ind, len(b) - 1)
+            if sig:
+                why = (f"breakout from a tight range, up {sig['rank'] * 100:.0f}% in 6 months" if src == "minervini"
+                       else f"{sig['rank'] * 100:.0f}% below its 25-day average")
+                found[src].append((sig["rank"], path.stem, why))
+    return {src: [{"symbol": s, "reason": w} for _, s, w in sorted(v, reverse=True)] for src, v in found.items()}
+
+
+def swing_exit(t: Trade, px: float, today: date, folder: Path = UNIVERSE) -> str:
+    """Exit reason for an open minervini / bnf trade at price px, or ''. Uses closes before today plus px."""
+    closes = [b["close"] for b in _universe_bars(t.symbol, today, folder)] + [px]
+    avg = lambda n: sum(closes[-n:]) / n if len(closes) >= n else None
+    if t.source == "minervini":
+        if px <= t.entry * 0.93:
+            return "stop"
+        if avg(50) and px < avg(50):
+            return "below 50-day"
+    elif t.source == "bnf" and avg(25) and px >= avg(25):
+        return "back to average"
+    return "time" if t.days >= MAX_HOLD[t.source] else ""
 
 
 def gap_needs(trades: list[Trade]) -> list[str]:

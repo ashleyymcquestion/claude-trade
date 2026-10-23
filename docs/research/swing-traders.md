@@ -25,3 +25,15 @@ at most 10 positions at 10% each, cash only. Raw output: swing-output.txt. Rules
   results come from small, fast-moving stocks this list mostly lacks.
 - **Raschke's Holy Grail** traded the most and earned the least per trade; costs eat a +0.3% average.
 - None beat simply holding SPY over the full period; Minervini matched it with far less risk.
+
+## Update: ~150 stocks with AI infrastructure, oil and rare-earth magnets added
+| | Since 2016 | 2024-2026 |
+|---|---|---|
+| SPY | +13.2%/yr, worst drop -34% | +18.7%/yr, -19% |
+| Minervini | +9.8%/yr, -16% | +12.7%/yr, -16% |
+| BNF | +10.4%/yr, **-54%** | **+27.8%/yr**, -19% |
+
+The volatile AI-infrastructure names make BNF's dip-buying both more profitable recently and much riskier
+(its worst drop went from -36% to -54%). Both now run in watchlab as paper sources (`minervini`, `bnf`).
+On Oct 23 the scan found 1 Minervini breakout (ROKU) and 14 BNF dips, mostly AI infrastructure and chip
+stocks after a sharp sell-off (IREN, CRWV, COHR, USAR, SMR, NBIS, ...); watchlab takes the top 3 a day.

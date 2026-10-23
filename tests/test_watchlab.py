@@ -185,3 +185,44 @@ def test_buffett_trade_ignores_stop_and_target():
     t = w.Trade("buffett", "QQQ", "2026-10-01", 100.0, 100.0, "x")
     trades, _, rep = w.run({"now": "2026-10-02T15:00:00Z", "quotes": {"QQQ": 70.0}}, [t], {"last_run": ""})
     assert t.status == "open" and t.days == 1
+
+
+def _bars_csv(path, closes):
+    rows = ["date,open,high,low,close,volume"]
+    from datetime import date as d, timedelta
+    start = d(2025, 1, 1)
+    rows += [f"{start + timedelta(days=i)},{c},{c},{c},{c},1000" for i, c in enumerate(closes)]
+    path.write_text("\n".join(rows) + "\n")
+
+
+def test_bnf_signal_scan_and_exit(tmp_path):
+    from trader import watchlab as w
+    closes = [100.0] * 300 + [70.0]                  # last close 30% below its 25-day average
+    _bars_csv(tmp_path / "XYZ.csv", closes)
+    today = date(2026, 6, 1)
+    scan = w.swing_scan(today, tmp_path)
+    assert [r["symbol"] for r in scan["bnf"]] == ["XYZ"] and scan["minervini"] == []
+    t = w.Trade("bnf", "XYZ", "2026-05-29", 70.0, 1.0, "x")
+    assert w.swing_exit(t, 75.0, today, tmp_path) == ""           # still below the 25-day average (~98.8)
+    assert w.swing_exit(t, 99.0, today, tmp_path) == "back to average"
+    t.days = 15
+    assert w.swing_exit(t, 75.0, today, tmp_path) == "time"
+
+
+def test_minervini_exit_stop_and_50_day(tmp_path):
+    from trader import watchlab as w
+    _bars_csv(tmp_path / "XYZ.csv", [100.0 + i * 0.1 for i in range(300)])
+    t = w.Trade("minervini", "XYZ", "2026-05-29", 130.0, 1.0, "x")
+    today = date(2026, 6, 1)
+    assert w.swing_exit(t, 129.5, today, tmp_path) == ""
+    assert w.swing_exit(t, 120.0, today, tmp_path) == "stop"                  # -7.7%
+    t.entry = 125.0
+    assert w.swing_exit(t, 124.0, today, tmp_path) == "below 50-day"          # 50-day average ~127.4
+
+
+def test_swing_ideas_open_as_paper_trades():
+    from trader import watchlab as w
+    inp = {"now": "2026-10-23T15:00:00Z", "quotes": {"QQQ": 700.0, "AAA": 50.0},
+           "swing": {"minervini": [{"symbol": "AAA", "reason": "breakout"}], "bnf": []}}
+    trades, _, rep = w.run(inp, [], {"last_run": ""})
+    assert [(t.source, t.symbol, t.entry) for t in trades] == [("minervini", "AAA", 50.0)]

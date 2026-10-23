@@ -124,6 +124,9 @@ Paper-tests ideas from top gainers, unusual volume, politician filings and socia
        long on a down day: save it to a file and pull these four fields with jq.
      - `social`: one WebSearch for today's most-discussed tickers on X / Threads / StockTwits / Reddit. Up to 3
        US-listed tickers from a page clearly dated today or yesterday, each with `why` and `url`; else `[]`.
+     - `swing`: run `python -m trader.yahoo --universe --recent` (refreshes 2 years of daily bars for ~110 stocks
+       from Yahoo, about a minute), then `python -m trader watch-swing --input watch_in.json` (adds the Minervini and
+       BNF signals from yesterday's close to the file). If Yahoo fails, skip it and say so; the rest still runs.
 17f. `python -m trader watch-needs --input watch_in.json` → `get_equity_quotes` for those symbols; add each last
      trade price to `quotes` in `watch_in.json`.
 17g. `python -m trader watch-run --input watch_in.json`. Report the opened / closed paper trades and the scoreboard.

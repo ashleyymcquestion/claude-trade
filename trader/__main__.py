@@ -55,6 +55,8 @@ def main(argv=None):
     sub.add_parser("watch-dt-needs", help="watchlab dual thrust: symbols to quote and get today's open for")
     wd2 = sub.add_parser("watch-dt-check", help="watchlab dual thrust: open / close paper trades (every run)")
     wd2.add_argument("--input", required=True, help='{"now": optional, "opens": {...}, "quotes": {...}}')
+    ws = sub.add_parser("watch-swing", help="watchlab: scan data/yahoo/universe for minervini / bnf signals into the input")
+    ws.add_argument("--input", required=True, help="watch_in.json; its \"swing\" key is (re)written")
     sub.add_parser("watch-gap-needs", help="watchlab gaps: symbols to quote for watch-gap-check ([] = nothing open)")
     wg = sub.add_parser("watch-gap-check", help="watchlab gaps: close filled / end-of-day gap trades (every run)")
     wg.add_argument("--input", required=True, help='{"now": optional, "quotes": {"QQQ": ..., "SYM": ...}}')
@@ -114,6 +116,12 @@ def main(argv=None):
             rep = watchlab.dt_check(inp, trades, watchlab.dt_levels(watchlab._now(inp).astimezone(watchlab.NY).date()))
             watchlab.save_trades(trades)
             print(json.dumps({**rep, "scoreboard": watchlab.scoreboard(trades)["dual_thrust"]}, indent=2))
+        elif args.cmd == "watch-swing":
+            path = Path(args.input)
+            inp = json.loads(path.read_text()) if path.exists() else {}
+            inp["swing"] = watchlab.swing_scan(watchlab._now(inp).astimezone(watchlab.NY).date())
+            path.write_text(json.dumps(inp, indent=1))
+            print(json.dumps({k: [r["symbol"] for r in v] for k, v in inp["swing"].items()}))
         elif args.cmd == "watch-gap-needs":
             print(json.dumps(watchlab.gap_needs(trades)))
         elif args.cmd == "watch-gap-check":
