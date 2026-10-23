@@ -164,3 +164,10 @@
 - Account $4.07 (cash $1.53, crypto $1.59, SPCX $0.94). No orders: crypto at target (BTC top-up $0.17 under the
   $0.25 minimum); stock bot skipped all four (market closed); SPCX test holding at $144.75 (target $161.05, no stop).
 - Watchlab and options lab already ran today; no gap or Dual Thrust checks after the close.
+
+## 2026-10-22 (5:38 PM PT, hourly run; the 2:38, 3:38 and 4:38 PM runs were missed while the session was paused)
+- Account $4.08 (cash $1.53, crypto $1.59, SPCX $0.94). No orders: crypto at target (BTC top-up $0.16 under the
+  $0.25 minimum); stock bot skipped all four (market closed); SPCX holding at $144.75 (after hours $147.20).
+- Data problem, handled: Robinhood's daily bars for Oct 22 came back as interpolated copies of Oct 21. The crypto
+  planner drops them itself; quantbot doesn't, so the stock plan used the previous bar file (through Oct 21)
+  to keep a false Oct 22 close out of data/bars/.
