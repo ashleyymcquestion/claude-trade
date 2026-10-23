@@ -21,3 +21,7 @@ Paper trading (config.coinbase.toml, COINBASE.md).
 - Futures paper test: $999.73 (-0.0%), holds 1 ETH contract. Trades: BTC 1->0 contracts @ 81295.0.
 - Real leftover sells filled: XCN 268.1 @ 0.003951 ($1.05 after fees, 2:09 PM PT Oct 22), SKY 12.4 @ 0.07255 ($0.90 after fees, 1:44 PM PT Oct 22).
 - Note: the 2 PM - 6 PM PT hourly runs were missed (session restarts); this run caught up (paper fills use every 15-minute candle since the orders were placed).
+
+## 2026-10-22 (7:08 PM PT, hourly paper run)
+- Paper: btc_trend $4.97 (-0.6%, holds BTC), momentum $5.01 (+0.1%, holds ALGO, BTC).
+- Futures paper test: $999.88 (-0.0%), holds 1 ETH contract.
