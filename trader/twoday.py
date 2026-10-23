@@ -1,13 +1,16 @@
 """2-day $100 option bets on real past option prices: `python -m trader.twoday`. Picks are made on May-Jul 2026
-and checked on Aug-Oct 2026 (out of sample). Uses trader/budgetbacktest.py rules and data/optionhist/."""
+and checked on Aug-Oct 2026 (out of sample). Uses trader/budgetbacktest.py rules and data/optionhist/.
+Env: HOLD (trading days, default 2), SYMS (default "NVDA AMD PLTR QQQ")."""
+
+import os
 
 from trader import budgetbacktest as bb
 from datetime import date
 from collections import defaultdict
-import os
 HOLD=int(os.environ.get("HOLD", "2"))
 rows=[]
-for sym in ["NVDA","AMD","PLTR","QQQ"]:
+SYMS=os.environ.get("SYMS","NVDA AMD PLTR QQQ").split()
+for sym in SYMS:
     chain,closes=bb.load_options(sym),bb.load_closes(sym)
     days=sorted(closes)
     for e in sorted({e for e,_,_ in chain}):

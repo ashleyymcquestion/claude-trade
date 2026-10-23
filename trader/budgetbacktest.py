@@ -61,8 +61,12 @@ def load_options(symbol: str, folder: Path = DIR) -> dict:
 
 
 def load_closes(symbol: str, folder: Path = BARS) -> dict[str, float]:
-    with open(folder / f"{symbol}.csv") as f:
-        return {r["timestamp"][:10]: float(r["close"]) for r in csv.DictReader(f)}
+    """Daily closes from data/bars/, or from the Yahoo stock list (data/yahoo/universe/) for other symbols."""
+    path = folder / f"{symbol}.csv"
+    if not path.exists():
+        path = Path("data/yahoo/universe") / f"{symbol}.csv"
+    with open(path) as f:
+        return {(r.get("timestamp") or r["date"])[:10]: float(r["close"]) for r in csv.DictReader(f)}
 
 
 def _intrinsic(typ: str, strike: float, spot: float) -> float:
