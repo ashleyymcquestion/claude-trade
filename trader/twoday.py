@@ -4,7 +4,8 @@ and checked on Aug-Oct 2026 (out of sample). Uses trader/budgetbacktest.py rules
 from trader import budgetbacktest as bb
 from datetime import date
 from collections import defaultdict
-HOLD=2
+import os
+HOLD=int(os.environ.get("HOLD", "2"))
 rows=[]
 for sym in ["NVDA","AMD","PLTR","QQQ"]:
     chain,closes=bb.load_options(sym),bb.load_closes(sym)
@@ -40,4 +41,4 @@ print(f"{len(res)} setups tested. Top 10 by May-Jul average, then how they did A
 for a,rule,db,fn,n,w,n2,a2,w2 in res[:10]:
   print(f"{rule:13} DTE {db:5} {fn:20} | May-Jul n={n:3} avg {a:+6.1%} win {w:.0%} | Aug-Oct n={n2:3} avg {a2:+6.1%} win {w2:.0%}")
 print("Overall average of ALL setups Aug-Oct:", round(sum(r[7] for r in res)/len(res),3))
-allc=[r["ret"] for r in rows]; print("all 2-day option bets:",len(allc),"avg",round(sum(allc)/len(allc),3),"win",round(sum(x>0 for x in allc)/len(allc),2))
+allc=[r["ret"] for r in rows]; print(f"all {HOLD}-day option bets:",len(allc),"avg",round(sum(allc)/len(allc),3),"win",round(sum(x>0 for x in allc)/len(allc),2))

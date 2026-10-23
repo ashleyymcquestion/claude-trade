@@ -12,3 +12,15 @@ $0.03 per side. Setups were ranked on May-Jul and then checked on Aug-Oct, month
   the average is positive because winners are bigger. Puts lost in every version (stocks rose May-Oct).
 
 Verdict: no 2-day $100 options bet reliably makes money. The least-bad one wins under half the time.
+
+## Longer holds (`HOLD=5 python -m trader.twoday`, also 3 and 10)
+| Hold | All bets: avg / won | Best setup both halves (nearest call <= $100, 28-45 days left): May-Jul / Aug-Oct avg | won |
+|---|---|---|---|
+| 2 days | -13% / 27% | +16% / +11% | 43% / 38% |
+| 3 days | -11% / 26% | +30% / +31% | 44% / 38% |
+| 5 days | -1% / 23% | +70% / +56% | 41% / 32% |
+| 10 days | +18% / 20% | +222% / +31% | 42% / 28% |
+
+At 5 days the nearest call's typical (median) bet lost about 35% in both halves; about 40% of bets lost half or more and
+18-29% doubled. Month by month its average was +96% (May), -43% (Jun), -52% (Jul), -40% (Aug), +159% (Sep):
+big wins in a few strong months carry it. Longer holds raise the average and lower the win rate.
