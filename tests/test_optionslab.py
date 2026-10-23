@@ -162,16 +162,40 @@ def test_pullback_signal_opens_calls_on_a_dip_in_an_uptrend():
     assert {p["strategy"] for p in pos if p["underlying"] == "NVDA"} >= {"pullback_calls/call"}
 
 
-def test_budget100_buys_the_best_spread_under_100(monkeypatch):
+def test_budget_spread_variant_respects_the_100_limit(monkeypatch):
     monkeypatch.setattr(o, "BUDGET_SYMBOLS", ("QQQ",))
-    monkeypatch.setattr(o, "BUDGET_RULE", "call_spread")
+    monkeypatch.setattr(o, "BUDGET_VARIANTS", {"budget/spread": ("call_spread", 5)})
     res, pos, st = o.step(full(), [], EMPTY, [])          # 100C/105C nets ~$2.40: over budget
-    assert not [p for p in pos if p["strategy"] == "budget100"]
-    assert any(s.startswith("budget100 QQQ") for s in res["done"]["skipped"])
+    assert not [p for p in pos if p["strategy"] == "budget/spread"]
+    assert any(s.startswith("budget/spread QQQ") for s in res["done"]["skipped"])
     cheap = {**RICH_PUTS, ("call", 100): (1.0, 1.05), ("call", 105): (0.4, 0.45)}
     res, pos, st = o.step(full(table=cheap), [], EMPTY, [])
-    b = [p for p in pos if p["strategy"] == "budget100"]
-    assert len(b) == 1 and b[0]["underlying"] == "QQQ"
-    assert b[0]["net_debit"] == 0.65                       # buy 100C at the 1.05 ask, sell 105C at the 0.40 bid
-    assert b[0]["legs"][0]["action"] == "buy" and b[0]["legs"][1]["action"] == "sell"
-    assert "budget100" in res["done"]["scoreboard"]["by_idea"]
+    b = [p for p in pos if p["strategy"] == "budget/spread"]
+    assert len(b) == 1 and b[0]["net_debit"] == 0.65      # buy 100C at the 1.05 ask, sell 105C at the 0.40 bid
+    assert "budget/spread" in res["done"]["scoreboard"]["by_idea"]
+
+
+def test_budget_variants_buy_nearest_call_and_put_under_100(monkeypatch):
+    monkeypatch.setattr(o, "BUDGET_SYMBOLS", ("QQQ",))
+    res, pos, st = o.step(full(), [], EMPTY, [])
+    b = {p["strategy"]: p for p in pos if p["strategy"].startswith("budget/")}
+    assert set(b) == {"budget/call-2d", "budget/call-5d", "budget/call-7d", "budget/put-2d", "budget/put-5d",
+                      "budget/put-7d"}
+    assert b["budget/call-5d"]["legs"][0]["strike"] == 115 and b["budget/call-5d"]["net_debit"] == 0.45
+    assert b["budget/put-2d"]["legs"][0]["strike"] == 100 and b["budget/put-2d"]["legs"][0]["type"] == "put"
+
+
+def test_budget_bet_sells_after_its_trading_days():
+    p = {"strategy": "budget/call-5d", "structure": "call_nearest", "underlying": "QQQ", "expiration": "2026-12-18",
+         "opened": "2026-10-23", "net_debit": 0.80, "underlying_entry": 700.0, "status": "open",
+         "legs": [{"instrument_id": "c1", "type": "call", "action": "buy", "strike": 750.0, "entry": 0.80}]}
+    q = {"c1": {"bid": 0.70, "ask": 0.75}}
+    rep = {"closed": []}
+    o._check_exit(p, q, 700.0, o.date(2026, 10, 29), rep)       # 4 trading days: keep
+    assert p["status"] == "open"
+    o._check_exit(p, q, 700.0, o.date(2026, 10, 30), rep)       # 5 trading days: sell
+    assert p["status"] == "closed" and p["exit_reason"] == "held 5 days" and p["pnl"] == -10.0
+
+    p2 = {**p, "strategy": "budget/put-2d", "status": "open"}
+    o._check_exit(p2, q, 700.0, o.date(2026, 10, 27), rep)      # 2 trading days
+    assert p2["status"] == "closed" and p2["exit_reason"] == "held 2 days"
