@@ -171,3 +171,8 @@
 - Data problem, handled: Robinhood's daily bars for Oct 22 came back as interpolated copies of Oct 21. The crypto
   planner drops them itself; quantbot doesn't, so the stock plan used the previous bar file (through Oct 21)
   to keep a false Oct 22 close out of data/bars/.
+
+## 2026-10-22 (6:38 PM PT, hourly run)
+- Account $4.08. No orders: crypto at target (BTC top-up under the $0.25 minimum); stocks and SPCX skipped (market
+  closed). SPCX $144.75 at the close, $147.38 after hours. Stock plan again used bars through Oct 21 (Robinhood's
+  Oct 22 daily bar is still an interpolated placeholder).
