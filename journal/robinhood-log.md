@@ -223,3 +223,8 @@
   NVDA 215C, AMD 520C, QQQ 710C (pullback), plus the first $100 budget bets: calls NVDA 255C $0.76, PLTR 270C
   $0.89, QQQ 785C $0.86 and four puts, each in the 2-, 5- and 7-day variants. Fixed a duplicate entry in the
   options lab's list of contracts to look up (no effect on results).
+
+## 2026-10-23 (8:38 AM PT, hourly run)
+- Account $4.09 (cash $1.53, crypto $1.60, SPCX $0.96). No orders: crypto at target (BTC top-up $0.19 under the
+  $0.25 minimum); stocks: trend:PLTR:enter skipped ($0.10 below the $1 minimum); SPCX holding at $147.31
+  (target $161.05). Gap check: 5 paper gap trades still open, none filled. Dual Thrust: no breakout.
