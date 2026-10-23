@@ -304,7 +304,7 @@ def step(inp: dict, positions: list[dict], state: dict, watch_trades: list) -> t
             if legs := build(s, spots[u], cost, rows.get("call", []), rows.get("put", [])):
                 plans.append({**w, "structure": s, "expiration": exp, "vol": vol, "legs": legs})
     if need_i:
-        return {"need": {"instruments": need_i}}, *orig
+        return {"need": {"instruments": [dict(t) for t in dict.fromkeys(tuple(sorted(n.items())) for n in need_i)]}}, *orig
 
     quotes = inp.get("quotes") or {}
     ids = {l["row"]["id"] for p in plans for l in p["legs"]} | {

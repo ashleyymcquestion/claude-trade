@@ -162,5 +162,802 @@
   "pop": null,
   "ev": null,
   "note": "opened before the edge filter"
+ },
+ {
+  "id": "9a4013d9",
+  "strategy": "momentum_calls/call",
+  "structure": "long_call",
+  "underlying": "RNG",
+  "expiration": "2026-11-27",
+  "legs": [
+   {
+    "instrument_id": "efb594ce-e73b-4e40-aa0f-1ee536da219a",
+    "type": "call",
+    "action": "buy",
+    "strike": 86.0,
+    "entry": 7.3
+   }
+  ],
+  "net_debit": 7.3,
+  "opened": "2026-10-23",
+  "underlying_entry": 85.08,
+  "vol": 0.5478,
+  "pop": 0.2717,
+  "ev": -181.94,
+  "max_profit": 11938.0,
+  "max_loss": 730.0,
+  "status": "open",
+  "closed": "",
+  "exit_reason": "",
+  "pnl": 0.0,
+  "ret": 0.0
+ },
+ {
+  "id": "f84722ba",
+  "strategy": "pullback_calls",
+  "structure": "bull_put_spread",
+  "underlying": "NVDA",
+  "expiration": "2026-11-27",
+  "legs": [
+   {
+    "instrument_id": "7b727139-1543-4a44-bd6c-d7b37db21f70",
+    "type": "put",
+    "action": "sell",
+    "strike": 200.0,
+    "entry": 5.6
+   },
+   {
+    "instrument_id": "a1a08836-af4b-4b04-83b0-dde09885fd95",
+    "type": "put",
+    "action": "buy",
+    "strike": 190.0,
+    "entry": 3.35
+   }
+  ],
+  "net_debit": -2.25,
+  "opened": "2026-10-23",
+  "underlying_entry": 213.12,
+  "vol": 0.2893,
+  "pop": 0.7986,
+  "ev": 61.73,
+  "max_profit": 225.0,
+  "max_loss": 775.0,
+  "status": "open",
+  "closed": "",
+  "exit_reason": "",
+  "pnl": 0.0,
+  "ret": 0.0
+ },
+ {
+  "id": "8a2e7eb7",
+  "strategy": "pullback_calls",
+  "structure": "bull_put_spread",
+  "underlying": "QQQ",
+  "expiration": "2026-11-27",
+  "legs": [
+   {
+    "instrument_id": "c0cf8e72-0748-4b4d-8d83-a446a3f6ea29",
+    "type": "put",
+    "action": "sell",
+    "strike": 670.0,
+    "entry": 8.84
+   },
+   {
+    "instrument_id": "354bfaff-eda1-43c1-aee9-da08a5888f4d",
+    "type": "put",
+    "action": "buy",
+    "strike": 635.0,
+    "entry": 4.37
+   }
+  ],
+  "net_debit": -4.47,
+  "opened": "2026-10-23",
+  "underlying_entry": 707.63,
+  "vol": 0.1889,
+  "pop": 0.8618,
+  "ev": 154.66,
+  "max_profit": 447.0,
+  "max_loss": 3053.0,
+  "status": "open",
+  "closed": "",
+  "exit_reason": "",
+  "pnl": 0.0,
+  "ret": 0.0
+ },
+ {
+  "id": "9aef0be4",
+  "strategy": "pullback_calls/call",
+  "structure": "long_call",
+  "underlying": "NVDA",
+  "expiration": "2026-11-27",
+  "legs": [
+   {
+    "instrument_id": "cc4fd36e-3d83-4b16-babb-e7df79896cb5",
+    "type": "call",
+    "action": "buy",
+    "strike": 215.0,
+    "entry": 10.0
+   }
+  ],
+  "net_debit": 10.0,
+  "opened": "2026-10-23",
+  "underlying_entry": 213.12,
+  "vol": 0.2893,
+  "pop": 0.2711,
+  "ev": -288.58,
+  "max_profit": 30776.0,
+  "max_loss": 1000.0,
+  "status": "open",
+  "closed": "",
+  "exit_reason": "",
+  "pnl": 0.0,
+  "ret": 0.0
+ },
+ {
+  "id": "7c2ef566",
+  "strategy": "pullback_calls/call",
+  "structure": "long_call",
+  "underlying": "AMD",
+  "expiration": "2026-11-27",
+  "legs": [
+   {
+    "instrument_id": "2655dcc3-ea40-47e6-8c4f-29e254e66e62",
+    "type": "call",
+    "action": "buy",
+    "strike": 520.0,
+    "entry": 39.95
+   }
+  ],
+  "net_debit": 39.95,
+  "opened": "2026-10-23",
+  "underlying_entry": 519.81,
+  "vol": 0.5881,
+  "pop": 0.3157,
+  "ev": -138.51,
+  "max_profit": 73947.0,
+  "max_loss": 3995.0,
+  "status": "open",
+  "closed": "",
+  "exit_reason": "",
+  "pnl": 0.0,
+  "ret": 0.0
+ },
+ {
+  "id": "03368524",
+  "strategy": "pullback_calls/call",
+  "structure": "long_call",
+  "underlying": "QQQ",
+  "expiration": "2026-11-27",
+  "legs": [
+   {
+    "instrument_id": "fc9eff22-2999-4253-879e-eb199ae149c4",
+    "type": "call",
+    "action": "buy",
+    "strike": 710.0,
+    "entry": 20.28
+   }
+  ],
+  "net_debit": 20.28,
+  "opened": "2026-10-23",
+  "underlying_entry": 707.63,
+  "vol": 0.1889,
+  "pop": 0.307,
+  "ev": -360.42,
+  "max_profit": 103881.0,
+  "max_loss": 2028.0,
+  "status": "open",
+  "closed": "",
+  "exit_reason": "",
+  "pnl": 0.0,
+  "ret": 0.0
+ },
+ {
+  "id": "8ad8fe09",
+  "strategy": "budget/call-2d",
+  "structure": "call_nearest",
+  "underlying": "NVDA",
+  "expiration": "2026-11-27",
+  "legs": [
+   {
+    "instrument_id": "15ad8524-fc39-4bc9-bed0-9bb14cf60d0a",
+    "type": "call",
+    "action": "buy",
+    "strike": 255.0,
+    "entry": 0.76
+   }
+  ],
+  "net_debit": 0.76,
+  "opened": "2026-10-23",
+  "underlying_entry": 213.12,
+  "vol": 0.2893,
+  "pop": 0.0204,
+  "ev": -56.68,
+  "max_profit": 27700.0,
+  "max_loss": 76.0,
+  "status": "open",
+  "closed": "",
+  "exit_reason": "",
+  "pnl": 0.0,
+  "ret": 0.0
+ },
+ {
+  "id": "55820114",
+  "strategy": "budget/call-2d",
+  "structure": "call_nearest",
+  "underlying": "PLTR",
+  "expiration": "2026-11-27",
+  "legs": [
+   {
+    "instrument_id": "114dac95-3705-4bb6-9b8d-ad3fb079c474",
+    "type": "call",
+    "action": "buy",
+    "strike": 270.0,
+    "entry": 0.89
+   }
+  ],
+  "net_debit": 0.89,
+  "opened": "2026-10-23",
+  "underlying_entry": 195.37,
+  "vol": 0.407,
+  "pop": 0.0042,
+  "ev": -83.98,
+  "max_profit": 21752.0,
+  "max_loss": 89.0,
+  "status": "open",
+  "closed": "",
+  "exit_reason": "",
+  "pnl": 0.0,
+  "ret": 0.0
+ },
+ {
+  "id": "38955397",
+  "strategy": "budget/call-2d",
+  "structure": "call_nearest",
+  "underlying": "QQQ",
+  "expiration": "2026-11-27",
+  "legs": [
+   {
+    "instrument_id": "96c0fd88-801f-456a-8da1-b83f01977aa9",
+    "type": "call",
+    "action": "buy",
+    "strike": 785.0,
+    "entry": 0.86
+   }
+  ],
+  "net_debit": 0.86,
+  "opened": "2026-10-23",
+  "underlying_entry": 707.63,
+  "vol": 0.1889,
+  "pop": 0.039,
+  "ev": -9.3,
+  "max_profit": 98323.0,
+  "max_loss": 86.0,
+  "status": "open",
+  "closed": "",
+  "exit_reason": "",
+  "pnl": 0.0,
+  "ret": 0.0
+ },
+ {
+  "id": "64dad39b",
+  "strategy": "budget/call-5d",
+  "structure": "call_nearest",
+  "underlying": "NVDA",
+  "expiration": "2026-11-27",
+  "legs": [
+   {
+    "instrument_id": "15ad8524-fc39-4bc9-bed0-9bb14cf60d0a",
+    "type": "call",
+    "action": "buy",
+    "strike": 255.0,
+    "entry": 0.76
+   }
+  ],
+  "net_debit": 0.76,
+  "opened": "2026-10-23",
+  "underlying_entry": 213.12,
+  "vol": 0.2893,
+  "pop": 0.0204,
+  "ev": -56.68,
+  "max_profit": 27700.0,
+  "max_loss": 76.0,
+  "status": "open",
+  "closed": "",
+  "exit_reason": "",
+  "pnl": 0.0,
+  "ret": 0.0
+ },
+ {
+  "id": "6d9448fe",
+  "strategy": "budget/call-5d",
+  "structure": "call_nearest",
+  "underlying": "PLTR",
+  "expiration": "2026-11-27",
+  "legs": [
+   {
+    "instrument_id": "114dac95-3705-4bb6-9b8d-ad3fb079c474",
+    "type": "call",
+    "action": "buy",
+    "strike": 270.0,
+    "entry": 0.89
+   }
+  ],
+  "net_debit": 0.89,
+  "opened": "2026-10-23",
+  "underlying_entry": 195.37,
+  "vol": 0.407,
+  "pop": 0.0042,
+  "ev": -83.98,
+  "max_profit": 21752.0,
+  "max_loss": 89.0,
+  "status": "open",
+  "closed": "",
+  "exit_reason": "",
+  "pnl": 0.0,
+  "ret": 0.0
+ },
+ {
+  "id": "f32d7a26",
+  "strategy": "budget/call-5d",
+  "structure": "call_nearest",
+  "underlying": "QQQ",
+  "expiration": "2026-11-27",
+  "legs": [
+   {
+    "instrument_id": "96c0fd88-801f-456a-8da1-b83f01977aa9",
+    "type": "call",
+    "action": "buy",
+    "strike": 785.0,
+    "entry": 0.86
+   }
+  ],
+  "net_debit": 0.86,
+  "opened": "2026-10-23",
+  "underlying_entry": 707.63,
+  "vol": 0.1889,
+  "pop": 0.039,
+  "ev": -9.3,
+  "max_profit": 98323.0,
+  "max_loss": 86.0,
+  "status": "open",
+  "closed": "",
+  "exit_reason": "",
+  "pnl": 0.0,
+  "ret": 0.0
+ },
+ {
+  "id": "5e295962",
+  "strategy": "budget/call-7d",
+  "structure": "call_nearest",
+  "underlying": "NVDA",
+  "expiration": "2026-11-27",
+  "legs": [
+   {
+    "instrument_id": "15ad8524-fc39-4bc9-bed0-9bb14cf60d0a",
+    "type": "call",
+    "action": "buy",
+    "strike": 255.0,
+    "entry": 0.76
+   }
+  ],
+  "net_debit": 0.76,
+  "opened": "2026-10-23",
+  "underlying_entry": 213.12,
+  "vol": 0.2893,
+  "pop": 0.0204,
+  "ev": -56.68,
+  "max_profit": 27700.0,
+  "max_loss": 76.0,
+  "status": "open",
+  "closed": "",
+  "exit_reason": "",
+  "pnl": 0.0,
+  "ret": 0.0
+ },
+ {
+  "id": "a80152eb",
+  "strategy": "budget/call-7d",
+  "structure": "call_nearest",
+  "underlying": "PLTR",
+  "expiration": "2026-11-27",
+  "legs": [
+   {
+    "instrument_id": "114dac95-3705-4bb6-9b8d-ad3fb079c474",
+    "type": "call",
+    "action": "buy",
+    "strike": 270.0,
+    "entry": 0.89
+   }
+  ],
+  "net_debit": 0.89,
+  "opened": "2026-10-23",
+  "underlying_entry": 195.37,
+  "vol": 0.407,
+  "pop": 0.0042,
+  "ev": -83.98,
+  "max_profit": 21752.0,
+  "max_loss": 89.0,
+  "status": "open",
+  "closed": "",
+  "exit_reason": "",
+  "pnl": 0.0,
+  "ret": 0.0
+ },
+ {
+  "id": "9c8a3ebc",
+  "strategy": "budget/call-7d",
+  "structure": "call_nearest",
+  "underlying": "QQQ",
+  "expiration": "2026-11-27",
+  "legs": [
+   {
+    "instrument_id": "96c0fd88-801f-456a-8da1-b83f01977aa9",
+    "type": "call",
+    "action": "buy",
+    "strike": 785.0,
+    "entry": 0.86
+   }
+  ],
+  "net_debit": 0.86,
+  "opened": "2026-10-23",
+  "underlying_entry": 707.63,
+  "vol": 0.1889,
+  "pop": 0.039,
+  "ev": -9.3,
+  "max_profit": 98323.0,
+  "max_loss": 86.0,
+  "status": "open",
+  "closed": "",
+  "exit_reason": "",
+  "pnl": 0.0,
+  "ret": 0.0
+ },
+ {
+  "id": "0810feaf",
+  "strategy": "budget/put-2d",
+  "structure": "put_nearest",
+  "underlying": "NVDA",
+  "expiration": "2026-11-27",
+  "legs": [
+   {
+    "instrument_id": "6d5711a9-db31-4da3-971a-7a9fd6ef47f2",
+    "type": "put",
+    "action": "buy",
+    "strike": 165.0,
+    "entry": 0.89
+   }
+  ],
+  "net_debit": 0.89,
+  "opened": "2026-10-23",
+  "underlying_entry": 213.12,
+  "vol": 0.2893,
+  "pop": 0.0017,
+  "ev": -88.12,
+  "max_profit": 10017.0,
+  "max_loss": 89.0,
+  "status": "open",
+  "closed": "",
+  "exit_reason": "",
+  "pnl": 0.0,
+  "ret": 0.0
+ },
+ {
+  "id": "6ec8508e",
+  "strategy": "budget/put-2d",
+  "structure": "put_nearest",
+  "underlying": "AMD",
+  "expiration": "2026-11-27",
+  "legs": [
+   {
+    "instrument_id": "17a849df-ff51-4f72-943f-b57382e23310",
+    "type": "put",
+    "action": "buy",
+    "strike": 320.0,
+    "entry": 0.97
+   }
+  ],
+  "net_debit": 0.97,
+  "opened": "2026-10-23",
+  "underlying_entry": 519.81,
+  "vol": 0.5881,
+  "pop": 0.0044,
+  "ev": -89.02,
+  "max_profit": 16309.0,
+  "max_loss": 97.0,
+  "status": "open",
+  "closed": "",
+  "exit_reason": "",
+  "pnl": 0.0,
+  "ret": 0.0
+ },
+ {
+  "id": "92cd1b46",
+  "strategy": "budget/put-2d",
+  "structure": "put_nearest",
+  "underlying": "PLTR",
+  "expiration": "2026-11-27",
+  "legs": [
+   {
+    "instrument_id": "45dec634-8dc3-43bf-af0a-872ad2501001",
+    "type": "put",
+    "action": "buy",
+    "strike": 135.0,
+    "entry": 0.82
+   }
+  ],
+  "net_debit": 0.82,
+  "opened": "2026-10-23",
+  "underlying_entry": 195.37,
+  "vol": 0.407,
+  "pop": 0.0015,
+  "ev": -81.14,
+  "max_profit": 7557.0,
+  "max_loss": 82.0,
+  "status": "open",
+  "closed": "",
+  "exit_reason": "",
+  "pnl": 0.0,
+  "ret": 0.0
+ },
+ {
+  "id": "5d6fd9d6",
+  "strategy": "budget/put-2d",
+  "structure": "put_nearest",
+  "underlying": "QQQ",
+  "expiration": "2026-11-27",
+  "legs": [
+   {
+    "instrument_id": "b5925deb-0479-477a-af0d-3349f066d009",
+    "type": "put",
+    "action": "buy",
+    "strike": 540.0,
+    "entry": 0.92
+   }
+  ],
+  "net_debit": 0.92,
+  "opened": "2026-10-23",
+  "underlying_entry": 707.63,
+  "vol": 0.1889,
+  "pop": 0.0,
+  "ev": -92.0,
+  "max_profit": 32679.0,
+  "max_loss": 92.0,
+  "status": "open",
+  "closed": "",
+  "exit_reason": "",
+  "pnl": 0.0,
+  "ret": 0.0
+ },
+ {
+  "id": "fc52becc",
+  "strategy": "budget/put-5d",
+  "structure": "put_nearest",
+  "underlying": "NVDA",
+  "expiration": "2026-11-27",
+  "legs": [
+   {
+    "instrument_id": "6d5711a9-db31-4da3-971a-7a9fd6ef47f2",
+    "type": "put",
+    "action": "buy",
+    "strike": 165.0,
+    "entry": 0.89
+   }
+  ],
+  "net_debit": 0.89,
+  "opened": "2026-10-23",
+  "underlying_entry": 213.12,
+  "vol": 0.2893,
+  "pop": 0.0017,
+  "ev": -88.12,
+  "max_profit": 10017.0,
+  "max_loss": 89.0,
+  "status": "open",
+  "closed": "",
+  "exit_reason": "",
+  "pnl": 0.0,
+  "ret": 0.0
+ },
+ {
+  "id": "94f3f03c",
+  "strategy": "budget/put-5d",
+  "structure": "put_nearest",
+  "underlying": "AMD",
+  "expiration": "2026-11-27",
+  "legs": [
+   {
+    "instrument_id": "17a849df-ff51-4f72-943f-b57382e23310",
+    "type": "put",
+    "action": "buy",
+    "strike": 320.0,
+    "entry": 0.97
+   }
+  ],
+  "net_debit": 0.97,
+  "opened": "2026-10-23",
+  "underlying_entry": 519.81,
+  "vol": 0.5881,
+  "pop": 0.0044,
+  "ev": -89.02,
+  "max_profit": 16309.0,
+  "max_loss": 97.0,
+  "status": "open",
+  "closed": "",
+  "exit_reason": "",
+  "pnl": 0.0,
+  "ret": 0.0
+ },
+ {
+  "id": "96c86b3d",
+  "strategy": "budget/put-5d",
+  "structure": "put_nearest",
+  "underlying": "PLTR",
+  "expiration": "2026-11-27",
+  "legs": [
+   {
+    "instrument_id": "45dec634-8dc3-43bf-af0a-872ad2501001",
+    "type": "put",
+    "action": "buy",
+    "strike": 135.0,
+    "entry": 0.82
+   }
+  ],
+  "net_debit": 0.82,
+  "opened": "2026-10-23",
+  "underlying_entry": 195.37,
+  "vol": 0.407,
+  "pop": 0.0015,
+  "ev": -81.14,
+  "max_profit": 7557.0,
+  "max_loss": 82.0,
+  "status": "open",
+  "closed": "",
+  "exit_reason": "",
+  "pnl": 0.0,
+  "ret": 0.0
+ },
+ {
+  "id": "4fa00e30",
+  "strategy": "budget/put-5d",
+  "structure": "put_nearest",
+  "underlying": "QQQ",
+  "expiration": "2026-11-27",
+  "legs": [
+   {
+    "instrument_id": "b5925deb-0479-477a-af0d-3349f066d009",
+    "type": "put",
+    "action": "buy",
+    "strike": 540.0,
+    "entry": 0.92
+   }
+  ],
+  "net_debit": 0.92,
+  "opened": "2026-10-23",
+  "underlying_entry": 707.63,
+  "vol": 0.1889,
+  "pop": 0.0,
+  "ev": -92.0,
+  "max_profit": 32679.0,
+  "max_loss": 92.0,
+  "status": "open",
+  "closed": "",
+  "exit_reason": "",
+  "pnl": 0.0,
+  "ret": 0.0
+ },
+ {
+  "id": "b645a9a2",
+  "strategy": "budget/put-7d",
+  "structure": "put_nearest",
+  "underlying": "NVDA",
+  "expiration": "2026-11-27",
+  "legs": [
+   {
+    "instrument_id": "6d5711a9-db31-4da3-971a-7a9fd6ef47f2",
+    "type": "put",
+    "action": "buy",
+    "strike": 165.0,
+    "entry": 0.89
+   }
+  ],
+  "net_debit": 0.89,
+  "opened": "2026-10-23",
+  "underlying_entry": 213.12,
+  "vol": 0.2893,
+  "pop": 0.0017,
+  "ev": -88.12,
+  "max_profit": 10017.0,
+  "max_loss": 89.0,
+  "status": "open",
+  "closed": "",
+  "exit_reason": "",
+  "pnl": 0.0,
+  "ret": 0.0
+ },
+ {
+  "id": "6202420a",
+  "strategy": "budget/put-7d",
+  "structure": "put_nearest",
+  "underlying": "AMD",
+  "expiration": "2026-11-27",
+  "legs": [
+   {
+    "instrument_id": "17a849df-ff51-4f72-943f-b57382e23310",
+    "type": "put",
+    "action": "buy",
+    "strike": 320.0,
+    "entry": 0.97
+   }
+  ],
+  "net_debit": 0.97,
+  "opened": "2026-10-23",
+  "underlying_entry": 519.81,
+  "vol": 0.5881,
+  "pop": 0.0044,
+  "ev": -89.02,
+  "max_profit": 16309.0,
+  "max_loss": 97.0,
+  "status": "open",
+  "closed": "",
+  "exit_reason": "",
+  "pnl": 0.0,
+  "ret": 0.0
+ },
+ {
+  "id": "7189b22f",
+  "strategy": "budget/put-7d",
+  "structure": "put_nearest",
+  "underlying": "PLTR",
+  "expiration": "2026-11-27",
+  "legs": [
+   {
+    "instrument_id": "45dec634-8dc3-43bf-af0a-872ad2501001",
+    "type": "put",
+    "action": "buy",
+    "strike": 135.0,
+    "entry": 0.82
+   }
+  ],
+  "net_debit": 0.82,
+  "opened": "2026-10-23",
+  "underlying_entry": 195.37,
+  "vol": 0.407,
+  "pop": 0.0015,
+  "ev": -81.14,
+  "max_profit": 7557.0,
+  "max_loss": 82.0,
+  "status": "open",
+  "closed": "",
+  "exit_reason": "",
+  "pnl": 0.0,
+  "ret": 0.0
+ },
+ {
+  "id": "1c347795",
+  "strategy": "budget/put-7d",
+  "structure": "put_nearest",
+  "underlying": "QQQ",
+  "expiration": "2026-11-27",
+  "legs": [
+   {
+    "instrument_id": "b5925deb-0479-477a-af0d-3349f066d009",
+    "type": "put",
+    "action": "buy",
+    "strike": 540.0,
+    "entry": 0.92
+   }
+  ],
+  "net_debit": 0.92,
+  "opened": "2026-10-23",
+  "underlying_entry": 707.63,
+  "vol": 0.1889,
+  "pop": 0.0,
+  "ev": -92.0,
+  "max_profit": 32679.0,
+  "max_loss": 92.0,
+  "status": "open",
+  "closed": "",
+  "exit_reason": "",
+  "pnl": 0.0,
+  "ret": 0.0
  }
 ]

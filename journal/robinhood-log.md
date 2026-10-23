@@ -213,3 +213,13 @@
 - Crypto: targets BTC 35% / ETH 30% / SOL 0%; no orders (BTC top-up $0.19 under the $0.25 minimum).
 - Stocks: no orders. Signal trend:PLTR:enter, skipped: $0.10 is below the $1 minimum order.
 - SPCX: holding at $145.76 (target $161.05, no stop). No gap or Dual Thrust trades open; watchlab not due yet.
+
+## 2026-10-23 (7:38 AM PT, hourly run)
+- Account $4.10 (cash $1.53, crypto $1.60, SPCX $0.97). No real orders: crypto at target (BTC top-up under the
+  $0.25 minimum); the stock planner printed none; SPCX holding at $149.16 (target $161.05).
+- Watchlab (paper, daily run): opened 14 paper trades. Gainers RHI, CCI, RNG, RITM, TTMI; minervini ROKU;
+  bnf IREN, CRWV, COHR; gaps LKQ, TNGX, FLG, GNTX, CRDO. None closed. Dual Thrust opened nothing.
+- Options lab (paper, Nov 27 expiry): opened RNG 86C (momentum), NVDA 200/190 and QQQ 670/635 bull put spreads,
+  NVDA 215C, AMD 520C, QQQ 710C (pullback), plus the first $100 budget bets: calls NVDA 255C $0.76, PLTR 270C
+  $0.89, QQQ 785C $0.86 and four puts, each in the 2-, 5- and 7-day variants. Fixed a duplicate entry in the
+  options lab's list of contracts to look up (no effect on results).
