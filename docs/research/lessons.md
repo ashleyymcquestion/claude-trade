@@ -28,6 +28,8 @@ Details live in the linked notes.
   a 20% fall beat a random day over 3 years. Since 2016 nothing beat simply holding NVDA/AMD/AAPL/MSFT.
 - Swing traders (swing-traders.md, ~110 stocks since 2016): Minervini breakouts matched SPY with half the drawdown and
   made money in 2022; BNF deep-dip buying had the best average trade; Qullamaggie and Raschke lagged on large caps.
+- AI-infrastructure options (options-ai-infra.md): $100 calls paid hugely in the summer run-up and lost 27-55% per
+  bet in Aug-Oct; puts lost in both halves. No setup won in both halves: it's a bet on the AI trade, not an edge.
 - Tiny accounts: Robinhood's $1 minimum blocks some stock entries; margin accounts under $25k get 3 day trades
   per 5 business days.
 
