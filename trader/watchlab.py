@@ -24,6 +24,9 @@ Sources:
                the last 4 days; paper-buy when the price is DT_K x range above today's open, sell if it falls
                DT_K x range below the open, or near the end of the day. Checked every hourly run by `dt_check`
                (backtest on 10-minute bars: python -m trader.intradaybacktest)
+  buffett      "be greedy when others are fearful": paper-buy QQQ once it is 20%+ below its 1-year high (at most
+               once a year) and hold 3 years, no stop or target. Rare: it fired 8 times since 2000 on QQQ
+               (backtest: python -m trader.legends, docs/research/legends.md)
 
 Input file for `run` (written by the session):
     {"now": "...",                                  # optional
@@ -53,9 +56,9 @@ NY = ZoneInfo("America/New_York")
 BENCH = "QQQ"
 
 PICKS = {"gainers": 5, "buzz": 3, "politicians": 5, "social": 3, "options": 3, "velocity": 3, "stacked": 3,
-         "gaps": 5, "dual_thrust": 4}                                                                                    # new paper trades per day, max
+         "gaps": 5, "dual_thrust": 4, "buffett": 1}                                                                                    # new paper trades per day, max
 MAX_HOLD = {"gainers": 5, "buzz": 5, "politicians": 20, "social": 5, "options": 5, "velocity": 5, "stacked": 5,
-            "gaps": 1, "dual_thrust": 1}                                                                                 # trading days
+            "gaps": 1, "dual_thrust": 1, "buffett": 756}                                                                                 # trading days
 STOP, TARGET = -0.08, 0.15
 MIN_CALL_PUT = 2.0
 VELOCITY_MIN = {"pct_1d": 0.02, "pct_1h": 0.005, "rel_volume": 2.0}
@@ -63,6 +66,7 @@ POLITICIAN_FRESH_DAYS = 14
 GAP_MIN = 0.03                 # opened at least 3% below yesterday's close
 GAP_CLOSE_AFTER = time(15, 30)
 DT_SYMBOLS, DT_DAYS, DT_K = ("NVDA", "AMD", "PLTR", "QQQ"), 4, 0.5
+BUFFETT_SYMBOLS, BUFFETT_DROP, BUFFETT_GAP_DAYS = ("QQQ",), 0.20, 365
 BARS = Path("data/bars")  # New York time: gap trades still open after this close at the current price
 
 
@@ -241,8 +245,8 @@ def run(inp: dict, trades: list[Trade], state: dict) -> tuple[list[Trade], dict,
             continue
         t.days += 1
         r = px / t.entry - 1
-        why = ("stop" if r <= STOP else "target" if r >= TARGET
-               else "time" if t.days >= MAX_HOLD[t.source] else "")
+        why = ("time" if t.days >= MAX_HOLD[t.source] else "") if t.source == "buffett" else (
+            "stop" if r <= STOP else "target" if r >= TARGET else "time" if t.days >= MAX_HOLD[t.source] else "")
         if why:
             t.status, t.closed, t.exit, t.bench_exit, t.exit_reason = "closed", today, px, bench, why
             report["closed"].append({"source": t.source, "symbol": t.symbol, "ret": round(t.ret, 4),
@@ -260,10 +264,34 @@ def run(inp: dict, trades: list[Trade], state: dict) -> tuple[list[Trade], dict,
                                 target=targets[sym] if source == "gaps" else 0.0))
             report["opened"].append({"source": source, "symbol": sym, "price": px, "reason": reason})
 
+    for sym, reason in buffett_signals(quotes, trades, now.astimezone(NY).date()):
+        trades.append(Trade("buffett", sym, today, quotes[sym], bench, reason))
+        report["opened"].append({"source": "buffett", "symbol": sym, "price": quotes[sym], "reason": reason})
+
     seen = set(state.get("seen_politician_trades") or [])
     seen |= {_pol_key(t) for t in inp.get("politicians") or []}
     state = {**state, "last_run": today, "seen_politician_trades": sorted(seen)}
     return trades, state, report
+
+
+def buffett_signals(quotes: dict[str, float], trades: list[Trade], today: date,
+                    folder: Path = BARS) -> list[tuple[str, str]]:
+    """(symbol, reason) for each BUFFETT_SYMBOLS 20%+ below its 1-year high, unless a buffett trade in it opened
+    within BUFFETT_GAP_DAYS."""
+    out = []
+    for sym in BUFFETT_SYMBOLS:
+        px = quotes.get(sym)
+        recent = [t for t in trades if t.source == "buffett" and t.symbol == sym
+                  and (today - date.fromisoformat(t.opened)).days < BUFFETT_GAP_DAYS]
+        path = folder / f"{sym}.csv"
+        if not px or recent or not path.exists():
+            continue
+        with path.open() as f:
+            closes = [float(r["close"]) for r in csv.DictReader(f) if r["timestamp"][:10] < today.isoformat()]
+        high = max(closes[-251:] + [px]) if closes else px
+        if px <= high * (1 - BUFFETT_DROP):
+            out.append((sym, f"{(1 - px / high) * 100:.0f}% below its 1-year high {high:.2f}"))
+    return out
 
 
 def gap_needs(trades: list[Trade]) -> list[str]:

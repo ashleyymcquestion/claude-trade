@@ -8,6 +8,13 @@ DAY1 = "2026-10-21T15:00:00Z"   # Wed 11:00 ET
 DAY2 = "2026-10-22T15:00:00Z"
 
 
+@pytest.fixture(autouse=True)
+def no_buffett(monkeypatch):
+    """The real data/bars QQQ history would make the toy QQQ quotes look like a crash."""
+    from trader import watchlab as w
+    monkeypatch.setattr(w, "BUFFETT_SYMBOLS", ())
+
+
 def inp(now=DAY1, **kw):
     return {"now": now, "gainers": [], "buzz": [], "politicians": [], "social": [], "quotes": {"QQQ": 100.0}, **kw}
 
@@ -157,3 +164,24 @@ def test_dual_thrust_stop():
     t = w.Trade("dual_thrust", "AMD", "2026-10-21", 103.0, 500.0, "x", stop=97.0)
     rep = w.dt_check({"now": "2026-10-21T16:40:00Z", "quotes": {"QQQ": 500.0, "AMD": 96.5}}, [t], {})
     assert rep["closed"][0]["why"] == "stop" and t.ret < 0
+
+
+def test_buffett_buys_after_a_20pct_drop_once_a_year(tmp_path, monkeypatch):
+    from trader import watchlab as w
+    monkeypatch.setattr(w, "BUFFETT_SYMBOLS", ("QQQ",))
+    rows = ["timestamp,open,high,low,close,volume,source"]
+    rows += [f"2026-0{m}-1{d}T00:00:00Z,0,0,0,{100 if m < 9 else 90},0,x" for m in range(1, 10) for d in range(1, 4)]
+    (tmp_path / "QQQ.csv").write_text("\n".join(rows) + "\n")
+    today = date(2026, 10, 1)
+    assert w.buffett_signals({"QQQ": 85.0}, [], today, tmp_path) == []          # only 15% below the high
+    sig = w.buffett_signals({"QQQ": 79.0}, [], today, tmp_path)
+    assert sig and sig[0][0] == "QQQ"
+    held = [w.Trade("buffett", "QQQ", "2026-06-01", 80.0, 80.0, "x")]
+    assert w.buffett_signals({"QQQ": 79.0}, held, today, tmp_path) == []        # bought within a year
+
+
+def test_buffett_trade_ignores_stop_and_target():
+    from trader import watchlab as w
+    t = w.Trade("buffett", "QQQ", "2026-10-01", 100.0, 100.0, "x")
+    trades, _, rep = w.run({"now": "2026-10-02T15:00:00Z", "quotes": {"QQQ": 70.0}}, [t], {"last_run": ""})
+    assert t.status == "open" and t.days == 1
