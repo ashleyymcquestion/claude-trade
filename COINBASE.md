@@ -1,6 +1,6 @@
-# Coinbase bot (hourly, paper trading)
+# Coinbase bot (daily, paper trading)
 
-A scheduled Claude session follows this every hour at :07 (the Robinhood run is at :37).
+A scheduled Claude session follows this once a day at 00:07 UTC, just after the daily candle closes (changed from hourly on Oct 24 to save usage).
 **The code decides every trade (`trader/coinbase.py`, `config.coinbase.toml`); the session only fetches
 data, runs the planner and logs.** Research behind it: `docs/research/crypto-coins.md`.
 
