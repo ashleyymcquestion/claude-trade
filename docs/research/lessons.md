@@ -47,3 +47,7 @@ Details live in the linked notes.
   results come from a few mania weeks (2021, early 2024) and are flat-to-negative in 2025-26. Meme basket held
   since Jan 2025: -89%. Yahoo rounds sub-penny coins (SHIB, PEPE, BONK, FLOKI, MOG) to 1-2 digits, faking 25%
   moves; never use those prices for signals. Paper only (data/memepaper).
+
+- 2026-10-24 CHIP (USD.AI): user asked to trade it; declined real money (down ~67% from April high, ~105x revenue
+  with no holder revenue share, ~2.2% Robinhood spread, outside the bot's BTC/ETH/SOL rules). Running a 48-hour
+  $2 paper hold instead (data/coinwatch, ROBINHOOD.md 17l).

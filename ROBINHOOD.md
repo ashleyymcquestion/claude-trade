@@ -176,6 +176,11 @@ spread, bull put spread, cash-secured put, covered call) whose odds and expected
      at the last UTC daily close in `data/memepaper/trades.json` and closes them after 7 days
      (`{"already_ran": true}` = today is recorded). Report one line: opened / closed and the scoreboard.
 
+17l. Coin watch (paper only, every run; never buy these coins for real): while data/coinwatch/CHIP-state.json has
+     no "closed", `get_crypto_quotes(["CHIP-USD"])` and `python -m trader coin-watch --symbol CHIP --bid <bid_price>
+     --ask <ask_price>`. A 48-hour paper hold of $2.00 of CHIP (USD.AI) started Oct 24, 4:46 PM PT (ends Oct 26, 4:46 PM PT); report one line:
+     price and paper value, and the final result once it prints "closed".
+
 ## Part C: results and commit
 
 18. Append a dated entry to `journal/robinhood-log.md`: account value; crypto targets, orders and fills;
@@ -193,6 +198,6 @@ spread, bull put spread, cash-secured put, covered call) whose odds and expected
       `source: {kind: "file", url: <the upload's /_blob/... url>, name: "daily-results.json"}` and
       `updated: {at: <now, ISO>, by: "Claude (daily run)"}`. If those tools aren't available, skip this
       and say so in the final message; the CSV in the repo still has the row.
-20. Commit `data/proxy_history.csv`, `data/bars/`, `data/robinhood-stocks.sqlite3`, `data/spcx-test.json`, `data/watchlab/`, `data/optionslab/`, `data/xrppaper/`, `data/memepaper/`, `data/yahoo/*-USD.csv`, `data/yahoo/meme/`,
+20. Commit `data/proxy_history.csv`, `data/bars/`, `data/robinhood-stocks.sqlite3`, `data/spcx-test.json`, `data/watchlab/`, `data/optionslab/`, `data/xrppaper/`, `data/memepaper/`, `data/coinwatch/`, `data/yahoo/*-USD.csv`, `data/yahoo/meme/`,
     `data/robinhood-results.csv` and `journal/robinhood-log.md` together, and push to
     `claude/jolly-fermi-tvlmpb`.

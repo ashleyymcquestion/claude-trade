@@ -73,7 +73,21 @@ def main(argv=None):
     xp = sub.add_parser("xrp-paper", help="XRP paper test: size and log today's paper XRP position (once a day)")
     xp.add_argument("--price", type=float, required=True, help="XRP-USD mark_price from get_crypto_quotes")
 
+    cw = sub.add_parser("coin-watch", help="short paper test of a coin the bots don't trade (see trader/coinwatch.py)")
+    cw.add_argument("--symbol", required=True)
+    cw.add_argument("--bid", type=float, required=True)
+    cw.add_argument("--ask", type=float, required=True)
+
     args = parser.parse_args(argv)
+    if args.cmd == "coin-watch":
+        import json
+        from zoneinfo import ZoneInfo
+
+        from . import coinwatch
+
+        now = datetime.now(ZoneInfo("America/Los_Angeles"))
+        print(json.dumps(coinwatch.step(args.symbol.upper(), args.bid, args.ask, now)))
+        return
     if args.cmd == "xrp-paper":
         import json
         from zoneinfo import ZoneInfo
