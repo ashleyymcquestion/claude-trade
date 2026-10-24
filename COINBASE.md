@@ -9,7 +9,7 @@ data, runs the planner and logs.** Research behind it: `docs/research/crypto-coi
   - `btc_trend`: hold BTC only while BTC's weekly (Sunday) close is above its 10-week average.
   - `momentum`: while BTC is above its 10-week average, hold the 2 coins with the best 4-week return
     that are also above their own 10-week average. Candidates: BTC, ETH, SOL and the old coins Coinbase
-    trades against USDC (ADA, XLM, ALGO, CRV, XCN, SKY).
+    trades against USDC (ADA, XLM, ALGO, CRV, XCN, SKY), plus the busiest Coinbase pairs (XRP, ZEC, NEAR, HYPE, SUI).
 - Futures paper test: $1,000 of paper money in whole BTC (BIP) and ETH (ETP) contracts, long only,
   sized by trend and volatility (see `docs/research/futures.md`). Rebalanced once a day.
 - Orders are post-only limit orders at the best bid/ask (0.5% maker fee, not 0.9% for market orders).

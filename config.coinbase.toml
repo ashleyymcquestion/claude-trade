@@ -24,7 +24,8 @@ reprice_hours = 6          # an unfilled limit order is moved to the new best pr
 
 # Momentum candidates. BTC/ETH/SOL plus the old coins in the account that Coinbase trades
 # against USDC with real volume (the user allowed trading them if they look profitable).
-universe = ["BTC", "ETH", "SOL", "ADA", "XLM", "ALGO", "CRV", "XCN", "SKY"]
+# Oct 24: added the busiest Coinbase USDC pairs by 24h dollar volume (XRP, ZEC, NEAR, HYPE, SUI).
+universe = ["BTC", "ETH", "SOL", "XRP", "ZEC", "NEAR", "HYPE", "SUI", "ADA", "XLM", "ALGO", "CRV", "XCN", "SKY"]
 
 # Coins already in the account that the strategies don't own. They are only reported on (trend
 # check, value); a real sell is proposed when one is below its 10-week average, never placed.
@@ -42,3 +43,8 @@ CRV = ["0.01", "0.0001"]
 XCN = ["0.1", "0.000001"]
 SKY = ["0.1", "0.00001"]
 ASM = ["1", "0.00001"]
+XRP = ["0.000001", "0.0001"]
+ZEC = ["0.00000001", "0.01"]
+NEAR = ["0.001", "0.0001"]
+HYPE = ["0.001", "0.01"]
+SUI = ["0.1", "0.0001"]
