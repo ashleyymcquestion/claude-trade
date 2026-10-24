@@ -42,3 +42,8 @@ Details live in the linked notes.
   since 2025; it gets ~8% weight). In every window the strategy trailed plain BTC holding — it cuts drawdowns
   but the ~2% Robinhood spread and trend-exits cost most of the upside. XRP is now paper-tested daily
   (data/xrppaper), never traded for real without the user's OK.
+
+- 2026-10-24 meme coins ("Kimchi"): chase / breakout rules average +18-21% per trade but the MEDIAN trade loses;
+  results come from a few mania weeks (2021, early 2024) and are flat-to-negative in 2025-26. Meme basket held
+  since Jan 2025: -89%. Yahoo rounds sub-penny coins (SHIB, PEPE, BONK, FLOKI, MOG) to 1-2 digits, faking 25%
+  moves; never use those prices for signals. Paper only (data/memepaper).

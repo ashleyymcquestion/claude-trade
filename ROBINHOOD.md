@@ -171,6 +171,11 @@ spread, bull put spread, cash-secured put, covered call) whose odds and expected
      list and logs the day to `data/xrppaper/log.csv` (`{"already_ran": true}` = today is recorded). Report one
      line: target weight, paper value vs holding XRP.
 
+17k. Meme coin paper test (paper only, once a day, any time; never buy meme coins for real):
+     `python -m trader.memebacktest --download --paper`. It logs the "Kimchi-style" chase and breakout signals
+     at the last UTC daily close in `data/memepaper/trades.json` and closes them after 7 days
+     (`{"already_ran": true}` = today is recorded). Report one line: opened / closed and the scoreboard.
+
 ## Part C: results and commit
 
 18. Append a dated entry to `journal/robinhood-log.md`: account value; crypto targets, orders and fills;
@@ -188,6 +193,6 @@ spread, bull put spread, cash-secured put, covered call) whose odds and expected
       `source: {kind: "file", url: <the upload's /_blob/... url>, name: "daily-results.json"}` and
       `updated: {at: <now, ISO>, by: "Claude (daily run)"}`. If those tools aren't available, skip this
       and say so in the final message; the CSV in the repo still has the row.
-20. Commit `data/proxy_history.csv`, `data/bars/`, `data/robinhood-stocks.sqlite3`, `data/spcx-test.json`, `data/watchlab/`, `data/optionslab/`, `data/xrppaper/`, `data/yahoo/*-USD.csv`,
+20. Commit `data/proxy_history.csv`, `data/bars/`, `data/robinhood-stocks.sqlite3`, `data/spcx-test.json`, `data/watchlab/`, `data/optionslab/`, `data/xrppaper/`, `data/memepaper/`, `data/yahoo/*-USD.csv`, `data/yahoo/meme/`,
     `data/robinhood-results.csv` and `journal/robinhood-log.md` together, and push to
     `claude/jolly-fermi-tvlmpb`.

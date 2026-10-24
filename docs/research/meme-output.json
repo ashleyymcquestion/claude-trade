@@ -1,0 +1,59 @@
+{
+ "launch (2nd day, hold 30d)": {
+  "trades": 8,
+  "win_rate": 0.62,
+  "avg_trade": 1.214,
+  "median": 1.147,
+  "best": 5.2,
+  "worst": -0.68,
+  "total": 17.76
+ },
+ "chase 20%+ riser, hold 1d": {
+  "trades": 140,
+  "win_rate": 0.43,
+  "avg_trade": 0.011,
+  "median": -0.024,
+  "best": 0.97,
+  "worst": -0.42,
+  "total": -0.57
+ },
+ "chase 20%+ riser, hold 3d": {
+  "trades": 102,
+  "win_rate": 0.44,
+  "avg_trade": 0.103,
+  "median": -0.031,
+  "best": 4.23,
+  "worst": -0.51,
+  "total": 5.94
+ },
+ "chase 20%+ riser, hold 7d": {
+  "trades": 76,
+  "win_rate": 0.47,
+  "avg_trade": 0.18,
+  "median": -0.034,
+  "best": 2.35,
+  "worst": -0.64,
+  "total": 160.4
+ },
+ "breakout + 3x volume, hold 7d": {
+  "trades": 78,
+  "win_rate": 0.46,
+  "avg_trade": 0.207,
+  "median": -0.011,
+  "best": 8.66,
+  "worst": -0.42,
+  "total": 193.79
+ },
+ "hold basket from 2024-01-01": {
+  "coins": 8,
+  "avg": 0.21,
+  "median": -0.17
+ },
+ "hold BTC from 2024-01-01": 0.81,
+ "hold basket from 2025-01-01": {
+  "coins": 8,
+  "avg": -0.89,
+  "median": -0.9
+ },
+ "hold BTC from 2025-01-01": -0.15
+}
