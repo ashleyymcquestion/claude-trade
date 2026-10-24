@@ -25,3 +25,4 @@ freqtrade_user/*.sqlite
 freqtrade_user/config*.json
 data/intraday_1h/
 data/crypto_1h/
+data/crypto/meme/
