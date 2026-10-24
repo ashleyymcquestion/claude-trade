@@ -159,7 +159,8 @@ spread, bull put spread, cash-secured put, covered call) whose odds and expected
      - `expirations`: `get_option_chains(underlying_symbol=SYM)` → `{"SYM": [all expiration_dates]}`
      - `instruments`: `get_option_instruments(chain_symbol, expiration_dates, type)` for each request → `{"SYM":
        [{"id", "strike", "type", "expiration"}]}` (strikes from 60% to 140% of the stock price: the $100 test,
-       `budget100`, looks for cheap contracts far from the price)
+       `budget100`, looks for cheap contracts far from the price; it then asks for quotes in two small rounds:
+       5 strikes per stock and side to find where a contract costs about $100, then 5 around that point)
      - `quotes`: `get_option_quotes(ids)` → `{"<id>": {"bid": bid_price, "ask": ask_price}}`
 17i. Report the opened / closed paper positions and the scoreboard. If it prints `{"done": {"already_ran": true}}`,
      today's options run is already recorded.

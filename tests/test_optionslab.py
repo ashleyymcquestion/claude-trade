@@ -199,3 +199,17 @@ def test_budget_bet_sells_after_its_trading_days():
     p2 = {**p, "strategy": "budget/put-2d", "status": "open"}
     o._check_exit(p2, q, 700.0, o.date(2026, 10, 27), rep)      # 2 trading days
     assert p2["status"] == "closed" and p2["exit_reason"] == "held 2 days"
+
+
+def test_budget_candidates_quote_five_then_five_near_one_dollar():
+    from trader.optionslab import _budget_candidates
+
+    rows = [{"id": f"c{k}", "strike": float(k), "type": "call", "expiration": "2026-11-27"} for k in range(100, 141)]
+    first = _budget_candidates(rows, "call", 100.0, {})
+    assert len(first) == 5 and [r["strike"] for r in first] == [100, 110, 120, 130, 140]
+    # price falls from $10 at the money to $0.10 at 140: crosses $1 near 120
+    price = {r["id"]: max(0.1, 10 * 0.89 ** (r["strike"] - 100)) for r in rows}
+    quotes = {r["id"]: {"bid": price[r["id"]] * 0.97, "ask": price[r["id"]] * 1.03} for r in first}
+    second = _budget_candidates(rows, "call", 100.0, quotes)
+    fine = sorted(r["strike"] for r in second if r not in first)
+    assert len(second) <= 10 and fine and all(116 <= k <= 124 for k in fine)

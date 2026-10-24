@@ -74,7 +74,8 @@ VOL_DAYS = 30
 TARGET, STOP, CLOSE_DTE, SPREAD_TAKE = 1.0, -0.5, 7, 0.5
 MAX_SPREAD = 0.30
 BUDGET = 1.00                  # $ per share: one contract for $100 or less
-BUDGET_RANGE = (0.6, 1.4)      # strikes to price, as a share of the stock price
+BUDGET_RANGE = (0.6, 1.4)      # strikes to consider, as a share of the stock price
+BUDGET_QUOTES = 5              # per symbol and side: 5 strikes to find where the price crosses $1, then 5 around it
 BUDGET_SYMBOLS = PULLBACK
 BUDGET_VARIANTS = {f"budget/{side}-{days}d": (f"{side}_nearest", days)   # name: (budgetbacktest rule, trading days held)
                    for side in ("call", "put") for days in (2, 5, 7)}
@@ -294,8 +295,7 @@ def step(inp: dict, positions: list[dict], state: dict, watch_trades: list) -> t
             need_i += [{"symbol": u, "expiration": exp, "type": t} for t in missing_t]
             continue
         if w["structures"] == ("budget",):
-            lo, hi = BUDGET_RANGE
-            cands = [r for t in w["types"] for r in rows[t] if lo * spots[u] <= float(r["strike"]) <= hi * spots[u]]
+            cands = [r for t in w["types"] for r in _budget_candidates(rows[t], t, spots[u], inp.get("quotes") or {})]
             plans.append({**w, "structure": "budget", "expiration": exp, "vol": vol,
                           "legs": [{"row": r, "action": "buy"} for r in cands]})
             continue
@@ -355,6 +355,41 @@ def step(inp: dict, positions: list[dict], state: dict, watch_trades: list) -> t
                                             for l in legs]})
     state["last_run"] = today.isoformat()
     return {"done": {**report, "scoreboard": scoreboard(positions, state, spots)}}, positions, state
+
+
+def _budget_candidates(rows: list[dict], typ: str, spot: float, quotes: dict) -> list[dict]:
+    """Strikes to quote for a budget bet, in two rounds instead of every strike from 60% to 140% of the price:
+    first BUDGET_QUOTES strikes spread across that range, then (once those are quoted) the BUDGET_QUOTES strikes
+    nearest the point where the price crosses $BUDGET, estimated by interpolating between the first-round mids."""
+    lo, hi = BUDGET_RANGE
+    otm = sorted((r for r in rows if lo * spot <= float(r["strike"]) <= hi * spot
+                  and (float(r["strike"]) >= spot if typ == "call" else float(r["strike"]) <= spot)),
+                 key=lambda r: abs(float(r["strike"]) - spot))
+    if not otm:
+        return []
+    n = len(otm)
+    coarse = list({id(r): r for r in (otm[round(i * (n - 1) / (BUDGET_QUOTES - 1))]
+                                      for i in range(BUDGET_QUOTES))}.values()) if n > 1 else otm
+
+    def mid(r):
+        q = quotes.get(r["id"])
+        return (float(q["bid"]) + float(q["ask"])) / 2 if _quote_ok(q) else None
+
+    if any(r["id"] not in quotes for r in coarse):
+        return coarse
+    priced = [(float(r["strike"]), m) for r in coarse if (m := mid(r)) is not None]
+    cheap = [i for i, (_, m) in enumerate(priced) if m <= BUDGET]
+    if not cheap:
+        return coarse                       # nothing affordable even far out: no bet today
+    j = cheap[0]
+    if j == 0:
+        target = priced[0][0]
+    else:
+        (k1, m1), (k2, m2) = priced[j - 1], priced[j]
+        f = math.log(m1 / BUDGET) / math.log(m1 / max(m2, 0.01)) if m1 > m2 else 1.0
+        target = k1 + f * (k2 - k1)
+    fine = sorted(otm, key=lambda r: abs(float(r["strike"]) - target))[:BUDGET_QUOTES]
+    return list({r["id"]: r for r in coarse + fine}.values())
 
 
 def _open_budget(pl: dict, quotes: dict, spot: float, today: date, positions: list[dict], report: dict) -> None:
