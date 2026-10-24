@@ -107,3 +107,7 @@ Paper trading (config.coinbase.toml, COINBASE.md).
 ## 2026-10-23 (5:09 PM PT, hourly paper run)
 - Paper: btc_trend $4.96 (-0.9%, holds BTC), momentum $4.96 (-0.8%, holds ALGO, BTC).
 - Futures paper test: $999.02 (-0.1%), holds 1 ETH contract.
+
+## 2026-10-23 (6:08 PM PT, hourly paper run)
+- Paper: btc_trend $4.94 (-1.3%, holds BTC), momentum $4.94 (-1.1%, holds ALGO, BTC).
+- Futures paper test: $998.27 (-0.2%), holds 1 ETH contract.
