@@ -391,3 +391,10 @@
 ## 2026-10-24 (11:37 PM PT, hourly run)
 - Account $4.06. No orders: crypto at target (BTC top-up under the $0.25 minimum); stocks and SPCX skipped
   (weekend). CHIP paper hold: bid $0.04382, paper value $1.91 (-4.7%).
+
+## 2026-10-25 (12:38 AM PT, hourly run; daily paper steps)
+- Account $4.06 (cash $1.53, crypto $1.57). No orders: crypto at target (BTC top-up under the $0.25 minimum);
+  stocks and SPCX skipped (weekend). Results row 2026-10-25 added; results page updated.
+- XRP paper: target 6.6%, no trade; paper $1.999 vs holding XRP $2.011.
+- Meme paper (2026-10-24 close): no signals, nothing open.
+- CHIP paper hold: bid $0.04372, paper value $1.90 (-4.9%).
