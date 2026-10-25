@@ -323,7 +323,7 @@ def save_ledger(ledger: dict, path: Path = LEDGER):
 
 def journal_entry(rep: dict) -> str:
     pt = _now(rep["time"]).astimezone(ZoneInfo("America/Los_Angeles"))
-    lines = [f"## {pt:%Y-%m-%d} ({pt:%-I:%M %p} PT, hourly paper run)"]
+    lines = [f"## {pt:%Y-%m-%d} ({pt:%-I:%M %p} PT, daily paper run)"]
     score = ", ".join(f"{n} ${s['equity']:.2f} ({s['return']:+.1%}, holds {', '.join(s['coins']) or 'cash'})"
                       for n, s in rep["strategies"].items())
     lines.append(f"- Paper: {score}.")

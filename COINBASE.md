@@ -48,7 +48,7 @@ data, runs the planner and logs.** Research behind it: `docs/research/crypto-coi
     ETH-USDC `coinbase_products_candles(product_id, granularity="1d", start=<start>)` keyed by product id. Then
     `python -m trader cb-fut-run --input fut_in.json` (adds a line to the journal). Paper only: never place a
     futures order.
-5. Commit `data/coinbase/paper.json`, `data/coinbase/futures_paper.json`, `data/coinbase/daily_closes.csv` and `journal/coinbase-log.md` ("Coinbase hourly run <date> <time> PT: ...")
+5. Commit `data/coinbase/paper.json`, `data/coinbase/futures_paper.json`, `data/coinbase/daily_closes.csv` and `journal/coinbase-log.md` ("Coinbase daily run <date> <time> PT: ...")
    and push to `claude/clever-archimedes-ixq37a` (retry up to 4 times on network errors).
 6. If the output has new `leftovers` proposals or the paper results look worth acting on, say so in the
    final message. Don't place anything.
