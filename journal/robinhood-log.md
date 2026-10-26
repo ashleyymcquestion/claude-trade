@@ -592,3 +592,8 @@
 - User asked for the best CHIP strategy; recommended trend-following with a wide (25%) trailing exit and the user agreed ("lets do what you want to do"). Real $0.25 CHIP test buy now has a 25% trailing exit (trail_pct 0.25, peak tracked by rh-chip-plan) instead of no stop. Added a third paper test, `swing-paper --mode trail`: $2 bought at ask 0.05286529 on Oct 26, 1:47 PM PT, sells 25% off the highest bid, ends Nov 9. Hourly runs now compare swing vs trail vs hold.
 - User: "just paper test for 3 days at a time for now". Paused the real $0.25 CHIP buy (data/chip-test.json enabled=false). CHIP swing and trail paper tests switched to 3-day rounds (current rounds end Oct 29, 1:39 / 1:47 PM PT); each closed round is saved to data/swingpaper/<name>-rounds.json and a new round starts.
 - Gap trading: re-ran the 2019+ backtest on NVDA/AMD/PLTR/QQQ (3%+ gaps: 235 trades, 53% wins, +0.39% avg after costs; 5%+: 83 trades, 55%, +0.95%). User agreed to build the real-money rule switched off: trader/gap_live.py (`rh-gap-plan` / `rh-gap-record`), ledger data/gap-live.json enabled=false, ROBINHOOD.md 17l4. Not in the hourly run's planner list; it places nothing until the paper test reaches 20 trades and the user OKs it.
+
+## 2026-10-26 (2:38 PM PT, hourly run, after the close)
+- Account $4.05 (cash $1.53, crypto $1.56, SPCX $0.96). No real orders. Stock market closed; stocks skipped.
+- Crypto: rh-plan printed no orders (BTC top-up $0.17 under the $0.25 minimum). CHIP real test: paused (disabled).
+- Paper: CHIP hold $2.22 (+10.9%); CHIP swing $2.00 (cash, no dip yet) vs trail $1.93 (−3.5%) vs hold-from-today $1.93; USAR $96.54 (−3.5%, after-hours).
