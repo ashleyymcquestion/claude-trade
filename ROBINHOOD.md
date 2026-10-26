@@ -185,6 +185,18 @@ spread, bull put spread, cash-secured put, covered call) whose odds and expected
      <ask_price>` (skip the step if bid or ask is 0). A 72-hour paper hold of $100 (user asked for $100) started Oct 25, 7:52 PM PT at the
      overnight-session ask and ends Oct 28, 7:52 PM PT; report one line the same way.
 
+17l2. CHIP real test buy (user OK'd on Oct 26: $0.25 once, after the paper test, no stop): every run, unless
+     data/chip-test.json status is "done" or "skipped": `get_crypto_quotes(["CHIP-USD"])` (bid, ask),
+     `get_crypto_positions` (CHIP `quantity_transferable`, 0 if none), `get_crypto_orders(state_group="open",
+     symbol="CHIP")`. Write `chip_state.json`: `{"cash": "<crypto buying_power>", "bid": ..., "ask": ...,
+     "quantity": "...", "open_order": false, "paper_closed": <CHIP-state.json has "closed">}` and run
+     `python -m trader rh-chip-plan --state chip_state.json`. For its order, if any: `preview_crypto_order` with
+     exactly its values, then `place_crypto_order` with the same values and its `ref_id`. Once filled (look it up
+     with `get_crypto_orders(order_id=...)`), `python -m trader rh-chip-record --side buy --order-id <id>
+     --quantity <cumulative_quantity> --price <average_price> --at <last_transaction_at>`. Leave CHIP out of
+     `state.json` for rh-plan. Report one line: status, and while holding the value and gain vs the $0.25.
+     A real buy counts as a real order (push notification).
+
 17m. TSLA call watch (paper only, never buy it for real; the user asked on Oct 26 to track it and be told whether
      to buy): while data/optionslab/positions.json has the momentum_calls TSLA 2026-11-27 395C (instrument
      fe77640d-0bbc-475f-9283-427344bc6b20) open, on every market-hours run call `get_option_quotes` for it and report

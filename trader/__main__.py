@@ -45,6 +45,15 @@ def main(argv=None):
     sr.add_argument("--price", required=True, help="the order's average_price")
     sr.add_argument("--at", required=True, help="fill time (ISO)")
 
+    cp = sub.add_parser("rh-chip-plan", help="CHIP test buy: print the order to place, if any")
+    cp.add_argument("--state", required=True, help="CHIP state JSON (see trader/chip_test.py)")
+    cr = sub.add_parser("rh-chip-record", help="CHIP test buy: record a filled order")
+    cr.add_argument("--side", required=True, choices=["buy", "sell"])
+    cr.add_argument("--order-id", required=True)
+    cr.add_argument("--quantity", required=True)
+    cr.add_argument("--price", required=True, help="the order's average_price")
+    cr.add_argument("--at", required=True, help="fill time (ISO)")
+
     wd = sub.add_parser("watch-due", help="watchlab: is today's paper-test research run due now?")
     wd.add_argument("--now", help="ISO time (default: now)")
     wn = sub.add_parser("watch-needs", help="watchlab: symbols to quote before watch-run")
@@ -178,6 +187,23 @@ def main(argv=None):
         else:
             ledger = spcx_test.record(ledger, args.side, args.order_id, args.quantity, args.price, args.at)
             spcx_test.LEDGER.write_text(json.dumps(ledger, indent=2) + "\n")
+            print(json.dumps(ledger, indent=2))
+        return
+
+    if args.cmd in ("rh-chip-plan", "rh-chip-record"):
+        import json
+
+        from . import chip_test
+
+        ledger = chip_test.load_ledger()
+        if args.cmd == "rh-chip-plan":
+            out = chip_test.plan(ledger, json.loads(Path(args.state).read_text()))
+            if "ledger" in out:   # skipped: remember it
+                chip_test.LEDGER.write_text(json.dumps(out.pop("ledger"), indent=2) + "\n")
+            print(json.dumps(out, indent=2))
+        else:
+            ledger = chip_test.record(ledger, args.side, args.order_id, args.quantity, args.price, args.at)
+            chip_test.LEDGER.write_text(json.dumps(ledger, indent=2) + "\n")
             print(json.dumps(ledger, indent=2))
         return
 

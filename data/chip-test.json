@@ -1,0 +1,11 @@
+{
+  "enabled": true,
+  "amount": "0.25",
+  "stop_pct": null,
+  "not_before": "2026-10-28T16:46-07:00",
+  "min_bid": 0.04596719,
+  "status": "waiting",
+  "buy": null,
+  "stop": null,
+  "sell": null
+}

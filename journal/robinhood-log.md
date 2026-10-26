@@ -580,3 +580,6 @@
 - Gap check (after 3:30 PM NY, end of day): closed all 5 Brazil gap trades up: XP +7.3%, NU +5.8%, ITUB +5.4%, STNE +4.0%, PAGS +2.0%. Gaps scoreboard: 10 closed, 70% wins, +2.1% avg vs QQQ; not ready_for_real_money (needs 20). Dual Thrust: no entries.
 - TSLA 2026-11-27 395C (paper, 17m): bid $18.00, −$110/contract vs $19.10; TSLA $393.62. Verdict: don't buy.
 - Paper holds: CHIP $2.31 (+15.7%), USAR $97.73 (−2.3%).
+
+## 2026-10-26 (1:00 PM PT, user decision: CHIP test buy)
+- User OK'd a real $0.25 CHIP test buy after the paper test ends (Oct 28, 4:46 PM PT), only if the bid is still above the paper start price ($0.04596719); otherwise skipped. User chose no stop-loss (max loss is the $0.25). New: trader/chip_test.py, `rh-chip-plan` / `rh-chip-record`, ledger data/chip-test.json, ROBINHOOD.md step 17l2; scheduled-task rules updated to allow CHIP only as printed by rh-chip-plan.
