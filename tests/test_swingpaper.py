@@ -45,3 +45,14 @@ def test_trail_holds_the_climb_and_sells_25_pct_off_the_high():
     assert abs(row["value"] - 2.0 / 0.051 * 0.059) < 1e-3
     st, row = swingpaper.step_trail(st, 0.100, 0.101, T0)            # stays in cash after the exit
     assert row["position"] == "cash" and row["action"] == ""
+
+
+def test_a_closed_round_is_kept_and_the_next_round_starts(tmp_path):
+    swingpaper.run("X", 0.050, 0.051, T0, d=tmp_path)
+    row = swingpaper.run("X", 0.050, 0.051, T0 + timedelta(days=3), d=tmp_path)
+    assert "closed" in row
+    row = swingpaper.run("X", 0.060, 0.061, T0 + timedelta(days=3, hours=1), d=tmp_path)
+    assert row["value"] == 2.0 and "closed" not in row
+    import json
+    (r,) = json.loads((tmp_path / "X-rounds.json").read_text())
+    assert r["value"] == 2.0

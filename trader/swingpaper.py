@@ -6,7 +6,9 @@ The user asked on Oct 26 whether CHIP could be swing traded. Each hourly run fee
   - holding: sell everything at the bid once the bid is `rise` (10%) above the buy price (the ask
     paid). No stop.
 Buying at the ask and selling at the bid counts the spread on every round trip. A buy-and-hold of the
-same paper dollars from the first call (at its ask) is the benchmark. The test ends after `days`.
+same paper dollars from the first call (at its ask) is the benchmark. Each round lasts `days` (the user
+asked on Oct 26 for 3-day paper tests, one round at a time): when a round closes its result is appended
+to <name>-rounds.json and the next call starts a fresh round from that quote.
 
 mode "trail" (added the same day, a trend-following comparison): buy at the ask on the first call, keep
 the highest bid seen ("high") and sell everything at the bid once it falls `trail` (25%) below it; then
@@ -24,7 +26,7 @@ from datetime import datetime, timedelta
 from pathlib import Path
 
 DIR = Path("data/swingpaper")
-START, DIP, RISE, DAYS, TRAIL = 2.0, 0.10, 0.10, 14, 0.25
+START, DIP, RISE, DAYS, TRAIL = 2.0, 0.10, 0.10, 3, 0.25
 
 
 def step(st: dict | None, bid: float, ask: float, now: datetime, start: float = START,
@@ -100,8 +102,12 @@ def run(symbol: str, bid: float, ask: float, now: datetime, d: Path = DIR, mode:
     name = symbol if mode == "swing" else f"{symbol}-{mode}"
     sp, lp = d / f"{name}-state.json", d / f"{name}.csv"
     old = json.loads(sp.read_text()) if sp.exists() else None
-    if old and old.get("closed"):
-        return {"closed": old["closed"]}
+    if old and old.get("closed"):   # round over: keep its result, start the next round now
+        rp = d / f"{name}-rounds.json"
+        rounds = json.loads(rp.read_text()) if rp.exists() else []
+        rounds.append({"opened": old["opened"], **old["closed"], "trades": len(old["trades"])})
+        rp.write_text(json.dumps(rounds, indent=1) + "\n")
+        old = None
     st, row = (step if mode == "swing" else step_trail)(old, bid, ask, now)
     sp.write_text(json.dumps(st, indent=1) + "\n")
     new = not lp.exists()

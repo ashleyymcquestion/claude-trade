@@ -1,5 +1,5 @@
 {
-  "enabled": true,
+  "enabled": false,
   "amount": "0.25",
   "stop_pct": null,
   "not_before": "2026-10-28T16:46-07:00",
@@ -9,5 +9,6 @@
   "stop": null,
   "sell": null,
   "trail_pct": 0.25,
-  "peak": null
+  "peak": null,
+  "note": "2026-10-26: paused; user wants paper tests only (3 days at a time) for now"
 }
