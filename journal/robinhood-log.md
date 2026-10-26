@@ -542,3 +542,9 @@
 - Watchlab (paper): opened 18 (gainers SGRY/RRC/TSLA/ERAS/TENB, buzz SGRY, politicians NVDA/TSM, minervini SLB, bnf USAR/NBIS/SMR, gaps XP/STNE/PAGS/NU/ITUB, stacked SGRY); closed ASST −13.8%. Gaps lead: 5 closed, 40% wins, −0.8% avg. None ready_for_real_money. Gap check: nothing closed; Dual Thrust: no entries.
 - Options lab (paper): opened TSLA 2026-11-27 395C @ $19.10; closed ASST call −$240 (stop). momentum_calls −$750 over 2 closed.
 - Paper holds: CHIP $2.17 (+8.3%), USAR $97.62 (−2.4%).
+
+## 2026-10-26 (8:38 AM PT, hourly run)
+- Account $4.08 (cash $1.53, crypto $1.57, SPCX $0.98). No real orders.
+- Crypto: rh-plan printed no orders (BTC top-up $0.18 under the $0.25 minimum). Stocks: no signals, not halted. SPCX: holding at $150.12 (target $161.05), no orders.
+- Gap check: nothing closed (5 open; 5 closed, 40% wins, −0.8% avg). Dual Thrust: no entries.
+- Paper holds: CHIP $2.22 (+11.2%), USAR $100.11 (+0.1%).
