@@ -185,6 +185,14 @@ spread, bull put spread, cash-secured put, covered call) whose odds and expected
      <ask_price>` (skip the step if bid or ask is 0). A 72-hour paper hold of $100 (user asked for $100) started Oct 25, 7:52 PM PT at the
      overnight-session ask and ends Oct 28, 7:52 PM PT; report one line the same way.
 
+17m. TSLA call watch (paper only, never buy it for real; the user asked on Oct 26 to track it and be told whether
+     to buy): while data/optionslab/positions.json has the momentum_calls TSLA 2026-11-27 395C (instrument
+     fe77640d-0bbc-475f-9283-427344bc6b20) open, on every market-hours run call `get_option_quotes` for it and report
+     one line: bid, paper P&L per contract = (bid - 19.10) x 100, and TSLA price. Verdict: "don't buy" unless the
+     momentum_calls strategy in the options-lab scoreboard has at least 20 closed trades with a positive total P&L
+     (the same bar watchlab uses for ready_for_real_money). If it ever clears that bar, tell the user and ask; never
+     place an option order (the account is also far too small: one contract costs about $2,000).
+
 ## Part C: results and commit
 
 18. Append a dated entry to `journal/robinhood-log.md`: account value; crypto targets, orders and fills;
