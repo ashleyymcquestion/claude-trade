@@ -573,3 +573,10 @@
 - Gap check: nothing closed (5 open). Dual Thrust: no entries.
 - TSLA 2026-11-27 395C (paper, 17m): bid $18.20, −$90/contract vs $19.10; TSLA $393.90. Verdict: don't buy.
 - Paper holds: CHIP $2.39 (+19.7%), USAR $98.59 (−1.4%).
+
+## 2026-10-26 (12:38 PM PT, hourly run)
+- Account $4.05 (cash $1.53, crypto $1.56, SPCX $0.97). No real orders.
+- Crypto: rh-plan printed no orders (BTC top-up $0.17 under the $0.25 minimum). Stocks: no signals, not halted. SPCX: holding at $148.04 (target $161.05), no orders.
+- Gap check (after 3:30 PM NY, end of day): closed all 5 Brazil gap trades up: XP +7.3%, NU +5.8%, ITUB +5.4%, STNE +4.0%, PAGS +2.0%. Gaps scoreboard: 10 closed, 70% wins, +2.1% avg vs QQQ; not ready_for_real_money (needs 20). Dual Thrust: no entries.
+- TSLA 2026-11-27 395C (paper, 17m): bid $18.00, −$110/contract vs $19.10; TSLA $393.62. Verdict: don't buy.
+- Paper holds: CHIP $2.31 (+15.7%), USAR $97.73 (−2.3%).

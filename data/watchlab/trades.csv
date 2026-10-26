@@ -50,9 +50,9 @@ minervini,SLB,2026-10-26,52.01,711.59,"breakout from a tight range, up -6% in 6 
 bnf,USAR,2026-10-26,9.0399,711.59,27% below its 25-day average,open,0,,0.0,0.0,,0.0,0.0
 bnf,NBIS,2026-10-26,155.27,711.59,25% below its 25-day average,open,0,,0.0,0.0,,0.0,0.0
 bnf,SMR,2026-10-26,5.3199,711.59,25% below its 25-day average,open,0,,0.0,0.0,,0.0,0.0
-gaps,XP,2026-10-26,14.845,711.59,opened 52.3% below yesterday's close 30.39,open,0,,0.0,0.0,,30.395,0.0
-gaps,STNE,2026-10-26,8.025,711.59,opened 37.8% below yesterday's close 11.47,open,0,,0.0,0.0,,11.47,0.0
-gaps,PAGS,2026-10-26,8.41,711.59,opened 32.3% below yesterday's close 11.44,open,0,,0.0,0.0,,11.44,0.0
-gaps,NU,2026-10-26,12.02,711.59,opened 23.1% below yesterday's close 15.15,open,0,,0.0,0.0,,15.155,0.0
-gaps,ITUB,2026-10-26,7.35,711.59,opened 22.7% below yesterday's close 9.66,open,0,,0.0,0.0,,9.665,0.0
+gaps,XP,2026-10-26,14.845,711.59,opened 52.3% below yesterday's close 30.39,closed,1,2026-10-26,15.935,713.36,end of day,30.395,0.0
+gaps,STNE,2026-10-26,8.025,711.59,opened 37.8% below yesterday's close 11.47,closed,1,2026-10-26,8.345,713.36,end of day,11.47,0.0
+gaps,PAGS,2026-10-26,8.41,711.59,opened 32.3% below yesterday's close 11.44,closed,1,2026-10-26,8.581,713.36,end of day,11.44,0.0
+gaps,NU,2026-10-26,12.02,711.59,opened 23.1% below yesterday's close 15.15,closed,1,2026-10-26,12.715,713.36,end of day,15.155,0.0
+gaps,ITUB,2026-10-26,7.35,711.59,opened 22.7% below yesterday's close 9.66,closed,1,2026-10-26,7.745,713.36,end of day,9.665,0.0
 stacked,SGRY,2026-10-26,23.06,711.59,flagged by gainers + buzz,open,0,,0.0,0.0,,0.0,0.0
