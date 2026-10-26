@@ -179,3 +179,10 @@ Paper trading (config.coinbase.toml, COINBASE.md).
 ## 2026-10-24 (5:08 PM PT, daily paper run)
 - Paper: btc_trend $4.94 (-1.1%, holds BTC), momentum $4.92 (-1.7%, holds ALGO, BTC).
 - Futures paper test: $996.18 (-0.4%), holds 1 ETH contract.
+
+## 2026-10-25 (5:09 PM PT, daily paper run)
+- Paper: btc_trend $4.90 (-2.1%, holds cash), momentum $4.91 (-1.8%, holds cash).
+- Placed (paper limit): btc_trend SELL 0.00006123 BTC @ 79969.5; momentum SELL 23.4 ALGO @ 0.10511; momentum SELL 0.00003061 BTC @ 79969.5.
+- week ending 2026-10-25: btc_trend -> cash; momentum -> cash
+- Leftover sell proposals (not placed, need a yes): ALGO $3.87.
+- Futures paper test: $993.52 (-0.7%), holds 1 ETH contract.

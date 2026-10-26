@@ -4,27 +4,48 @@
       "cash": 0.0007385610425006857,
       "start": 5.0,
       "coins": {
-        "BTC": 6.123e-05
+        "BTC": 0.0
       },
-      "orders": [],
-      "target": {
-        "BTC": 1.0
-      },
-      "week": "2026-10-18"
+      "orders": [
+        {
+          "id": "cbp-btc_trend-4",
+          "coin": "BTC",
+          "side": "SELL",
+          "limit": "79969.5",
+          "qty": "0.00006123",
+          "placed_at": "2026-10-26T00:09:00Z"
+        }
+      ],
+      "target": {},
+      "week": "2026-10-25"
     },
     "momentum": {
       "cash": 0.003977626797499936,
       "start": 5.0,
       "coins": {
-        "ALGO": 23.4,
-        "BTC": 3.061e-05
+        "ALGO": 0.0,
+        "BTC": 0.0
       },
-      "orders": [],
-      "target": {
-        "ALGO": 0.5,
-        "BTC": 0.5
-      },
-      "week": "2026-10-18"
+      "orders": [
+        {
+          "id": "cbp-momentum-5",
+          "coin": "ALGO",
+          "side": "SELL",
+          "limit": "0.10511",
+          "qty": "23.4",
+          "placed_at": "2026-10-26T00:09:00Z"
+        },
+        {
+          "id": "cbp-momentum-6",
+          "coin": "BTC",
+          "side": "SELL",
+          "limit": "79969.5",
+          "qty": "0.00003061",
+          "placed_at": "2026-10-26T00:09:00Z"
+        }
+      ],
+      "target": {},
+      "week": "2026-10-25"
     }
   },
   "fills": [
@@ -56,61 +77,91 @@
       "at": "2026-10-22T20:30:00Z"
     }
   ],
-  "seq": 3,
+  "seq": 6,
   "signals": {
     "BTC": {
-      "close": 82006.85,
-      "avg10": 79318.417,
-      "above": true,
-      "ret": 0.0104
+      "close": 80053.16,
+      "avg10": 81040.067,
+      "above": false,
+      "ret": -0.0522
     },
     "ETH": {
-      "close": 2407.51,
-      "avg10": 2474.548,
+      "close": 2326.75,
+      "avg10": 2519.81,
       "above": false,
-      "ret": -0.0896
+      "ret": -0.1345
     },
     "SOL": {
-      "close": 103.99,
-      "avg10": 104.743,
+      "close": 101.23,
+      "avg10": 107.412,
       "above": false,
-      "ret": -0.0644
+      "ret": -0.17
+    },
+    "XRP": {
+      "close": 1.2946,
+      "avg10": 1.40978,
+      "above": false,
+      "ret": -0.1463
+    },
+    "ZEC": {
+      "close": 1212.53,
+      "avg10": 1204.438,
+      "above": true,
+      "ret": -0.236
+    },
+    "NEAR": {
+      "close": 4.5867,
+      "avg10": 3.8517,
+      "above": true,
+      "ret": -0.1482
+    },
+    "HYPE": {
+      "close": 76.24,
+      "avg10": 84.518,
+      "above": false,
+      "ret": -0.1686
+    },
+    "SUI": {
+      "close": 0.9192,
+      "avg10": 0.94883,
+      "above": false,
+      "ret": -0.2727
     },
     "ADA": {
-      "close": 0.22098,
-      "avg10": 0.223685,
+      "close": 0.20375,
+      "avg10": 0.226584,
       "above": false,
-      "ret": -0.0306
+      "ret": -0.2013
     },
     "XLM": {
-      "close": 0.177684,
-      "avg10": 0.1912879,
+      "close": 0.167854,
+      "avg10": 0.1924529,
       "above": false,
-      "ret": -0.0993
+      "ret": -0.2221
     },
     "ALGO": {
-      "close": 0.11101,
-      "avg10": 0.104642,
-      "above": true,
-      "ret": 0.0198
+      "close": 0.10506,
+      "avg10": 0.107312,
+      "above": false,
+      "ret": -0.1216
     },
     "CRV": {
-      "close": 0.3542,
-      "avg10": 0.34133,
-      "above": true,
-      "ret": -0.0008
+      "close": 0.3438,
+      "avg10": 0.35086,
+      "above": false,
+      "ret": -0.0274
     },
     "XCN": {
-      "close": 0.004089,
-      "avg10": 0.0040947,
+      "close": 0.004088,
+      "avg10": 0.0042085,
       "above": false,
-      "ret": -0.0133
+      "ret": -0.1887
     },
     "SKY": {
-      "close": 0.06957,
-      "avg10": 0.072388,
+      "close": 0.0685,
+      "avg10": 0.073972,
       "above": false,
-      "ret": -0.0197
+      "ret": -0.1654
     }
   }
 }
