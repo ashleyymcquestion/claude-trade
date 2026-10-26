@@ -180,6 +180,10 @@ spread, bull put spread, cash-secured put, covered call) whose odds and expected
      no "closed", `get_crypto_quotes(["CHIP-USD"])` and `python -m trader coin-watch --symbol CHIP --bid <bid_price>
      --ask <ask_price>`. A paper hold of $2.00 of CHIP (USD.AI) started Oct 24, 4:46 PM PT; extended by 2 days at the user's request, it now ends Oct 28, 4:46 PM PT; report one line:
      price and paper value, and the final result once it prints "closed".
+     USAR (USA Rare Earth stock, paper only, never buy it for real): while data/coinwatch/USAR-state.json has no
+     "closed", `get_equity_quotes(["USAR"])` and `python -m trader coin-watch --symbol USAR --bid <bid_price> --ask
+     <ask_price>` (skip the step if bid or ask is 0). A 72-hour paper hold of $2.00 started Oct 25, 7:52 PM PT at the
+     overnight-session ask and ends Oct 28, 7:52 PM PT; report one line the same way.
 
 ## Part C: results and commit
 

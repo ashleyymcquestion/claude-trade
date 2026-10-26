@@ -478,3 +478,7 @@
 ## 2026-10-25 (7:50 PM PT, CHIP test extended)
 - User asked to keep paper testing CHIP for another 2 days: the paper hold now ends Oct 28, 4:46 PM PT
   (was Oct 26). Still paper only. Last mark $1.84 (-7.8%).
+
+## 2026-10-25 (7:52 PM PT, USAR paper test started)
+- User asked for a 3-day paper test of USAR (USA Rare Earth). Paper only: $2.00 bought on paper at the
+  overnight-session ask $9.25 (bid $9.24), 0.2162 shares; ends Oct 28, 7:52 PM PT. coin-watch gained --hours.

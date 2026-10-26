@@ -1,5 +1,5 @@
-"""Short paper test of a coin the bots don't trade (CHIP = USD.AI first):
-`python -m trader coin-watch --symbol CHIP --bid B --ask A` on every hourly run.
+"""Short paper test of a coin or stock the bots don't trade (CHIP = USD.AI, USAR = USA Rare Earth):
+`python -m trader coin-watch --symbol CHIP --bid B --ask A [--hours 72]` on every hourly run.
 
 Paper only, never trades. The first call buys $2.00 of the coin on paper at Robinhood's ask (what a real buy
 would pay) and starts a HOURS-hour test; every later call logs the quote and marks the position at the bid
@@ -19,7 +19,7 @@ START = 2.00
 HOURS = 48
 
 
-def step(symbol: str, bid: float, ask: float, now: datetime) -> dict:
+def step(symbol: str, bid: float, ask: float, now: datetime, hours: float = HOURS) -> dict:
     if not 0 < bid <= ask:
         raise ValueError(f"bad quote: bid {bid}, ask {ask}")
     DIR.mkdir(parents=True, exist_ok=True)
@@ -29,7 +29,7 @@ def step(symbol: str, bid: float, ask: float, now: datetime) -> dict:
         return {"done": True, **st}
     if st is None:
         st = {"symbol": symbol, "opened": now.isoformat(timespec="minutes"),
-              "ends": (now + timedelta(hours=HOURS)).isoformat(timespec="minutes"),
+              "ends": (now + timedelta(hours=hours)).isoformat(timespec="minutes"),
               "entry_ask": ask, "units": START / ask}
     value = st["units"] * bid
     row = {"time": now.isoformat(timespec="minutes"), "bid": bid, "ask": ask, "value": round(value, 4),
