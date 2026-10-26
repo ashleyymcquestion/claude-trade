@@ -197,6 +197,12 @@ spread, bull put spread, cash-secured put, covered call) whose odds and expected
      `state.json` for rh-plan. Report one line: status, and while holding the value and gain vs the $0.25.
      A real buy counts as a real order (push notification).
 
+17l3. CHIP swing paper test (paper only, never real money; user asked Oct 26 whether CHIP can be swing
+     traded): every run while data/swingpaper/CHIP-state.json has no "closed", using the CHIP bid/ask from 17l,
+     `python -m trader swing-paper --symbol CHIP --bid <bid_price> --ask <ask_price>`. $2 of paper cash buys at
+     the ask after a 10% dip from the high and sells at the bid after a 10% rise, vs buy-and-hold from Oct 26,
+     1:39 PM PT; ends Nov 9, 1:39 PM PT. Report one line: swing value and return vs hold, position, trades.
+
 17m. TSLA call watch (paper only, never buy it for real; the user asked on Oct 26 to track it and be told whether
      to buy): while data/optionslab/positions.json has the momentum_calls TSLA 2026-11-27 395C (instrument
      fe77640d-0bbc-475f-9283-427344bc6b20) open, on every market-hours run call `get_option_quotes` for it and report

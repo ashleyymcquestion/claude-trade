@@ -88,6 +88,10 @@ def main(argv=None):
     cw.add_argument("--ask", type=float, required=True)
     cw.add_argument("--hours", type=float, default=48, help="test length, used only on the first call")
     cw.add_argument("--start", type=float, default=2.0, help="paper dollars, used only on the first call")
+    sw = sub.add_parser("swing-paper", help="paper swing test: buy 10% dips, sell 10% rises (see trader/swingpaper.py)")
+    sw.add_argument("--symbol", required=True)
+    sw.add_argument("--bid", type=float, required=True)
+    sw.add_argument("--ask", type=float, required=True)
 
     args = parser.parse_args(argv)
     if args.cmd == "coin-watch":
@@ -98,6 +102,15 @@ def main(argv=None):
 
         now = datetime.now(ZoneInfo("America/Los_Angeles"))
         print(json.dumps(coinwatch.step(args.symbol.upper(), args.bid, args.ask, now, args.hours, args.start)))
+        return
+    if args.cmd == "swing-paper":
+        import json
+        from zoneinfo import ZoneInfo
+
+        from . import swingpaper
+
+        now = datetime.now(ZoneInfo("America/Los_Angeles"))
+        print(json.dumps(swingpaper.run(args.symbol.upper(), args.bid, args.ask, now)))
         return
     if args.cmd == "xrp-paper":
         import json

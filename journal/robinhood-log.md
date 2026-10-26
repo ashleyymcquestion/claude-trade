@@ -588,3 +588,4 @@
 - Account $4.04 (cash $1.53, crypto $1.55, SPCX $0.96). No real orders. Stock market closed; stocks skipped.
 - Crypto: rh-plan printed no orders (BTC top-up $0.17 under the $0.25 minimum). CHIP test (17l2): waiting for the paper test to close Oct 28, 4:46 PM PT.
 - Paper holds: CHIP $2.25 (+12.3%), USAR $96.65 (−3.4%, after-hours quote).
+- User asked to set up a CHIP swing paper test: new trader/swingpaper.py (`swing-paper`), ROBINHOOD.md step 17l3. $2 paper, buy 10% dips at the ask, sell 10% rises at the bid, vs buy-and-hold; 14 days (ends Nov 9, 1:39 PM PT). Started in cash at bid 0.0516221 / ask 0.0528769 (hold benchmark $1.95 after the spread).
