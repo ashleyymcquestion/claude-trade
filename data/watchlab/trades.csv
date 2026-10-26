@@ -1,40 +1,58 @@
 source,symbol,opened,entry,bench_entry,reason,status,days,closed,exit,bench_exit,exit_reason,target,stop
-gainers,ASST,2026-10-21,31.255,727.09,up 15.5% today,open,2,,0.0,0.0,,0.0,0.0
+gainers,ASST,2026-10-21,31.255,727.09,up 15.5% today,closed,3,2026-10-26,26.942,711.59,stop,0.0,0.0
 gainers,SEI,2026-10-21,70.19,727.09,up 10.8% today,closed,1,2026-10-22,59.66,708.52,stop,0.0,0.0
 gainers,GLXY,2026-10-21,17.398,727.09,up 10.4% today,closed,1,2026-10-22,15.72,708.52,stop,0.0,0.0
-gainers,APPN,2026-10-21,48.9476,727.09,up 10.0% today,open,2,,0.0,0.0,,0.0,0.0
-gainers,CRL,2026-10-21,346.495,727.09,up 9.8% today,open,2,,0.0,0.0,,0.0,0.0
-buzz,ROIV,2026-10-21,36.32,727.09,3.1x normal volume,open,2,,0.0,0.0,,0.0,0.0
-politicians,VVV,2026-10-21,31.05,727.09,Rep. Michael T. McCaul bought equity 2026-08-19 (disclosed 2026-10-16),open,2,,0.0,0.0,,0.0,0.0
-politicians,ACN,2026-10-21,237.43,727.09,Rep. Michael T. McCaul bought equity 2026-08-25 (disclosed 2026-10-16),open,2,,0.0,0.0,,0.0,0.0
-politicians,ALH,2026-10-21,21.49,727.09,Rep. Michael T. McCaul bought equity 2026-08-10 (disclosed 2026-10-16),open,2,,0.0,0.0,,0.0,0.0
-politicians,FCN,2026-10-21,148.15,727.09,Rep. Michael T. McCaul bought equity 2026-08-12 (disclosed 2026-10-16),open,2,,0.0,0.0,,0.0,0.0
-politicians,ARE,2026-10-21,42.62,727.09,Rep. Ro Khanna bought equity 2026-09-11 (disclosed 2026-10-09),open,2,,0.0,0.0,,0.0,0.0
-social,SPCX,2026-10-21,157.375,727.09,"top trending on Stocktwits (earnings, upgrades) (https://stocktwits.com/)",open,2,,0.0,0.0,,0.0,0.0
-social,RIVN,2026-10-21,12.585,727.09,biggest mention spike on r/wallstreetbets (https://altindex.com/wallstreetbets),open,2,,0.0,0.0,,0.0,0.0
-social,ASST,2026-10-21,31.255,727.09,"trending on Stocktwits (preferred offering, BTC buys) (https://stocktwits.com/)",open,2,,0.0,0.0,,0.0,0.0
-options,FHN,2026-10-21,23.22,727.06,"options volume 27.4x normal, calls 904.0x puts",open,2,,0.0,0.0,,0.0,0.0
+gainers,APPN,2026-10-21,48.9476,727.09,up 10.0% today,open,3,,0.0,0.0,,0.0,0.0
+gainers,CRL,2026-10-21,346.495,727.09,up 9.8% today,open,3,,0.0,0.0,,0.0,0.0
+buzz,ROIV,2026-10-21,36.32,727.09,3.1x normal volume,open,3,,0.0,0.0,,0.0,0.0
+politicians,VVV,2026-10-21,31.05,727.09,Rep. Michael T. McCaul bought equity 2026-08-19 (disclosed 2026-10-16),open,3,,0.0,0.0,,0.0,0.0
+politicians,ACN,2026-10-21,237.43,727.09,Rep. Michael T. McCaul bought equity 2026-08-25 (disclosed 2026-10-16),open,3,,0.0,0.0,,0.0,0.0
+politicians,ALH,2026-10-21,21.49,727.09,Rep. Michael T. McCaul bought equity 2026-08-10 (disclosed 2026-10-16),open,3,,0.0,0.0,,0.0,0.0
+politicians,FCN,2026-10-21,148.15,727.09,Rep. Michael T. McCaul bought equity 2026-08-12 (disclosed 2026-10-16),open,3,,0.0,0.0,,0.0,0.0
+politicians,ARE,2026-10-21,42.62,727.09,Rep. Ro Khanna bought equity 2026-09-11 (disclosed 2026-10-09),open,3,,0.0,0.0,,0.0,0.0
+social,SPCX,2026-10-21,157.375,727.09,"top trending on Stocktwits (earnings, upgrades) (https://stocktwits.com/)",open,3,,0.0,0.0,,0.0,0.0
+social,RIVN,2026-10-21,12.585,727.09,biggest mention spike on r/wallstreetbets (https://altindex.com/wallstreetbets),open,3,,0.0,0.0,,0.0,0.0
+social,ASST,2026-10-21,31.255,727.09,"trending on Stocktwits (preferred offering, BTC buys) (https://stocktwits.com/)",closed,3,2026-10-26,26.942,711.59,stop,0.0,0.0
+options,FHN,2026-10-21,23.22,727.06,"options volume 27.4x normal, calls 904.0x puts",open,3,,0.0,0.0,,0.0,0.0
 options,CECO,2026-10-21,59.19,727.06,"options volume 7.5x normal, calls 234.2x puts",closed,1,2026-10-22,54.42,708.52,stop,0.0,0.0
-options,UAL,2026-10-21,104.37,727.06,"options volume 5.6x normal, calls 8.2x puts",open,2,,0.0,0.0,,0.0,0.0
-velocity,KYIV,2026-10-21,13.87,727.06,"up 9.4% today, 1.2% in the last hour, 2.5x volume",open,2,,0.0,0.0,,0.0,0.0
-gainers,RTO,2026-10-22,22.745,708.52,up 8.1% today,open,1,,0.0,0.0,,0.0,0.0
-gainers,SPOT,2026-10-22,566.175,708.52,up 7.8% today,open,1,,0.0,0.0,,0.0,0.0
-gainers,WCN,2026-10-22,181.17,708.52,up 7.7% today,open,1,,0.0,0.0,,0.0,0.0
-gainers,LMT,2026-10-22,588.9151,708.52,up 6.8% today,open,1,,0.0,0.0,,0.0,0.0
-gainers,KSS,2026-10-22,23.605,708.52,up 6.5% today,open,1,,0.0,0.0,,0.0,0.0
-options,CSX,2026-10-22,51.47,708.52,"options volume 5.3x normal, calls 71.9x puts",open,1,,0.0,0.0,,0.0,0.0
-stacked,CSX,2026-10-22,51.47,708.52,flagged by gainers + options,open,1,,0.0,0.0,,0.0,0.0
-gainers,RHI,2026-10-23,43.5043,707.63,up 15.5% today,open,0,,0.0,0.0,,0.0,0.0
-gainers,CCI,2026-10-23,88.35,707.63,up 12.1% today,open,0,,0.0,0.0,,0.0,0.0
-gainers,RNG,2026-10-23,85.08,707.63,up 7.1% today,open,0,,0.0,0.0,,0.0,0.0
-gainers,RITM,2026-10-23,9.2705,707.63,up 6.8% today,open,0,,0.0,0.0,,0.0,0.0
-gainers,TTMI,2026-10-23,78.7,707.63,up 6.5% today,open,0,,0.0,0.0,,0.0,0.0
-minervini,ROKU,2026-10-23,158.775,707.63,"breakout from a tight range, up 39% in 6 months",open,0,,0.0,0.0,,0.0,0.0
-bnf,IREN,2026-10-23,25.95,707.63,32% below its 25-day average,open,0,,0.0,0.0,,0.0,0.0
-bnf,CRWV,2026-10-23,55.245,707.63,30% below its 25-day average,open,0,,0.0,0.0,,0.0,0.0
-bnf,COHR,2026-10-23,214.38,707.63,28% below its 25-day average,open,0,,0.0,0.0,,0.0,0.0
+options,UAL,2026-10-21,104.37,727.06,"options volume 5.6x normal, calls 8.2x puts",open,3,,0.0,0.0,,0.0,0.0
+velocity,KYIV,2026-10-21,13.87,727.06,"up 9.4% today, 1.2% in the last hour, 2.5x volume",open,3,,0.0,0.0,,0.0,0.0
+gainers,RTO,2026-10-22,22.745,708.52,up 8.1% today,open,2,,0.0,0.0,,0.0,0.0
+gainers,SPOT,2026-10-22,566.175,708.52,up 7.8% today,open,2,,0.0,0.0,,0.0,0.0
+gainers,WCN,2026-10-22,181.17,708.52,up 7.7% today,open,2,,0.0,0.0,,0.0,0.0
+gainers,LMT,2026-10-22,588.9151,708.52,up 6.8% today,open,2,,0.0,0.0,,0.0,0.0
+gainers,KSS,2026-10-22,23.605,708.52,up 6.5% today,open,2,,0.0,0.0,,0.0,0.0
+options,CSX,2026-10-22,51.47,708.52,"options volume 5.3x normal, calls 71.9x puts",open,2,,0.0,0.0,,0.0,0.0
+stacked,CSX,2026-10-22,51.47,708.52,flagged by gainers + options,open,2,,0.0,0.0,,0.0,0.0
+gainers,RHI,2026-10-23,43.5043,707.63,up 15.5% today,open,1,,0.0,0.0,,0.0,0.0
+gainers,CCI,2026-10-23,88.35,707.63,up 12.1% today,open,1,,0.0,0.0,,0.0,0.0
+gainers,RNG,2026-10-23,85.08,707.63,up 7.1% today,open,1,,0.0,0.0,,0.0,0.0
+gainers,RITM,2026-10-23,9.2705,707.63,up 6.8% today,open,1,,0.0,0.0,,0.0,0.0
+gainers,TTMI,2026-10-23,78.7,707.63,up 6.5% today,open,1,,0.0,0.0,,0.0,0.0
+minervini,ROKU,2026-10-23,158.775,707.63,"breakout from a tight range, up 39% in 6 months",open,1,,0.0,0.0,,0.0,0.0
+bnf,IREN,2026-10-23,25.95,707.63,32% below its 25-day average,open,1,,0.0,0.0,,0.0,0.0
+bnf,CRWV,2026-10-23,55.245,707.63,30% below its 25-day average,open,1,,0.0,0.0,,0.0,0.0
+bnf,COHR,2026-10-23,214.38,707.63,28% below its 25-day average,open,1,,0.0,0.0,,0.0,0.0
 gaps,LKQ,2026-10-23,18.09,707.63,opened 19.1% below yesterday's close 22.45,closed,1,2026-10-23,17.64,704.79,end of day,22.45,0.0
 gaps,TNGX,2026-10-23,23.01,707.63,opened 8.6% below yesterday's close 27.95,closed,1,2026-10-23,23.425,704.79,end of day,27.95,0.0
 gaps,FLG,2026-10-23,10.365,707.63,opened 7.9% below yesterday's close 11.46,closed,1,2026-10-23,10.335,704.79,end of day,11.455,0.0
 gaps,GNTX,2026-10-23,20.13,707.63,opened 7.1% below yesterday's close 21.76,closed,1,2026-10-23,20.505,704.79,end of day,21.76,0.0
 gaps,CRDO,2026-10-23,154.5,707.63,opened 7.0% below yesterday's close 162.59,closed,1,2026-10-23,147.14,704.79,end of day,162.59,0.0
+gainers,SGRY,2026-10-26,23.06,711.59,up 46.4% today,open,0,,0.0,0.0,,0.0,0.0
+gainers,RRC,2026-10-26,52.49,711.59,up 15.3% today,open,0,,0.0,0.0,,0.0,0.0
+gainers,TSLA,2026-10-26,393.89,711.59,up 5.8% today,open,0,,0.0,0.0,,0.0,0.0
+gainers,ERAS,2026-10-26,15.225,711.59,up 5.8% today,open,0,,0.0,0.0,,0.0,0.0
+gainers,TENB,2026-10-26,47.17,711.59,up 5.8% today,open,0,,0.0,0.0,,0.0,0.0
+buzz,SGRY,2026-10-26,23.06,711.59,11.6x normal volume,open,0,,0.0,0.0,,0.0,0.0
+politicians,NVDA,2026-10-26,215.76,711.59,Rep. Cleo Fields bought equity 2026-10-01 (disclosed 2026-10-23),open,0,,0.0,0.0,,0.0,0.0
+politicians,TSM,2026-10-26,422.69,711.59,Rep. Cleo Fields bought equity 2026-10-09 (disclosed 2026-10-23),open,0,,0.0,0.0,,0.0,0.0
+minervini,SLB,2026-10-26,52.01,711.59,"breakout from a tight range, up -6% in 6 months",open,0,,0.0,0.0,,0.0,0.0
+bnf,USAR,2026-10-26,9.0399,711.59,27% below its 25-day average,open,0,,0.0,0.0,,0.0,0.0
+bnf,NBIS,2026-10-26,155.27,711.59,25% below its 25-day average,open,0,,0.0,0.0,,0.0,0.0
+bnf,SMR,2026-10-26,5.3199,711.59,25% below its 25-day average,open,0,,0.0,0.0,,0.0,0.0
+gaps,XP,2026-10-26,14.845,711.59,opened 52.3% below yesterday's close 30.39,open,0,,0.0,0.0,,30.395,0.0
+gaps,STNE,2026-10-26,8.025,711.59,opened 37.8% below yesterday's close 11.47,open,0,,0.0,0.0,,11.47,0.0
+gaps,PAGS,2026-10-26,8.41,711.59,opened 32.3% below yesterday's close 11.44,open,0,,0.0,0.0,,11.44,0.0
+gaps,NU,2026-10-26,12.02,711.59,opened 23.1% below yesterday's close 15.15,open,0,,0.0,0.0,,15.155,0.0
+gaps,ITUB,2026-10-26,7.35,711.59,opened 22.7% below yesterday's close 9.66,open,0,,0.0,0.0,,9.665,0.0
+stacked,SGRY,2026-10-26,23.06,711.59,flagged by gainers + buzz,open,0,,0.0,0.0,,0.0,0.0

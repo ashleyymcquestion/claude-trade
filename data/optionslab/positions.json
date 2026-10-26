@@ -33,11 +33,11 @@
   "expiration": "2026-11-20",
   "opened": "2026-10-21",
   "underlying_entry": 30.78,
-  "status": "open",
-  "closed": "",
-  "exit_reason": "",
-  "pnl": 0.0,
-  "ret": 0.0,
+  "status": "closed",
+  "closed": "2026-10-26",
+  "exit_reason": "stop",
+  "pnl": -240.0,
+  "ret": -0.6486,
   "structure": "long_call",
   "legs": [
    {
@@ -51,7 +51,9 @@
   "net_debit": 3.7,
   "pop": null,
   "ev": null,
-  "note": "opened before the edge filter"
+  "note": "opened before the edge filter",
+  "exit_value": 1.3,
+  "underlying_exit": 26.9224
  },
  {
   "id": "cea4cb32",
@@ -954,6 +956,35 @@
   "ev": -92.0,
   "max_profit": 32679.0,
   "max_loss": 92.0,
+  "status": "open",
+  "closed": "",
+  "exit_reason": "",
+  "pnl": 0.0,
+  "ret": 0.0
+ },
+ {
+  "id": "7ce0b80b",
+  "strategy": "momentum_calls/call",
+  "structure": "long_call",
+  "underlying": "TSLA",
+  "expiration": "2026-11-27",
+  "legs": [
+   {
+    "instrument_id": "fe77640d-0bbc-475f-9283-427344bc6b20",
+    "type": "call",
+    "action": "buy",
+    "strike": 395.0,
+    "entry": 19.1
+   }
+  ],
+  "net_debit": 19.1,
+  "opened": "2026-10-26",
+  "underlying_entry": 394.275,
+  "vol": 0.3591,
+  "pop": 0.3182,
+  "ev": -163.6,
+  "max_profit": 57158.0,
+  "max_loss": 1910.0,
   "status": "open",
   "closed": "",
   "exit_reason": "",

@@ -535,3 +535,10 @@
   - SPCX holding at $146.83 (target $161.05, no stop).
 - Watchlab and options lab not due until 10:00 AM New York; no gap trades open.
 - CHIP paper ($2): bid $0.04837, $2.10 (+5.2%). USAR paper ($100): open $9.16 bid, $99.03 (-1.0%).
+
+## 2026-10-26 (7:38 AM PT, hourly run; daily watchlab + options lab)
+- Account $4.05 (cash $1.53, crypto $1.56, SPCX $0.96). No real orders.
+- Crypto: rh-plan printed no orders (BTC top-up under the $0.25 minimum). Stocks: no signals, not halted. SPCX: holding at $147.64 (target $161.05), no orders.
+- Watchlab (paper): opened 18 (gainers SGRY/RRC/TSLA/ERAS/TENB, buzz SGRY, politicians NVDA/TSM, minervini SLB, bnf USAR/NBIS/SMR, gaps XP/STNE/PAGS/NU/ITUB, stacked SGRY); closed ASST −13.8%. Gaps lead: 5 closed, 40% wins, −0.8% avg. None ready_for_real_money. Gap check: nothing closed; Dual Thrust: no entries.
+- Options lab (paper): opened TSLA 2026-11-27 395C @ $19.10; closed ASST call −$240 (stop). momentum_calls −$750 over 2 closed.
+- Paper holds: CHIP $2.17 (+8.3%), USAR $97.62 (−2.4%).
