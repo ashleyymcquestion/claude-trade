@@ -484,3 +484,7 @@
   overnight-session ask $9.25 (bid $9.24), 0.2162 shares; ends Oct 28, 7:52 PM PT. coin-watch gained --hours.
 - 7:58 PM PT: user asked for $100 instead of $2.00; the USAR paper hold is now $100 at the same $9.25 entry
   (10.81 shares, paper only). coin-watch gained --start.
+
+## 2026-10-25 (8:38 PM PT, hourly run)
+- Account $4.04. No orders: crypto at target (BTC top-up under the $0.25 minimum); stocks and SPCX skipped
+  (weekend). CHIP paper ($2): bid $0.04321, $1.88 (-6.0%). USAR paper ($100): bid $9.25, $100.00 (0.0%).
