@@ -32,3 +32,8 @@ def test_hours_sets_the_length_on_the_first_call_only():
     coinwatch.step("USAR", 9.24, 9.26, t0, hours=72)
     assert "closed" not in coinwatch.step("USAR", 9.5, 9.52, t0 + timedelta(hours=60), hours=1)
     assert coinwatch.step("USAR", 9.5, 9.52, t0 + timedelta(hours=72))["closed"] is True
+
+
+def test_start_sets_the_paper_dollars():
+    first = coinwatch.step("USAR", 9.24, 9.25, datetime(2026, 10, 25, 20, 0), hours=72, start=100)
+    assert first["value"] == pytest.approx(100 * 9.24 / 9.25, abs=1e-3) and first["ret"] == pytest.approx(-0.0011, abs=1e-4)

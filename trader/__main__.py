@@ -78,6 +78,7 @@ def main(argv=None):
     cw.add_argument("--bid", type=float, required=True)
     cw.add_argument("--ask", type=float, required=True)
     cw.add_argument("--hours", type=float, default=48, help="test length, used only on the first call")
+    cw.add_argument("--start", type=float, default=2.0, help="paper dollars, used only on the first call")
 
     args = parser.parse_args(argv)
     if args.cmd == "coin-watch":
@@ -87,7 +88,7 @@ def main(argv=None):
         from . import coinwatch
 
         now = datetime.now(ZoneInfo("America/Los_Angeles"))
-        print(json.dumps(coinwatch.step(args.symbol.upper(), args.bid, args.ask, now, args.hours)))
+        print(json.dumps(coinwatch.step(args.symbol.upper(), args.bid, args.ask, now, args.hours, args.start)))
         return
     if args.cmd == "xrp-paper":
         import json
