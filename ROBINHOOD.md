@@ -185,7 +185,8 @@ spread, bull put spread, cash-secured put, covered call) whose odds and expected
      <ask_price>` (skip the step if bid or ask is 0). A 72-hour paper hold of $100 (user asked for $100) started Oct 25, 7:52 PM PT at the
      overnight-session ask and ends Oct 28, 7:52 PM PT; report one line the same way.
 
-17l2. CHIP real test buy (user OK'd on Oct 26: $0.25 once, after the paper test, no stop): every run, unless
+17l2. CHIP real test buy (user OK'd on Oct 26: $0.25 once, after the paper test, with a 25% trailing exit:
+     sells everything once the bid falls 25% below the highest bid since the buy; rh-chip-plan saves the peak): every run, unless
      data/chip-test.json status is "done" or "skipped": `get_crypto_quotes(["CHIP-USD"])` (bid, ask),
      `get_crypto_positions` (CHIP `quantity_transferable`, 0 if none), `get_crypto_orders(state_group="open",
      symbol="CHIP")`. Write `chip_state.json`: `{"cash": "<crypto buying_power>", "bid": ..., "ask": ...,
@@ -201,7 +202,10 @@ spread, bull put spread, cash-secured put, covered call) whose odds and expected
      traded): every run while data/swingpaper/CHIP-state.json has no "closed", using the CHIP bid/ask from 17l,
      `python -m trader swing-paper --symbol CHIP --bid <bid_price> --ask <ask_price>`. $2 of paper cash buys at
      the ask after a 10% dip from the high and sells at the bid after a 10% rise, vs buy-and-hold from Oct 26,
-     1:39 PM PT; ends Nov 9, 1:39 PM PT. Report one line: swing value and return vs hold, position, trades.
+     1:39 PM PT; ends Nov 9, 1:39 PM PT. Then the trend-following comparison (user picked it the same day):
+     `python -m trader swing-paper --symbol CHIP --mode trail --bid <bid_price> --ask <ask_price>`: $2 bought at
+     the ask on Oct 26, 1:47 PM PT, sold at the bid once it falls 25% below its highest bid, then cash; ends
+     Nov 9, 1:47 PM PT. Report one line comparing all three: swing, trail and hold (value and return).
 
 17m. TSLA call watch (paper only, never buy it for real; the user asked on Oct 26 to track it and be told whether
      to buy): while data/optionslab/positions.json has the momentum_calls TSLA 2026-11-27 395C (instrument

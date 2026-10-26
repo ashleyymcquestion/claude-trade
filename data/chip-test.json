@@ -7,5 +7,7 @@
   "status": "waiting",
   "buy": null,
   "stop": null,
-  "sell": null
+  "sell": null,
+  "trail_pct": 0.25,
+  "peak": null
 }

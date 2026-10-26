@@ -31,3 +31,17 @@ def test_closes_after_the_test_length():
     assert "closed" in row and st["closed"]["value"] == 2.0
     st2, row = swingpaper.step(st, 0.040, 0.041, T0 + timedelta(days=15))
     assert row["action"] == "closed" and st2["units"] == 0
+
+
+def test_trail_holds_the_climb_and_sells_25_pct_off_the_high():
+    st, row = swingpaper.step_trail(None, 0.050, 0.051, T0)
+    assert row["position"] == "coin" and row["value"] == row["hold"]
+    st, row = swingpaper.step_trail(st, 0.080, 0.081, T0)            # climbs: new high
+    assert row["action"] == "" and st["high"] == 0.080
+    st, row = swingpaper.step_trail(st, 0.061, 0.062, T0)            # 23.75% off: hold
+    assert row["action"] == ""
+    st, row = swingpaper.step_trail(st, 0.059, 0.060, T0)            # >25% off: sell at the bid
+    assert row["action"] == "sell" and row["position"] == "cash"
+    assert abs(row["value"] - 2.0 / 0.051 * 0.059) < 1e-3
+    st, row = swingpaper.step_trail(st, 0.100, 0.101, T0)            # stays in cash after the exit
+    assert row["position"] == "cash" and row["action"] == ""

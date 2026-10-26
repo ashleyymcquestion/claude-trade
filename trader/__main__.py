@@ -92,6 +92,8 @@ def main(argv=None):
     sw.add_argument("--symbol", required=True)
     sw.add_argument("--bid", type=float, required=True)
     sw.add_argument("--ask", type=float, required=True)
+    sw.add_argument("--mode", choices=["swing", "trail"], default="swing",
+                    help="swing: buy 10%% dips, sell 10%% rises; trail: hold, sell 25%% off the high")
 
     args = parser.parse_args(argv)
     if args.cmd == "coin-watch":
@@ -110,7 +112,7 @@ def main(argv=None):
         from . import swingpaper
 
         now = datetime.now(ZoneInfo("America/Los_Angeles"))
-        print(json.dumps(swingpaper.run(args.symbol.upper(), args.bid, args.ask, now)))
+        print(json.dumps(swingpaper.run(args.symbol.upper(), args.bid, args.ask, now, mode=args.mode)))
         return
     if args.cmd == "xrp-paper":
         import json
@@ -211,7 +213,7 @@ def main(argv=None):
         ledger = chip_test.load_ledger()
         if args.cmd == "rh-chip-plan":
             out = chip_test.plan(ledger, json.loads(Path(args.state).read_text()))
-            if "ledger" in out:   # skipped: remember it
+            if "ledger" in out:   # skipped, or a new peak for the trailing exit
                 chip_test.LEDGER.write_text(json.dumps(out.pop("ledger"), indent=2) + "\n")
             print(json.dumps(out, indent=2))
         else:

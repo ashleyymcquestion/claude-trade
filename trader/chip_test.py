@@ -3,13 +3,14 @@
 The user OK'd this on Oct 26 after the CHIP paper hold (trader/coinwatch.py) ran up: once that paper
 test has closed (Oct 28, 4:46 PM PT), buy $0.25 of CHIP-USD once, but only if the bid is still above
 the paper test's start price; otherwise skip the test for good. With stop_pct set, sell the whole
-position if the bid falls that far below the fill price. The user chose no stop (stop_pct null): the
-most it can lose is the $0.25, and CHIP swings 15% in a day, so a stop would likely sell at a low.
-There is no profit target either: the user decides when to sell. Outside the crypto strategy
+position if the bid falls that far below the fill price. With trail_pct set, the ledger keeps the
+highest bid seen since the buy ("peak") and sells everything once the bid falls trail_pct below it, so
+a climb is kept and a reversal is cut. The user first chose no stop, then (same day) a 25% trailing
+exit: wide because CHIP swings 10-15% in a normal day. No profit target. Outside the crypto strategy
 (rh-plan never sees CHIP).
 
 Ledger (committed, data/chip-test.json):
-    {"enabled": true, "amount": "0.25", "stop_pct": 0.15 | null, "not_before": "<ISO time>",
+    {"enabled": true, "amount": "0.25", "stop_pct": 0.15 | null, "trail_pct": 0.25 | null, "peak": <float> | null, "not_before": "<ISO time>",
      "min_bid": <paper start price>, "status": "waiting" | "holding" | "done" | "skipped",
      "buy": {"order_id", "quantity", "price", "at"} | null, "stop": <float> | null,
      "sell": {...} | null, "note": "..."}
@@ -32,7 +33,7 @@ LEDGER = Path("data/chip-test.json")
 SYMBOL = "CHIP-USD"
 REF_NAMESPACE = uuid.UUID("7c2e9d41-0a5b-4f6e-8d3c-1b9a7e5f2c64")
 
-DEFAULT_LEDGER = {"enabled": True, "amount": "0.25", "stop_pct": None,
+DEFAULT_LEDGER = {"enabled": True, "amount": "0.25", "stop_pct": None, "trail_pct": 0.25, "peak": None,
                   "not_before": "2026-10-28T16:46-07:00", "min_bid": 0.04596719,
                   "status": "waiting", "buy": None, "stop": None, "sell": None}
 
@@ -54,7 +55,7 @@ def load_ledger(path: Path = LEDGER) -> dict:
 
 def plan(ledger: dict, state: dict) -> dict:
     """Return {"orders": [...], "notes": [...]}; at most one order, printed exactly as to place.
-    When the test is skipped it also returns "ledger", which the caller saves."""
+    When the test is skipped or a new peak is seen it also returns "ledger", which the caller saves."""
     now = _ts(state["now"]) if state.get("now") else datetime.now(UTC)
     bid, qty = _f(state.get("bid")), _f(state.get("quantity"))
     if not ledger.get("enabled", True):
@@ -83,11 +84,23 @@ def plan(ledger: dict, state: dict) -> dict:
         stop = ledger.get("stop")
         if qty <= 0:
             return {"orders": [], "notes": ["ledger says holding but no CHIP is held; not selling (needs a look)"]}
-        if stop is not None and bid <= _f(stop):
-            return {"orders": [{"symbol": SYMBOL, "side": "sell", "type": "market", "quantity": str(state["quantity"]),
-                                "ref_id": str(uuid.uuid5(REF_NAMESPACE, "sell")),
-                                "reason": f"stop hit: bid {bid} <= {stop}"}], "notes": []}
-        return {"orders": [], "notes": [f"holding at bid {bid}: " + (f"stop {stop}" if stop is not None else "no stop")]}
+        out_ledger, why, notes = None, "", []
+        if ledger.get("trail_pct") is not None:
+            peak = max(_f(ledger.get("peak")), bid)
+            exit_at = round(peak * (1 - _f(ledger["trail_pct"])), 8)
+            if peak != ledger.get("peak"):
+                out_ledger = {**ledger, "peak": peak}
+            if bid <= exit_at:
+                why = f"trailing exit: bid {bid} <= {exit_at} (peak {peak})"
+            else:
+                notes.append(f"holding at bid {bid}: peak {peak}, sells at or below {exit_at}")
+        if not why and stop is not None and bid <= _f(stop):
+            why = f"stop hit: bid {bid} <= {stop}"
+        elif not why and not notes:
+            notes.append(f"holding at bid {bid}: " + (f"stop {stop}" if stop is not None else "no stop"))
+        orders = [{"symbol": SYMBOL, "side": "sell", "type": "market", "quantity": str(state["quantity"]),
+                   "ref_id": str(uuid.uuid5(REF_NAMESPACE, "sell")), "reason": why}] if why else []
+        return {"orders": orders, "notes": notes, **({"ledger": out_ledger} if out_ledger else {})}
     return {"orders": [], "notes": [f"test {status}; nothing to do"]}
 
 
@@ -99,7 +112,7 @@ def record(ledger: dict, side: str, order_id: str, quantity: str, price: str, at
             raise ValueError(f"buy recorded while {ledger['status']}")
         sp = ledger.get("stop_pct")
         stop = round(_f(price) * (1 - _f(sp)), 8) if sp is not None else None
-        return {**ledger, "status": "holding", "buy": fill, "stop": stop}
+        return {**ledger, "status": "holding", "buy": fill, "stop": stop, "peak": _f(price)}
     if side == "sell":
         if ledger["status"] != "holding":
             raise ValueError(f"sell recorded while {ledger['status']}")
