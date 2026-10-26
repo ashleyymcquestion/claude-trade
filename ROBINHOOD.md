@@ -209,6 +209,12 @@ spread, bull put spread, cash-secured put, covered call) whose odds and expected
      the ask on Oct 26, 1:47 PM PT, sold at the bid once it falls 25% below its highest bid, then cash;
      3-day rounds the same way (CHIP-trail-rounds.json). Report one line comparing all three: swing, trail and hold (value and return).
 
+17l4. Gap-down rule for real money (built Oct 26, OFF: data/gap-live.json has "enabled": false). Skip this step
+     while it is off. It is turned on only when the watchlab "gaps" paper test has 20+ closed trades still
+     winning AND the user says so in their own words; then also add `trader rh-gap-plan` to the trigger's list of
+     planners. Rule (trader/gap_live.py): before 11 AM New York, $1 of the deepest 5%+ gap down among NVDA / AMD /
+     PLTR / QQQ, at most one a day; sold (only its own shares) when back at yesterday's close or after 3:30 PM.
+
 17m. TSLA call watch (paper only, never buy it for real; the user asked on Oct 26 to track it and be told whether
      to buy): while data/optionslab/positions.json has the momentum_calls TSLA 2026-11-27 395C (instrument
      fe77640d-0bbc-475f-9283-427344bc6b20) open, on every market-hours run call `get_option_quotes` for it and report

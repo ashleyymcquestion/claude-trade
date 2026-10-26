@@ -1,0 +1,15 @@
+{
+  "enabled": false,
+  "amount": "1.00",
+  "gap": 0.05,
+  "symbols": [
+    "NVDA",
+    "AMD",
+    "PLTR",
+    "QQQ"
+  ],
+  "status": "flat",
+  "position": null,
+  "last_day": null,
+  "trades": []
+}

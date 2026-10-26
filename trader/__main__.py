@@ -45,6 +45,16 @@ def main(argv=None):
     sr.add_argument("--price", required=True, help="the order's average_price")
     sr.add_argument("--at", required=True, help="fill time (ISO)")
 
+    gp = sub.add_parser("rh-gap-plan", help="gap-down rule (off until the user OKs it): print the order, if any")
+    gp.add_argument("--state", required=True, help="gap state JSON (see trader/gap_live.py)")
+    gr = sub.add_parser("rh-gap-record", help="gap-down rule: record a filled order")
+    gr.add_argument("--side", required=True, choices=["buy", "sell"])
+    gr.add_argument("--symbol", required=True)
+    gr.add_argument("--order-id", required=True)
+    gr.add_argument("--quantity", required=True)
+    gr.add_argument("--price", required=True, help="the order's average_price")
+    gr.add_argument("--at", required=True, help="fill time (ISO)")
+    gr.add_argument("--prev-close", type=float, help="buys: the prev_close the plan printed")
     cp = sub.add_parser("rh-chip-plan", help="CHIP test buy: print the order to place, if any")
     cp.add_argument("--state", required=True, help="CHIP state JSON (see trader/chip_test.py)")
     cr = sub.add_parser("rh-chip-record", help="CHIP test buy: record a filled order")
@@ -205,6 +215,20 @@ def main(argv=None):
             print(json.dumps(ledger, indent=2))
         return
 
+    if args.cmd in ("rh-gap-plan", "rh-gap-record"):
+        import json
+
+        from . import gap_live
+
+        ledger = gap_live.load_ledger()
+        if args.cmd == "rh-gap-plan":
+            print(json.dumps(gap_live.plan(ledger, json.loads(Path(args.state).read_text())), indent=2))
+        else:
+            ledger = gap_live.record(ledger, args.side, args.symbol.upper(), args.order_id, args.quantity,
+                                     args.price, args.at, args.prev_close)
+            gap_live.LEDGER.write_text(json.dumps(ledger, indent=2) + "\n")
+            print(json.dumps(ledger, indent=2))
+        return
     if args.cmd in ("rh-chip-plan", "rh-chip-record"):
         import json
 
