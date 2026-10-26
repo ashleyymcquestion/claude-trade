@@ -178,7 +178,7 @@ spread, bull put spread, cash-secured put, covered call) whose odds and expected
 
 17l. Coin watch (paper only, every run; never buy these coins for real): while data/coinwatch/CHIP-state.json has
      no "closed", `get_crypto_quotes(["CHIP-USD"])` and `python -m trader coin-watch --symbol CHIP --bid <bid_price>
-     --ask <ask_price>`. A 48-hour paper hold of $2.00 of CHIP (USD.AI) started Oct 24, 4:46 PM PT (ends Oct 26, 4:46 PM PT); report one line:
+     --ask <ask_price>`. A paper hold of $2.00 of CHIP (USD.AI) started Oct 24, 4:46 PM PT; extended by 2 days at the user's request, it now ends Oct 28, 4:46 PM PT; report one line:
      price and paper value, and the final result once it prints "closed".
 
 ## Part C: results and commit

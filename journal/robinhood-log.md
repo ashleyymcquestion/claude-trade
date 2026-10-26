@@ -474,3 +474,7 @@
 ## 2026-10-25 (7:38 PM PT, hourly run)
 - Account $4.05. No orders: crypto at target (BTC top-up under the $0.25 minimum); stocks and SPCX skipped
   (weekend). CHIP paper hold: bid $0.04238, paper value $1.84 (-7.8%).
+
+## 2026-10-25 (7:50 PM PT, CHIP test extended)
+- User asked to keep paper testing CHIP for another 2 days: the paper hold now ends Oct 28, 4:46 PM PT
+  (was Oct 26). Still paper only. Last mark $1.84 (-7.8%).
