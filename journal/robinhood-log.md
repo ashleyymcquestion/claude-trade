@@ -607,3 +607,8 @@
 - Account $4.05 (cash $1.53, crypto $1.56, SPCX $0.96). No real orders. Stock market closed; stocks skipped.
 - Crypto: rh-plan printed no orders (BTC top-up $0.17 under the $0.25 minimum). CHIP real test: paused.
 - Paper: CHIP hold $2.20 (+9.8%); CHIP swing $2.00 (cash) vs trail $1.91 (−4.5%) vs hold-from-today $1.91; USAR $96.43 (−3.6%, after-hours).
+
+## 2026-10-26 (5:38 PM PT, hourly run, after the close)
+- Account $4.06 (cash $1.53, crypto $1.56, SPCX $0.97). No real orders. Stock market closed; stocks skipped.
+- Crypto: rh-plan printed no orders (BTC top-up $0.17 under the $0.25 minimum). Proxy bars for Oct 26 came back interpolated (skipped by the code); prices still as of Oct 23. CHIP real test: paused.
+- Paper: CHIP hold $2.22 (+11.1%); CHIP swing $2.00 (cash) vs trail $1.93 (−3.4%) vs hold-from-today $1.93; USAR $96.86 (−3.1%, after-hours).
