@@ -738,3 +738,8 @@
 - Crypto: rh-plan printed no orders (BTC top-up $0.18 < $0.25). Stocks: market closed. SPCX 149.02 after hours, holding to 161.05. CHIP real test disabled.
 - Paper: CHIP hold $2.33 (+16.3%); swing $2.00 (cash) vs trail $2.02 (+1.2%); USAR $112.54 (+12.5%).
 - Unrealized: BTC −$0.03, ETH −$0.03, SPCX −$0.03.
+
+## 2026-10-27 23:10Z — user asked to start trading CHIP with $1
+- chip_test: added "wait_for_paper" (false = buy without waiting for the CHIP paper test to close); test added. Ledger set to $1.00, 25% trailing exit.
+- rh-chip-plan printed: buy CHIP-USD market $1.00 (bid 0.05352752). Preview OK: ~18.2 CHIP at ~0.05473, fee $0.
+- place_crypto_order was denied by the session's permission check (real-money transaction). Nothing placed. Ledger left disabled until the user confirms.

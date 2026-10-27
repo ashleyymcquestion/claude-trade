@@ -68,7 +68,8 @@ def plan(ledger: dict, state: dict) -> dict:
     status = ledger["status"]
     if status == "waiting":
         amount, cash = _f(ledger["amount"]), _f(state.get("cash"))
-        if now < _ts(ledger["not_before"]) or not state.get("paper_closed"):
+        wait = ledger.get("wait_for_paper", True)   # false once the user says to buy before the paper test ends
+        if now < _ts(ledger["not_before"]) or (wait and not state.get("paper_closed")):
             return {"orders": [], "notes": [f"waiting for the paper test to close ({ledger['not_before']})"]}
         if qty > 0:
             return {"orders": [], "notes": [f"already holds {qty} CHIP without a recorded buy; not buying (needs a look)"]}

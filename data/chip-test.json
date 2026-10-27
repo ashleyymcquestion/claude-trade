@@ -1,8 +1,8 @@
 {
   "enabled": false,
-  "amount": "0.25",
+  "amount": "1.00",
   "stop_pct": null,
-  "not_before": "2026-10-28T16:46-07:00",
+  "not_before": "2026-10-27T15:40-07:00",
   "min_bid": 0.04596719,
   "status": "waiting",
   "buy": null,
@@ -10,5 +10,6 @@
   "sell": null,
   "trail_pct": 0.25,
   "peak": null,
-  "note": "2026-10-26: paused; user wants paper tests only (3 days at a time) for now"
+  "note": "2026-10-27: user asked to trade CHIP with $1 now (25% trailing exit kept, no wait for the paper test). Planner printed the $1 buy at 7:10 PM ET; placing it was blocked by the session's permission check, so it stays off until the user confirms.",
+  "wait_for_paper": false
 }

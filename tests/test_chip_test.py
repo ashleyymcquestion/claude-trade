@@ -15,6 +15,12 @@ def test_waits_for_the_paper_test_to_close():
     assert chip_test.plan(led, state(paper_closed=False))["orders"] == []
 
 
+def test_can_buy_before_the_paper_test_closes_when_told_to():
+    led = {**chip_test.DEFAULT_LEDGER, "amount": "1.00", "wait_for_paper": False}
+    (o,) = chip_test.plan(led, state(paper_closed=False))["orders"]
+    assert o["dollar_amount"] == "1.00"
+
+
 def test_buys_25_cents_once_when_above_the_paper_start():
     out = chip_test.plan(dict(chip_test.DEFAULT_LEDGER), state())
     (o,) = out["orders"]
