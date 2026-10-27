@@ -642,3 +642,7 @@
 - Results row 2026-10-27 added ($4.04) and the results page updated.
 - XRP paper: target 6.4%, paper $1.9992 vs holding XRP $2.0081. Meme paper (Oct 26 close): no signals, 0 trades.
 - Paper: CHIP hold $2.21 (+10.7%); CHIP swing $2.00 (cash) vs trail $1.92 (−3.8%); USAR $95.89 (−4.1%, overnight quote).
+
+## 2026-10-27 (1:38 AM PT, hourly run, overnight)
+- Account $4.05 (cash $1.53, crypto $1.55, SPCX $0.96). No real orders. Stocks skipped (market closed). Crypto: Oct 26 proxy bars now real (prices as of Oct 26); targets BTC 35.4% / ETH 30.3% / SOL 0; no orders (BTC top-up $0.17 under the minimum). CHIP real test: paused.
+- Paper: CHIP hold $2.23 (+11.7%); CHIP swing $2.00 (cash) vs trail $1.94 (−2.9%); USAR $96.22 (−3.8%, overnight quote).
