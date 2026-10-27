@@ -61,8 +61,8 @@ gainers,PNR,2026-10-27,61.495,716.961,up 11.4% today,open,0,,0.0,0.0,,0.0,0.0
 gainers,CLS,2026-10-27,271.5627,716.961,up 10.1% today,open,0,,0.0,0.0,,0.0,0.0
 gainers,USAR,2026-10-27,9.715,716.961,up 9.4% today,open,0,,0.0,0.0,,0.0,0.0
 gainers,FRVO,2026-10-27,8.71,716.961,up 9.3% today,open,0,,0.0,0.0,,0.0,0.0
-gaps,INOD,2026-10-27,45.29,716.961,opened 18.8% below yesterday's close 59.87,open,0,,0.0,0.0,,59.87,0.0
-gaps,HSBC,2026-10-27,85.845,716.961,opened 6.2% below yesterday's close 91.22,open,0,,0.0,0.0,,91.215,0.0
-gaps,XYL,2026-10-27,97.85,716.961,opened 5.9% below yesterday's close 108.34,open,0,,0.0,0.0,,108.34,0.0
-gaps,BRO,2026-10-27,68.355,716.961,opened 4.5% below yesterday's close 71.17,open,0,,0.0,0.0,,71.17,0.0
-gaps,ONON,2026-10-27,31.965,716.961,opened 3.9% below yesterday's close 33.19,open,0,,0.0,0.0,,33.19,0.0
+gaps,INOD,2026-10-27,45.29,716.961,opened 18.8% below yesterday's close 59.87,closed,1,2026-10-27,43.8857,722.18,end of day,59.87,0.0
+gaps,HSBC,2026-10-27,85.845,716.961,opened 6.2% below yesterday's close 91.22,closed,1,2026-10-27,86.43,722.18,end of day,91.215,0.0
+gaps,XYL,2026-10-27,97.85,716.961,opened 5.9% below yesterday's close 108.34,closed,1,2026-10-27,94.7,722.18,end of day,108.34,0.0
+gaps,BRO,2026-10-27,68.355,716.961,opened 4.5% below yesterday's close 71.17,closed,1,2026-10-27,67.74,722.18,end of day,71.17,0.0
+gaps,ONON,2026-10-27,31.965,716.961,opened 3.9% below yesterday's close 33.19,closed,1,2026-10-27,32.25,722.18,end of day,33.19,0.0

@@ -712,3 +712,11 @@
 - TSLA 395C (paper): bid $24.75, +$565/contract vs $19.10; TSLA $406.09. Verdict: don't buy.
 - Paper: CHIP hold $2.30 (+15.0%); swing $2.00 (cash) vs trail $2.00 (+0.0%); USAR $108.00 (+8.0%).
 - Unrealized: BTC −$0.03, ETH −$0.03, SPCX −$0.02.
+
+## 2026-10-27 19:38Z (12:38 PM PT / 3:38 PM ET)
+- Account $4.08 (cash $1.53, crypto $1.57, SPCX $0.97). No real orders.
+- Crypto: rh-plan printed no orders (BTC top-up $0.17 < $0.25). Stocks: no signals, not halted. SPCX 149.56, holding to 161.05. CHIP real test disabled.
+- Gap check (after 3:30 PM, end of day): closed INOD −3.1%, HSBC +0.7%, XYL −3.2%, BRO −0.9%, ONON +0.9%. Gaps scoreboard: 15 closed, 60% wins, +1.0% avg, +0.8% vs QQQ (not ready; needs 20). Dual Thrust: no breakout.
+- TSLA 395C (paper): bid $25.80, +$670/contract vs $19.10; TSLA $407.91. Verdict: don't buy.
+- Paper: CHIP hold $2.34 (+17.1%); swing $2.00 (cash) vs trail $2.04 (+1.8%); USAR $110.05 (+10.1%).
+- Unrealized: BTC −$0.03, ETH −$0.03, SPCX −$0.03.
