@@ -1,49 +1,23 @@
 {
   "strategies": {
     "btc_trend": {
-      "cash": 0.0007385610425006857,
+      "cash": 4.8727883836175,
       "start": 5.0,
       "coins": {
         "BTC": 0.0
       },
-      "orders": [
-        {
-          "id": "cbp-btc_trend-4",
-          "coin": "BTC",
-          "side": "SELL",
-          "limit": "79969.5",
-          "qty": "0.00006123",
-          "placed_at": "2026-10-26T00:09:00Z"
-        }
-      ],
+      "orders": [],
       "target": {},
       "week": "2026-10-25"
     },
     "momentum": {
-      "cash": 0.003977626797499936,
+      "cash": 4.8868808198225,
       "start": 5.0,
       "coins": {
         "ALGO": 0.0,
         "BTC": 0.0
       },
-      "orders": [
-        {
-          "id": "cbp-momentum-5",
-          "coin": "ALGO",
-          "side": "SELL",
-          "limit": "0.10511",
-          "qty": "23.4",
-          "placed_at": "2026-10-26T00:09:00Z"
-        },
-        {
-          "id": "cbp-momentum-6",
-          "coin": "BTC",
-          "side": "SELL",
-          "limit": "79969.5",
-          "qty": "0.00003061",
-          "placed_at": "2026-10-26T00:09:00Z"
-        }
-      ],
+      "orders": [],
       "target": {},
       "week": "2026-10-25"
     }
@@ -75,6 +49,33 @@
       "price": "81241.05",
       "fee": 0.012434,
       "at": "2026-10-22T20:30:00Z"
+    },
+    {
+      "id": "cbp-btc_trend-4",
+      "coin": "BTC",
+      "side": "SELL",
+      "qty": "0.00006123",
+      "price": "79969.5",
+      "fee": 0.024483,
+      "at": "2026-10-26T01:00:00Z"
+    },
+    {
+      "id": "cbp-momentum-5",
+      "coin": "ALGO",
+      "side": "SELL",
+      "qty": "23.4",
+      "price": "0.10511",
+      "fee": 0.012298,
+      "at": "2026-10-26T11:00:00Z"
+    },
+    {
+      "id": "cbp-momentum-6",
+      "coin": "BTC",
+      "side": "SELL",
+      "qty": "0.00003061",
+      "price": "79969.5",
+      "fee": 0.012239,
+      "at": "2026-10-26T01:00:00Z"
     }
   ],
   "seq": 6,
