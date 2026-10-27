@@ -662,3 +662,10 @@
 ## 2026-10-27 (5:38 AM PT, hourly run, premarket)
 - Account $4.06 (cash $1.53, crypto $1.56, SPCX $0.97). No real orders. Stocks skipped (market not open yet). Crypto: no orders (BTC top-up $0.17 under the minimum). CHIP real test: paused.
 - Paper: CHIP hold $2.32 (+15.8%); CHIP swing $2.00 (cash) vs trail $2.01 (+0.7%); USAR $98.38 (−1.6%, premarket quote).
+
+## 2026-10-27 (6:38 AM PT, hourly run, first after the open)
+- Account $4.06 (cash $1.53, crypto $1.56, SPCX $0.97). No real orders.
+- Crypto: no orders (BTC top-up $0.17 under the minimum). Stocks: no signals, not halted; Oct 26 bars merged. SPCX: holding at $148.68 (target $161.05). CHIP real test: paused.
+- Gap check: no open gap trades. Watchlab not due until 10 AM NY.
+- TSLA 2026-11-27 395C (paper, 17m): bid $23.10, +$400/contract vs $19.10; TSLA $402.72. Verdict: don't buy (momentum_calls 0/2 closed).
+- Paper: CHIP hold $2.25 (+12.6%); swing $2.00 (cash) vs trail $1.96 (−2.1%); USAR $102.92 (+2.9%, up 6.8% at the open).
