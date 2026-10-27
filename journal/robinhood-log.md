@@ -669,3 +669,14 @@
 - Gap check: no open gap trades. Watchlab not due until 10 AM NY.
 - TSLA 2026-11-27 395C (paper, 17m): bid $23.10, +$400/contract vs $19.10; TSLA $402.72. Verdict: don't buy (momentum_calls 0/2 closed).
 - Paper: CHIP hold $2.25 (+12.6%); swing $2.00 (cash) vs trail $1.96 (−2.1%); USAR $102.92 (+2.9%, up 6.8% at the open).
+
+## 2026-10-27 14:39Z (7:38 AM PT / 10:39 AM ET) — daily watchlab + options lab run
+- Account $4.07 (cash $1.53, crypto $1.56, SPCX $0.98). No real orders.
+- Crypto: rh-plan printed no orders (BTC top-up $0.17 < $0.25 minimum). Stocks: rh-stock-plan no signals, no orders, not halted. SPCX 149.43, holding to 161.05. CHIP real test disabled (paused).
+- Gap check: nothing open. Dual Thrust: no breakout (0 trades).
+- Watchlab: opened gainers SOFI, PNR, CLS, USAR, FRVO and gaps INOD, HSBC, XYL, BRO, ONON; nothing closed. Gaps 10 closed, 70% wins, +2.1% vs QQQ (not ready, needs 20). Buzz and velocity scans empty; social: no dated results. Swing skipped: Yahoo returned 502 for every universe symbol.
+- Note: the scanner enum names that work are FILTER_TYPE_PERCENT_CHANGE_FROM_CLOSE, FILTER_TYPE_INSTRUMENT_TYPE, FILTER_TYPE_LAST, FILTER_TYPE_TOTAL_OPTIONS_VOLUME (with ">", ">=", "=" predicates).
+- Options lab: no new positions (AMD pullback: no edge). Closed 7 budget 2-day trades: call-2d 1/3, −$9; put-2d 0/4, −$138. momentum_calls still 0/2, −$750.
+- TSLA 395C (paper): bid $21.80, +$270/contract vs $19.10; TSLA $401.44. Verdict: don't buy.
+- Paper: CHIP hold $2.26 (+13.2%); swing $2.00 (cash) vs trail $1.97 (−1.6%); USAR $105.19 (+5.2%). XRP and meme already logged today.
+- Unrealized: BTC −$0.04, ETH −$0.04, SPCX −$0.03.
