@@ -767,3 +767,10 @@
 - Crypto: no orders (BTC top-up $0.18 < $0.25). Stocks: market closed. SPCX 150.00 overnight. CHIP $1 buy still off, waiting for the user's OK.
 - Paper: CHIP hold $2.33 (+16.3%); swing $2.00 (cash) vs trail $2.02 (+1.1%); USAR $112.97 (+13.0%).
 - Unrealized: BTC −$0.03, ETH −$0.03, SPCX −$0.02.
+
+## 2026-10-28 08:14Z (1:14 AM PT) — first run of Oct 28 (Pacific)
+- Account $4.09 (cash $1.53, crypto $1.58, SPCX $0.98). No real orders.
+- Crypto: no orders (BTC top-up $0.16 < $0.25). Stocks: market closed. SPCX 149.79 overnight. CHIP $1 buy still off, waiting for the user's OK.
+- Paper: CHIP hold $2.32 (+16.1%); swing $2.00 (cash) vs trail $2.02 (+1.0%); USAR $112.97 (+13.0%).
+- Unrealized: BTC −$0.03, ETH −$0.03, SPCX −$0.02.
+- Results row for 2026-10-28 added; results page data updated (datasets/daily v38).
