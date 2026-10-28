@@ -192,3 +192,7 @@ Paper trading (config.coinbase.toml, COINBASE.md).
 - Fills: btc_trend: SELL 0.00006123 BTC @ 79969.5; momentum: SELL 23.4 ALGO @ 0.10511; momentum: SELL 0.00003061 BTC @ 79969.5.
 - Futures paper test: $993.00 (-0.7%), holds 1 ETH contract.
 - Note: fills were checked on 1-hour candles this run (one daily run, fewer candles to fetch).
+
+## 2026-10-27 (5:09 PM PT, daily paper run)
+- Paper: btc_trend $4.87 (-2.5%, holds cash), momentum $4.89 (-2.3%, holds cash).
+- Futures paper test: $994.96 (-0.5%), holds 1 ETH contract.
