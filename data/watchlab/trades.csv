@@ -74,8 +74,8 @@ gainers,BTSG,2026-10-30,65.52,692.82,up 8.8% today,open,0,,0.0,0.0,,0.0,0.0
 options,EQX,2026-10-30,9.775,692.82,"options volume 7.6x normal, calls 30.3x puts",open,0,,0.0,0.0,,0.0,0.0
 options,EW,2026-10-30,93.585,692.82,"options volume 5.2x normal, calls 30.8x puts",open,0,,0.0,0.0,,0.0,0.0
 bnf,ENPH,2026-10-30,24.72,692.82,20% below its 25-day average,open,0,,0.0,0.0,,0.0,0.0
-gaps,INTC,2026-10-30,65.815,692.82,opened 25.8% below yesterday's close 92.08,open,0,,0.0,0.0,,92.08,0.0
-gaps,TWLO,2026-10-30,201.29,692.82,opened 22.9% below yesterday's close 241.87,open,0,,0.0,0.0,,241.87,0.0
-gaps,RDDT,2026-10-30,93.2195,692.82,opened 22.8% below yesterday's close 129.78,open,0,,0.0,0.0,,129.78,0.0
-gaps,AGIO,2026-10-30,30.42,692.82,opened 15.6% below yesterday's close 37.24,open,0,,0.0,0.0,,37.24,0.0
-gaps,HPQ,2026-10-30,29.085,692.82,opened 14.2% below yesterday's close 31.82,open,0,,0.0,0.0,,31.815,0.0
+gaps,INTC,2026-10-30,65.815,692.82,opened 25.8% below yesterday's close 92.08,closed,1,2026-10-30,64.095,688.1,end of day,92.08,0.0
+gaps,TWLO,2026-10-30,201.29,692.82,opened 22.9% below yesterday's close 241.87,closed,1,2026-10-30,205.045,688.1,end of day,241.87,0.0
+gaps,RDDT,2026-10-30,93.2195,692.82,opened 22.8% below yesterday's close 129.78,closed,1,2026-10-30,91.77,688.1,end of day,129.78,0.0
+gaps,AGIO,2026-10-30,30.42,692.82,opened 15.6% below yesterday's close 37.24,closed,1,2026-10-30,30.305,688.1,end of day,37.24,0.0
+gaps,HPQ,2026-10-30,29.085,692.82,opened 14.2% below yesterday's close 31.82,closed,1,2026-10-30,28.83,688.1,end of day,31.815,0.0

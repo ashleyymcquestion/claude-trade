@@ -810,3 +810,8 @@
 - CHIP paper: swing in cash $2.00, trail $1.95 (-2.7%), hold -2.7%. No Dual Thrust breakout yet. TSLA 395C bid $20.25.
 - Watchlab (Yahoo worked today): opened 13 (5 gainers: CDNA, FDXF, REGN, MEOH, BTSG; 2 options: EQX, EW; BNF: ENPH; 5 gaps: INTC, TWLO, RDDT, AGIO, HPQ); closed 9 (FCN politicians +24.3%, CRL +2.8%, ROIV +2.1%, FHN +0.4%, APPN -0.6%, UAL -1.7%, RIVN -5.0%, KYIV -5.5%, SPCX social -12.5%). Scoreboard vs QQQ: gaps 15 closed, 60% wins, +0.8%; gainers 20% wins, -3.9%; options 33%, +0.9%; politicians 1/1, +29%; social 0/3, -6.6%. No source ready for real money.
 - Options lab: opened 8, closed 8 (momentum call -$480, budget 5-day calls -$153, budget puts 1 win of 4). Long calls 0/3 closed, -$1,230 total.
+
+## 2026-10-30 19:43Z run (12:43 PM PT, near the close)
+- Account $3.90. rh-plan printed sell BTC $0.37 / buy SOL $0.31; still held for the user's OK (the earlier attempt was blocked by the session's permission check). Stocks: no orders. SPCX holding at $135.08 (target $161.05).
+- Gap paper trades closed at end of day: TWLO +1.9%, AGIO -0.4%, HPQ -0.9%, RDDT -1.5%, INTC -2.6%. The gaps source now has 20 closed trades: 50% wins, +0.6% average vs QQQ, and the scoreboard says ready_for_real_money. Asking the user; gap_live stays OFF until they say so.
+- No Dual Thrust breakout today. CHIP paper: swing in cash $2.00, trail and hold $1.92 (-4.2%).
