@@ -786,3 +786,9 @@
 - Crypto: no orders (BTC top-up $0.16 < $0.25). Stocks: market closed (premarket). SPCX 149.01 premarket. CHIP $1 buy still off, waiting for the user's OK.
 - Paper: CHIP down ~4.5% overnight (bid 0.0510). Hold $2.22 (+10.9%); swing $2.00 (cash) vs trail $1.93 (−3.6%); USAR $112.00 (+12.0%).
 - Unrealized: BTC −$0.03, ETH −$0.03, SPCX −$0.03.
+
+## 2026-10-28 14:18Z run (saved 2026-10-30 04:16Z)
+- The worker restarted repeatedly during this run, so it was not journaled or pushed at the time. The paper data it gathered is saved here.
+- No real orders were placed. Account $4.03; SPCX $143.60; CHIP bid $0.0503; USAR $108.00; TSLA 395C bid $19.80.
+- Scheduled runs from Oct 28 afternoon through Oct 29 were missed because of the restarts. Watchlab and the options lab did not run on Oct 28 or Oct 29.
+- Schedule changed to 3 runs a day: 7:41 AM, 12:41 PM and 8:41 PM Pacific.
