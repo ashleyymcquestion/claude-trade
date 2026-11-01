@@ -202,3 +202,7 @@ Paper trading (config.coinbase.toml, COINBASE.md).
 - Futures paper test: $984.65 (-1.5%), holds 1 ETH contract.
 
 - Note: the Oct 29 and Oct 30 daily runs were missed (the session was idle); this run catches up. Futures daily closes Oct 27-29 came in this run's candle fetch.
+
+## 2026-10-31 (5:10 PM PT, daily paper run)
+- Paper: btc_trend $4.87 (-2.5%, holds cash), momentum $4.89 (-2.3%, holds cash).
+- Futures paper test: $985.72 (-1.4%), holds 1 ETH contract.
