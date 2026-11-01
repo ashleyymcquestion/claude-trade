@@ -10,3 +10,4 @@ date,value,cash,crypto,note
 2026-10-28,4.09,1.53,1.58,No trades (overnight; crypto at target; CHIP $1 buy waiting for user OK)
 2026-10-30,3.96,1.53,1.51,No trades (planner printed sell BTC $0.39 / buy SOL $0.31; blocked by session permission check)
 2026-10-31,3.92,1.53,1.51,No trades (planner sell BTC $0.38 / buy SOL $0.31 waiting for user OK after permission block)
+2026-11-01,3.94,1.53,1.52,No trades (planner sell BTC $0.38 / sell ETH $0.25 / buy SOL $0.31 waiting for user OK)
