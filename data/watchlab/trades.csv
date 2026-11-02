@@ -90,8 +90,8 @@ minervini,XOM,2026-11-02,181.29,694.43,"breakout from a tight range, up 23% in 6
 bnf,RDDT,2026-11-02,93.405,694.43,37% below its 25-day average,open,0,,0.0,0.0,,0.0,0.0
 bnf,INTC,2026-11-02,62.7525,694.43,35% below its 25-day average,open,0,,0.0,0.0,,0.0,0.0
 bnf,NOW,2026-11-02,108.2,694.43,25% below its 25-day average,open,0,,0.0,0.0,,0.0,0.0
-gaps,PGEN,2026-11-02,5.155,694.43,opened 23.0% below yesterday's close 6.92,open,0,,0.0,0.0,,6.92,0.0
-gaps,AXSM,2026-11-02,127.61,694.43,opened 5.3% below yesterday's close 144.76,open,0,,0.0,0.0,,144.76,0.0
-gaps,EQNR,2026-11-02,45.97,694.43,opened 5.0% below yesterday's close 48.75,open,0,,0.0,0.0,,48.75,0.0
-gaps,LITE,2026-11-02,732.31,694.43,opened 4.6% below yesterday's close 840.73,open,0,,0.0,0.0,,840.73,0.0
-gaps,VG,2026-11-02,13.91,694.43,opened 4.2% below yesterday's close 14.79,open,0,,0.0,0.0,,14.785,0.0
+gaps,PGEN,2026-11-02,5.155,694.43,opened 23.0% below yesterday's close 6.92,closed,1,2026-11-02,5.355,681.37,end of day,6.92,0.0
+gaps,AXSM,2026-11-02,127.61,694.43,opened 5.3% below yesterday's close 144.76,closed,1,2026-11-02,135.1212,681.37,end of day,144.76,0.0
+gaps,EQNR,2026-11-02,45.97,694.43,opened 5.0% below yesterday's close 48.75,closed,1,2026-11-02,45.59,681.37,end of day,48.75,0.0
+gaps,LITE,2026-11-02,732.31,694.43,opened 4.6% below yesterday's close 840.73,closed,1,2026-11-02,690.315,681.37,end of day,840.73,0.0
+gaps,VG,2026-11-02,13.91,694.43,opened 4.2% below yesterday's close 14.79,closed,1,2026-11-02,13.1,681.37,end of day,14.785,0.0
