@@ -104,9 +104,9 @@ options,BETA,2026-11-03,23.36,686.39,"options volume 4.1x normal, calls 41.7x pu
 bnf,MRVL,2026-11-03,170.8872,686.39,31% below its 25-day average,open,0,,0.0,0.0,,0.0,0.0
 bnf,ALAB,2026-11-03,245.1,686.39,26% below its 25-day average,open,0,,0.0,0.0,,0.0,0.0
 bnf,APLD,2026-11-03,17.855,686.39,24% below its 25-day average,open,0,,0.0,0.0,,0.0,0.0
-gaps,DT,2026-11-03,47.34,686.39,opened 17.3% below yesterday's close 55.17,open,0,,0.0,0.0,,55.17,0.0
-gaps,ADEA,2026-11-03,17.05,686.39,opened 17.2% below yesterday's close 20.63,open,0,,0.0,0.0,,20.63,0.0
-gaps,SHOP,2026-11-03,145.16,686.39,opened 12.9% below yesterday's close 156.36,open,0,,0.0,0.0,,156.36,0.0
-gaps,RYTM,2026-11-03,83.825,686.39,opened 7.5% below yesterday's close 93.52,open,0,,0.0,0.0,,93.52,0.0
-gaps,PLTR,2026-11-03,171.255,686.39,opened 6.0% below yesterday's close 178.62,open,0,,0.0,0.0,,178.62,0.0
+gaps,DT,2026-11-03,47.34,686.39,opened 17.3% below yesterday's close 55.17,closed,1,2026-11-03,47.38,685.64,end of day,55.17,0.0
+gaps,ADEA,2026-11-03,17.05,686.39,opened 17.2% below yesterday's close 20.63,closed,1,2026-11-03,18.57,685.64,end of day,20.63,0.0
+gaps,SHOP,2026-11-03,145.16,686.39,opened 12.9% below yesterday's close 156.36,closed,1,2026-11-03,143.395,685.64,end of day,156.36,0.0
+gaps,RYTM,2026-11-03,83.825,686.39,opened 7.5% below yesterday's close 93.52,closed,1,2026-11-03,87.305,685.64,end of day,93.52,0.0
+gaps,PLTR,2026-11-03,171.255,686.39,opened 6.0% below yesterday's close 178.62,closed,1,2026-11-03,174.93,685.64,end of day,178.62,0.0
 stacked,BETA,2026-11-03,23.36,686.39,flagged by gainers + options,open,0,,0.0,0.0,,0.0,0.0
