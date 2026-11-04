@@ -117,9 +117,9 @@ gainers,XYZ,2026-11-04,87.8901,694.66,up 15.6% today,open,0,,0.0,0.0,,0.0,0.0
 gainers,PFGC,2026-11-04,110.825,694.66,up 14.8% today,open,0,,0.0,0.0,,0.0,0.0
 options,SWK,2026-11-04,118.56,694.66,"options volume 7.6x normal, calls 129.5x puts",open,0,,0.0,0.0,,0.0,0.0
 bnf,OKLO,2026-11-04,22.67,694.66,22% below its 25-day average,open,0,,0.0,0.0,,0.0,0.0
-gaps,NRIX,2026-11-04,14.995,694.66,opened 33.4% below yesterday's close 25.84,open,0,,0.0,0.0,,25.84,0.0
-gaps,DOX,2026-11-04,46.175,694.66,opened 30.8% below yesterday's close 62.45,open,0,,0.0,0.0,,62.45,0.0
-gaps,FIS,2026-11-04,30.14,694.66,opened 21.5% below yesterday's close 38.98,open,0,,0.0,0.0,,38.975,0.0
-gaps,UNM,2026-11-04,73.87,694.66,opened 17.6% below yesterday's close 91.06,open,0,,0.0,0.0,,91.06,0.0
-gaps,HUT,2026-11-04,51.185,694.66,opened 16.9% below yesterday's close 63.59,open,0,,0.0,0.0,,63.585,0.0
+gaps,NRIX,2026-11-04,14.995,694.66,opened 33.4% below yesterday's close 25.84,closed,1,2026-11-04,15.75,691.93,end of day,25.84,0.0
+gaps,DOX,2026-11-04,46.175,694.66,opened 30.8% below yesterday's close 62.45,closed,1,2026-11-04,44.215,691.93,end of day,62.45,0.0
+gaps,FIS,2026-11-04,30.14,694.66,opened 21.5% below yesterday's close 38.98,closed,1,2026-11-04,29.715,691.93,end of day,38.975,0.0
+gaps,UNM,2026-11-04,73.87,694.66,opened 17.6% below yesterday's close 91.06,closed,1,2026-11-04,75.245,691.93,end of day,91.06,0.0
+gaps,HUT,2026-11-04,51.185,694.66,opened 16.9% below yesterday's close 63.59,closed,1,2026-11-04,48.655,691.93,end of day,63.585,0.0
 stacked,SWK,2026-11-04,118.56,694.66,flagged by gainers + options,open,0,,0.0,0.0,,0.0,0.0
