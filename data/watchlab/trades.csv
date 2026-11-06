@@ -147,8 +147,8 @@ options,HDB,2026-11-06,25.285,658.05,"options volume 4.1x normal, calls 58.1x pu
 bnf,CIEN,2026-11-06,241.88,658.05,35% below its 25-day average,open,0,,0.0,0.0,,0.0,0.0
 bnf,DELL,2026-11-06,335.715,658.05,35% below its 25-day average,open,0,,0.0,0.0,,0.0,0.0
 bnf,CLS,2026-11-06,206.79,658.05,33% below its 25-day average,open,0,,0.0,0.0,,0.0,0.0
-gaps,DKNG,2026-11-06,16.6777,658.05,opened 26.9% below yesterday's close 23.57,open,0,,0.0,0.0,,23.575,0.0
-gaps,FIVN,2026-11-06,27.33,658.05,opened 22.9% below yesterday's close 34.14,open,0,,0.0,0.0,,34.14,0.0
-gaps,IRTC,2026-11-06,88.585,658.05,opened 17.4% below yesterday's close 130.44,open,0,,0.0,0.0,,130.435,0.0
-gaps,XRAY,2026-11-06,9.405,658.05,opened 16.0% below yesterday's close 10.03,open,0,,0.0,0.0,,10.025,0.0
-gaps,TEAM,2026-11-06,153.71,658.05,opened 15.4% below yesterday's close 182.92,open,0,,0.0,0.0,,182.92,0.0
+gaps,DKNG,2026-11-06,16.6777,658.05,opened 26.9% below yesterday's close 23.57,closed,1,2026-11-06,18.505,658.29,end of day,23.575,0.0
+gaps,FIVN,2026-11-06,27.33,658.05,opened 22.9% below yesterday's close 34.14,closed,1,2026-11-06,28.2029,658.29,end of day,34.14,0.0
+gaps,IRTC,2026-11-06,88.585,658.05,opened 17.4% below yesterday's close 130.44,closed,1,2026-11-06,90.77,658.29,end of day,130.435,0.0
+gaps,XRAY,2026-11-06,9.405,658.05,opened 16.0% below yesterday's close 10.03,closed,1,2026-11-06,9.46,658.29,end of day,10.025,0.0
+gaps,TEAM,2026-11-06,153.71,658.05,opened 15.4% below yesterday's close 182.92,closed,1,2026-11-06,154.86,658.29,end of day,182.92,0.0
