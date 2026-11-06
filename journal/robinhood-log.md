@@ -963,3 +963,11 @@
 - Gap check: closed all 5 at end of day (GIL +8.1%, CAI +0.3%, RELY -0.4%, VCYT -1.4%, FSLY -2.2%). Gaps scoreboard: 40 closed, 50% wins, +1.0% vs QQQ, ready_for_real_money true (asked user, not traded).
 - Dual Thrust check: no entries.
 - No real orders placed.
+
+## 2026-11-06 04:42Z run (8:42 PM PST Nov 5, market closed)
+- Account $3.84 (cash $1.53, crypto $1.48, SPCX $0.83). Today vs Nov 4 row ($4.03): -$0.19; since $4.16 start: -$0.32 (-7.7%).
+- Crypto (rh-plan): sell BTC $0.41, buy SOL $0.33 (ETH $0.23 below minimum). Not placed: still waiting for the user's OK. No open crypto orders.
+- Stocks: pending empty; rh-stock-plan no orders (market closed), not halted. SPCX: market closed, holding (after-hours $126.64). CHIP disabled in ledger. Kill switch false.
+- Daily bars: Nov 5 bar still interpolated (gap-fill), dropped by planners; bar files unchanged.
+- CHIP paper round 4 opened Nov 5 20:42 PT (ends Nov 8): swing in cash $2.00, trail $1.9568, hold $1.9568 (-2.2%). Round 3 recorded in rounds file (swing 1.9564 vs hold 1.9057).
+- No real orders placed.
