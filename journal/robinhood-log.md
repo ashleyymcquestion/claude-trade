@@ -971,3 +971,14 @@
 - Daily bars: Nov 5 bar still interpolated (gap-fill), dropped by planners; bar files unchanged.
 - CHIP paper round 4 opened Nov 5 20:42 PT (ends Nov 8): swing in cash $2.00, trail $1.9568, hold $1.9568 (-2.2%). Round 3 recorded in rounds file (swing 1.9564 vs hold 1.9057).
 - No real orders placed.
+
+## 2026-11-06 15:42Z run (7:42 AM PST, daily run, market open, rebound day)
+- Account $3.86 (cash $1.53, crypto $1.48, SPCX $0.85). Today vs Nov 5 row ($3.85): +$0.01; since $4.16 start: -$0.30 (-7.1%).
+- Crypto (rh-plan, bars through Nov 5): sell BTC $0.41, sell ETH $0.30, buy SOL $0.34. Not placed: still waiting for the user's OK (Oct 30 place_crypto_order block). No open crypto orders.
+- Stocks: pending empty; rh-stock-plan no orders, not halted (PLTR mean-reversion entry skipped, $0.08 below minimum). SPCX holding at $131.04 (target $161.05). CHIP disabled in ledger. Kill switch false.
+- CHIP paper round 4: swing in cash $2.00, trail $1.9651, hold $1.9651 (-1.7%). XRP paper $1.988 vs hold $1.830.
+- Correction to the Nov 5 15:42Z entry: the Yahoo log numbers (e.g. "APLD 503") are bar counts, not HTTP errors; Yahoo worked that day and watch-swing was skipped by mistake. It ran today.
+- Watchlab: swing added BNF signals (32 names; CIEN, DELL, CLS opened). Opened 15 (gainers FROG, KRMN, FLY, IREN, OKLO; options HONA, HDB; bnf CIEN, DELL, CLS; gaps DKNG, FIVN, IRTC, XRAY, TEAM). Closed 10 (options EQX +13.0%, EW +7.3%; gainers FDXF -2.3%, REGN -1.0%, BTSG -1.3%, MEOH -6.0% on time; NWL -8.2%, SRAD -9.4%, KD -10.6% and minervini XOM -8.3% on stops). Scoreboard: gainers 36 closed, 36% wins, +1.2% vs QQQ; options 6 closed, 67%, +5.9%; gaps 40 closed, 50%, +1.0% (ready_for_real_money true, asked user, not traded); politicians 4, 50%, +10.3%; minervini 2, 0%, -2.3%; bnf 1, 100%, +35%. Buzz/velocity empty; social: no dated results.
+- Gap check: 5 open, none closed yet. Dual Thrust: no entries.
+- Options lab (paper): opened 3 (FROG 100C, KRMN 40C momentum; PLTR 165C pullback); closed 3 (DUOL call stop -$820; NVDA and QQQ budget calls held 2 days, -$45 / -$78). Totals: 26 open, 46 closed, 11 wins, closed P&L -$10,370.
+- Results page updated (datasets/daily v46). No real orders placed.

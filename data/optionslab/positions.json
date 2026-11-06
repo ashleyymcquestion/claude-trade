@@ -1704,11 +1704,13 @@
   "ev": 522.99,
   "max_profit": 23740.0,
   "max_loss": 1250.0,
-  "status": "open",
-  "closed": "",
-  "exit_reason": "",
-  "pnl": 0.0,
-  "ret": 0.0
+  "status": "closed",
+  "closed": "2026-11-06",
+  "exit_reason": "stop",
+  "pnl": -820.0,
+  "ret": -0.656,
+  "exit_value": 4.3,
+  "underlying_exit": 156.6101
  },
  {
   "id": "2c6d0884",
@@ -1795,11 +1797,13 @@
   "ev": -77.63,
   "max_profit": 26308.0,
   "max_loss": 89.0,
-  "status": "open",
-  "closed": "",
-  "exit_reason": "",
-  "pnl": 0.0,
-  "ret": 0.0
+  "status": "closed",
+  "closed": "2026-11-06",
+  "exit_reason": "held 2 days",
+  "pnl": -45.0,
+  "ret": -0.5056,
+  "exit_value": 0.44,
+  "underlying_exit": 189.085
  },
  {
   "id": "ce294b1d",
@@ -1824,11 +1828,13 @@
   "ev": 18.49,
   "max_profit": 97213.0,
   "max_loss": 96.0,
-  "status": "open",
-  "closed": "",
-  "exit_reason": "",
-  "pnl": 0.0,
-  "ret": 0.0
+  "status": "closed",
+  "closed": "2026-11-06",
+  "exit_reason": "held 2 days",
+  "pnl": -78.0,
+  "ret": -0.8125,
+  "exit_value": 0.18,
+  "underlying_exit": 658.2
  },
  {
   "id": "51654330",
@@ -2089,6 +2095,93 @@
   "ev": -89.73,
   "max_profit": 6884.0,
   "max_loss": 90.0,
+  "status": "open",
+  "closed": "",
+  "exit_reason": "",
+  "pnl": 0.0,
+  "ret": 0.0
+ },
+ {
+  "id": "b40c780c",
+  "strategy": "momentum_calls/call",
+  "structure": "long_call",
+  "underlying": "FROG",
+  "expiration": "2026-12-18",
+  "legs": [
+   {
+    "instrument_id": "99a8bb16-00d7-4e49-9b83-1154affa56fb",
+    "type": "call",
+    "action": "buy",
+    "strike": 100.0,
+    "entry": 11.0
+   }
+  ],
+  "net_debit": 11.0,
+  "opened": "2026-11-06",
+  "underlying_entry": 98.065,
+  "vol": 1.1573,
+  "pop": 0.3085,
+  "ev": 371.72,
+  "max_profit": 13417.0,
+  "max_loss": 1100.0,
+  "status": "open",
+  "closed": "",
+  "exit_reason": "",
+  "pnl": 0.0,
+  "ret": 0.0
+ },
+ {
+  "id": "f2428002",
+  "strategy": "momentum_calls/call",
+  "structure": "long_call",
+  "underlying": "KRMN",
+  "expiration": "2026-12-18",
+  "legs": [
+   {
+    "instrument_id": "023b256a-b0dd-4af2-bc41-223cf53093a1",
+    "type": "call",
+    "action": "buy",
+    "strike": 40.0,
+    "entry": 4.5
+   }
+  ],
+  "net_debit": 4.5,
+  "opened": "2026-11-06",
+  "underlying_entry": 39.04,
+  "vol": 0.9894,
+  "pop": 0.2932,
+  "ev": 39.79,
+  "max_profit": 5309.0,
+  "max_loss": 450.0,
+  "status": "open",
+  "closed": "",
+  "exit_reason": "",
+  "pnl": 0.0,
+  "ret": 0.0
+ },
+ {
+  "id": "fbbf9d70",
+  "strategy": "pullback_calls/call",
+  "structure": "long_call",
+  "underlying": "PLTR",
+  "expiration": "2026-12-11",
+  "legs": [
+   {
+    "instrument_id": "8367141c-4b3b-4556-a3ad-26d845b18c7f",
+    "type": "call",
+    "action": "buy",
+    "strike": 165.0,
+    "entry": 9.5
+   }
+  ],
+  "net_debit": 9.5,
+  "opened": "2026-11-06",
+  "underlying_entry": 160.615,
+  "vol": 0.5329,
+  "pop": 0.2866,
+  "ev": -59.1,
+  "max_profit": 22704.0,
+  "max_loss": 950.0,
   "status": "open",
   "closed": "",
   "exit_reason": "",
