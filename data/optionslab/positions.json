@@ -6,11 +6,11 @@
   "expiration": "2026-11-20",
   "opened": "2026-10-21",
   "underlying_entry": 101.4,
-  "status": "open",
-  "closed": "",
-  "exit_reason": "",
-  "pnl": 0.0,
-  "ret": 0.0,
+  "status": "closed",
+  "closed": "2026-11-09",
+  "exit_reason": "target",
+  "pnl": 1190.0,
+  "ret": 1.9508,
   "structure": "long_call",
   "legs": [
    {
@@ -24,7 +24,9 @@
   "net_debit": 6.1,
   "pop": null,
   "ev": null,
-  "note": "opened before the edge filter"
+  "note": "opened before the edge filter",
+  "exit_value": 18.0,
+  "underlying_exit": 120.22
  },
  {
   "id": "86f707c3",
@@ -1377,11 +1379,13 @@
   "ev": -72.02,
   "max_profit": 27189.0,
   "max_loss": 95.0,
-  "status": "open",
-  "closed": "",
-  "exit_reason": "",
-  "pnl": 0.0,
-  "ret": 0.0
+  "status": "closed",
+  "closed": "2026-11-09",
+  "exit_reason": "held 5 days",
+  "pnl": -65.0,
+  "ret": -0.6842,
+  "exit_value": 0.3,
+  "underlying_exit": 178.5301
  },
  {
   "id": "dcc2053f",
@@ -1406,11 +1410,13 @@
   "ev": -76.81,
   "max_profit": 20602.0,
   "max_loss": 84.0,
-  "status": "open",
-  "closed": "",
-  "exit_reason": "",
-  "pnl": 0.0,
-  "ret": 0.0
+  "status": "closed",
+  "closed": "2026-11-09",
+  "exit_reason": "held 5 days",
+  "pnl": -81.0,
+  "ret": -0.9643,
+  "exit_value": 0.03,
+  "underlying_exit": 168.1
  },
  {
   "id": "2cf82f3d",
@@ -1435,11 +1441,13 @@
   "ev": -82.24,
   "max_profit": 6875.0,
   "max_loss": 83.0,
-  "status": "open",
-  "closed": "",
-  "exit_reason": "",
-  "pnl": 0.0,
-  "ret": 0.0
+  "status": "closed",
+  "closed": "2026-11-09",
+  "exit_reason": "held 5 days",
+  "pnl": -29.0,
+  "ret": -0.3494,
+  "exit_value": 0.54,
+  "underlying_exit": 168.1
  },
  {
   "id": "554a63ff",
@@ -2008,11 +2016,13 @@
   "ev": -31.34,
   "max_profit": 17630.0,
   "max_loss": 70.0,
-  "status": "open",
-  "closed": "",
-  "exit_reason": "",
-  "pnl": 0.0,
-  "ret": 0.0
+  "status": "closed",
+  "closed": "2026-11-09",
+  "exit_reason": "held 2 days",
+  "pnl": -4.0,
+  "ret": -0.0571,
+  "exit_value": 0.66,
+  "underlying_exit": 168.1
  },
  {
   "id": "e7a243a5",
@@ -2066,11 +2076,13 @@
   "ev": -89.73,
   "max_profit": 6884.0,
   "max_loss": 90.0,
-  "status": "open",
-  "closed": "",
-  "exit_reason": "",
-  "pnl": 0.0,
-  "ret": 0.0
+  "status": "closed",
+  "closed": "2026-11-09",
+  "exit_reason": "held 2 days",
+  "pnl": -13.0,
+  "ret": -0.1444,
+  "exit_value": 0.77,
+  "underlying_exit": 178.5301
  },
  {
   "id": "228813e6",
@@ -2182,6 +2194,180 @@
   "ev": -59.1,
   "max_profit": 22704.0,
   "max_loss": 950.0,
+  "status": "open",
+  "closed": "",
+  "exit_reason": "",
+  "pnl": 0.0,
+  "ret": 0.0
+ },
+ {
+  "id": "29c87f33",
+  "strategy": "momentum_calls/call",
+  "structure": "long_call",
+  "underlying": "TTD",
+  "expiration": "2026-12-11",
+  "legs": [
+   {
+    "instrument_id": "85d1cb2a-9cb1-4cd8-ad01-5f50ab33dfcf",
+    "type": "call",
+    "action": "buy",
+    "strike": 15.0,
+    "entry": 1.55
+   }
+  ],
+  "net_debit": 1.55,
+  "opened": "2026-11-09",
+  "underlying_entry": 14.85,
+  "vol": 0.6031,
+  "pop": 0.2527,
+  "ev": -51.19,
+  "max_profit": 2057.0,
+  "max_loss": 155.0,
+  "status": "open",
+  "closed": "",
+  "exit_reason": "",
+  "pnl": 0.0,
+  "ret": 0.0
+ },
+ {
+  "id": "f35ab2c8",
+  "strategy": "budget/call-2d",
+  "structure": "call_nearest",
+  "underlying": "NVDA",
+  "expiration": "2026-12-11",
+  "legs": [
+   {
+    "instrument_id": "b326284f-9ba7-4957-8c59-568b97def3a3",
+    "type": "call",
+    "action": "buy",
+    "strike": 230.0,
+    "entry": 0.87
+   }
+  ],
+  "net_debit": 0.87,
+  "opened": "2026-11-09",
+  "underlying_entry": 178.5301,
+  "vol": 0.4276,
+  "pop": 0.0213,
+  "ev": -60.44,
+  "max_profit": 21545.0,
+  "max_loss": 87.0,
+  "status": "open",
+  "closed": "",
+  "exit_reason": "",
+  "pnl": 0.0,
+  "ret": 0.0
+ },
+ {
+  "id": "4f5d2b46",
+  "strategy": "budget/put-2d",
+  "structure": "put_nearest",
+  "underlying": "QQQ",
+  "expiration": "2026-12-11",
+  "legs": [
+   {
+    "instrument_id": "2faa9022-6eb8-46b9-8ad7-20576dee462a",
+    "type": "put",
+    "action": "buy",
+    "strike": 515.0,
+    "entry": 0.97
+   }
+  ],
+  "net_debit": 0.97,
+  "opened": "2026-11-09",
+  "underlying_entry": 674.62,
+  "vol": 0.2937,
+  "pop": 0.0011,
+  "ev": -95.52,
+  "max_profit": 31164.0,
+  "max_loss": 97.0,
+  "status": "open",
+  "closed": "",
+  "exit_reason": "",
+  "pnl": 0.0,
+  "ret": 0.0
+ },
+ {
+  "id": "ca9469fe",
+  "strategy": "budget/put-5d",
+  "structure": "put_nearest",
+  "underlying": "NVDA",
+  "expiration": "2026-12-11",
+  "legs": [
+   {
+    "instrument_id": "609ad30d-9584-4a86-81d8-9461e83ef178",
+    "type": "put",
+    "action": "buy",
+    "strike": 125.0,
+    "entry": 0.84
+   }
+  ],
+  "net_debit": 0.84,
+  "opened": "2026-11-09",
+  "underlying_entry": 178.5301,
+  "vol": 0.4276,
+  "pop": 0.0028,
+  "ev": -82.47,
+  "max_profit": 7060.0,
+  "max_loss": 84.0,
+  "status": "open",
+  "closed": "",
+  "exit_reason": "",
+  "pnl": 0.0,
+  "ret": 0.0
+ },
+ {
+  "id": "c01feb08",
+  "strategy": "budget/put-5d",
+  "structure": "put_nearest",
+  "underlying": "QQQ",
+  "expiration": "2026-12-11",
+  "legs": [
+   {
+    "instrument_id": "2faa9022-6eb8-46b9-8ad7-20576dee462a",
+    "type": "put",
+    "action": "buy",
+    "strike": 515.0,
+    "entry": 0.97
+   }
+  ],
+  "net_debit": 0.97,
+  "opened": "2026-11-09",
+  "underlying_entry": 674.62,
+  "vol": 0.2937,
+  "pop": 0.0011,
+  "ev": -95.52,
+  "max_profit": 31164.0,
+  "max_loss": 97.0,
+  "status": "open",
+  "closed": "",
+  "exit_reason": "",
+  "pnl": 0.0,
+  "ret": 0.0
+ },
+ {
+  "id": "778f6eea",
+  "strategy": "budget/put-7d",
+  "structure": "put_nearest",
+  "underlying": "QQQ",
+  "expiration": "2026-12-11",
+  "legs": [
+   {
+    "instrument_id": "2faa9022-6eb8-46b9-8ad7-20576dee462a",
+    "type": "put",
+    "action": "buy",
+    "strike": 515.0,
+    "entry": 0.97
+   }
+  ],
+  "net_debit": 0.97,
+  "opened": "2026-11-09",
+  "underlying_entry": 674.62,
+  "vol": 0.2937,
+  "pop": 0.0011,
+  "ev": -95.52,
+  "max_profit": 31164.0,
+  "max_loss": 97.0,
   "status": "open",
   "closed": "",
   "exit_reason": "",

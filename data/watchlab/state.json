@@ -1,5 +1,5 @@
 {
- "last_run": "2026-11-06",
+ "last_run": "2026-11-09",
  "seen_politician_trades": [
   "Rep. Cleo Fields|AAPL|EQUITY|BUY|2026-05-13|2026-06-04",
   "Rep. Cleo Fields|AAPL|EQUITY|BUY|2026-05-14|2026-06-04",
@@ -30,8 +30,10 @@
   "Rep. Josh Gottheimer|ADC|EQUITY|SELL|2026-05-31|2026-07-08",
   "Rep. Josh Gottheimer|ADI|EQUITY|BUY|2026-05-18|2026-06-04",
   "Rep. Josh Gottheimer|AMAT|EQUITY|BUY|2026-08-06|2026-09-15",
+  "Rep. Josh Gottheimer|AMAT|EQUITY|BUY|2026-10-26|2026-11-05",
   "Rep. Josh Gottheimer|AMAT|EQUITY|SELL|2026-09-15|2026-10-08",
   "Rep. Josh Gottheimer|AMD|EQUITY|BUY|2026-04-22|2026-05-20",
+  "Rep. Josh Gottheimer|BHE|EQUITY|BUY|2026-10-12|2026-11-05",
   "Rep. Josh Gottheimer|BKNG|EQUITY|SELL|2026-05-31|2026-07-08",
   "Rep. Josh Gottheimer|BRK.B|EQUITY|SELL|2026-05-03|2026-06-04",
   "Rep. Josh Gottheimer|CBZ|EQUITY|BUY|2026-04-05|2026-05-20",
@@ -50,6 +52,7 @@
   "Rep. Josh Gottheimer|QSR|EQUITY|BUY|2026-08-06|2026-09-15",
   "Rep. Josh Gottheimer|RSG|EQUITY|BUY|2026-08-06|2026-09-15",
   "Rep. Josh Gottheimer|SAIL|EQUITY|BUY|2026-07-19|2026-08-11",
+  "Rep. Josh Gottheimer|TLK|EQUITY|SELL|2026-10-15|2026-11-05",
   "Rep. Josh Gottheimer|VLY|EQUITY|SELL|2026-04-08|2026-05-20",
   "Rep. Michael T. McCaul|ACN|EQUITY|BUY|2026-08-25|2026-10-16",
   "Rep. Michael T. McCaul|AJG|EQUITY|SELL|2026-08-25|2026-10-16",
