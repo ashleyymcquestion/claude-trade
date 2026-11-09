@@ -164,9 +164,9 @@ minervini,ABNB,2026-11-09,191.715,674.91,"breakout from a tight range, up 34% in
 bnf,DDOG,2026-11-09,178.88,674.91,30% below its 25-day average,open,0,,0.0,0.0,,0.0,0.0
 bnf,HPE,2026-11-09,47.95,674.91,25% below its 25-day average,open,0,,0.0,0.0,,0.0,0.0
 bnf,ARM,2026-11-09,186.48,674.91,25% below its 25-day average,open,0,,0.0,0.0,,0.0,0.0
-gaps,IONS,2026-11-09,28.64,674.91,opened 18.1% below yesterday's close 39.38,open,0,,0.0,0.0,,39.38,0.0
-gaps,IBRX,2026-11-09,6.77,674.91,opened 16.5% below yesterday's close 8.63,open,0,,0.0,0.0,,8.63,0.0
-gaps,ARWR,2026-11-09,47.04,674.91,opened 8.8% below yesterday's close 58.15,open,0,,0.0,0.0,,58.15,0.0
-gaps,NVDA,2026-11-09,178.3501,674.91,opened 7.3% below yesterday's close 186.68,open,0,,0.0,0.0,,186.68,0.0
-gaps,MNDY,2026-11-09,83.725,674.91,opened 5.3% below yesterday's close 87.62,open,0,,0.0,0.0,,87.62,0.0
+gaps,IONS,2026-11-09,28.64,674.91,opened 18.1% below yesterday's close 39.38,closed,1,2026-11-09,30.76,680.5,end of day,39.38,0.0
+gaps,IBRX,2026-11-09,6.77,674.91,opened 16.5% below yesterday's close 8.63,closed,1,2026-11-09,7.155,680.5,end of day,8.63,0.0
+gaps,ARWR,2026-11-09,47.04,674.91,opened 8.8% below yesterday's close 58.15,closed,1,2026-11-09,49.305,680.5,end of day,58.15,0.0
+gaps,NVDA,2026-11-09,178.3501,674.91,opened 7.3% below yesterday's close 186.68,closed,1,2026-11-09,177.15,680.5,end of day,186.68,0.0
+gaps,MNDY,2026-11-09,83.725,674.91,opened 5.3% below yesterday's close 87.62,closed,1,2026-11-09,81.08,680.5,end of day,87.62,0.0
 stacked,AMAT,2026-11-09,362.21,674.91,flagged by gainers + politicians,open,0,,0.0,0.0,,0.0,0.0
