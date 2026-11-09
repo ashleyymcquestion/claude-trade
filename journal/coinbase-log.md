@@ -237,3 +237,10 @@ Paper trading (config.coinbase.toml, COINBASE.md).
 ## 2026-11-07 (4:08 PM PT, daily paper run)
 - Paper: btc_trend $4.87 (-2.5%, holds cash), momentum $4.89 (-2.3%, holds cash).
 - Futures paper test: $937.55 (-6.2%), holds flat.
+
+## 2026-11-08 (4:08 PM PT, daily paper run)
+- Paper: btc_trend $4.87 (-2.5%, holds cash), momentum $4.89 (-2.3%, holds cash).
+- week ending 2026-11-08: btc_trend -> cash; momentum -> cash
+- Leftover sell proposals (not placed, need a yes): ALGO $3.37.
+- Futures paper test: $937.55 (-6.2%), holds flat.
+- Note: weekly daily candles (Sundays only) came from Coinbase's public market-data API (same prices as the connector); bid/ask and balance came from the connector.
