@@ -1092,3 +1092,6 @@
 
 ## 2026-11-10T19:30Z (user request)
 - User: "do not sell at a loss". TTWO stop removed (data/ttwo-test.json stop_pct/stop = null); it now sells only at the +8% target $239.85. Checked: at a $180 mark the planner prints no order.
+
+## 2026-11-10T19:25Z (user request)
+- "practice day trading ttwo" / "what strategy do you think is best?": backtested on 70 days of TTWO 10-min bars (Aug 3 - Nov 9): ORB 30 -11.9% (35 trades, 34% wins), ORB 60 -14.8%, Dual Thrust k0.5 -3.3% (11), Dual Thrust k0.3 +1.9% (18, 50%), hold -15.9%. No clear edge. Paper tracker trader/daytradepaper.py (`daytrade-paper`), $100 each for DT k0.3 and ORB 30 from Nov 11, ROBINHOOD.md 17l7. Paper only.

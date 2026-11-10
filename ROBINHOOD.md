@@ -239,6 +239,13 @@ spread, bull put spread, cash-secured put, covered call) whose odds and expected
      Since Nov 10 the crypto planner is paused (config.robinhood.toml kill_switch = true) and the gap rule is OFF
      (data/gap-live.json enabled false): the user moved everything into TTWO. SPCX stays as is.
 
+17l7. TTWO day-trading practice (paper only, never real money; the user asked on Nov 10, 2026, "practice day trading
+     ttwo"). On the evening run (after the 4 PM New York close) each trading day: get_equity_historicals(["TTWO"],
+     interval 10minute, bounds regular, start = today 13:30 UTC, end = now), save the JSON to a file and run
+     `python -m trader daytrade-paper --bars <file>`. It appends the bars to data/intraday/ttwo/TTWO.csv and reports
+     $100 paper each for Dual Thrust (n 4, k 0.3) and the 30-minute opening range breakout vs holding TTWO, from
+     Nov 11. Report one line: each strategy's value, trades and win rate, and hold. Commit data/intraday/ttwo/.
+
 17m. TSLA call watch (paper only, never buy it for real; the user asked on Oct 26 to track it and be told whether
      to buy): while data/optionslab/positions.json has the momentum_calls TSLA 2026-11-27 395C (instrument
      fe77640d-0bbc-475f-9283-427344bc6b20) open, on every market-hours run call `get_option_quotes` for it and report

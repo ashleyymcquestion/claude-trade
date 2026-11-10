@@ -107,6 +107,8 @@ def main(argv=None):
     cw.add_argument("--ask", type=float, required=True)
     cw.add_argument("--hours", type=float, default=48, help="test length, used only on the first call")
     cw.add_argument("--start", type=float, default=2.0, help="paper dollars, used only on the first call")
+    dp = sub.add_parser("daytrade-paper", help="paper day-trading practice on TTWO (see trader/daytradepaper.py)")
+    dp.add_argument("--bars", help="get_equity_historicals JSON (TTWO, 10minute) to append first")
     sw = sub.add_parser("swing-paper", help="paper swing test: buy 10% dips, sell 10% rises (see trader/swingpaper.py)")
     sw.add_argument("--symbol", required=True)
     sw.add_argument("--bid", type=float, required=True)
@@ -123,6 +125,13 @@ def main(argv=None):
 
         now = datetime.now(ZoneInfo("America/Los_Angeles"))
         print(json.dumps(coinwatch.step(args.symbol.upper(), args.bid, args.ask, now, args.hours, args.start)))
+        return
+    if args.cmd == "daytrade-paper":
+        import json
+
+        from . import daytradepaper
+
+        print(json.dumps(daytradepaper.main(args.bars), indent=2))
         return
     if args.cmd == "swing-paper":
         import json
