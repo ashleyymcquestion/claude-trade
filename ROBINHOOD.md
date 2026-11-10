@@ -222,6 +222,13 @@ spread, bull put spread, cash-secured put, covered call) whose odds and expected
      deepest 5%+ gap down among NVDA / AMD / PLTR / QQQ, at most one a day; sold (only its own shares) when back at
      yesterday's close or at the first run after 3:30 PM. Commit data/gap-live.json with the other data.
 
+17l5. TTWO paper trade (paper only, never real money; the user asked on Nov 9, 8:57 PM PT, "can you run a paper trade
+     on ttwo right now"). $2 paper bought at the after-hours ask $217.06; sells at the bid if it falls 25% below its
+     highest bid, otherwise the round ends Nov 12, 8:57 PM PT (3 days, like the CHIP tests). On every run, while
+     data/swingpaper/TTWO-trail-state.json has no closed round in TTWO-trail-rounds.json: `get_equity_quotes(["TTWO"])`
+     and run `python -m trader swing-paper --symbol TTWO --mode trail --bid <bid_price> --ask <ask_price>`. Report one
+     line: value, return and TTWO price. When the round closes, report the result once and stop running this step.
+
 17m. TSLA call watch (paper only, never buy it for real; the user asked on Oct 26 to track it and be told whether
      to buy): while data/optionslab/positions.json has the momentum_calls TSLA 2026-11-27 395C (instrument
      fe77640d-0bbc-475f-9283-427344bc6b20) open, on every market-hours run call `get_option_quotes` for it and report
