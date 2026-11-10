@@ -30,7 +30,7 @@ min_order_usd = 0.25       # Robinhood minimum order size for ETH (BTC accepts l
 max_order_usd = 25.0       # runaway guard: no single order above this
 max_daily_loss = 0.10
 on_daily_loss = "halt"
-kill_switch = false        # true = planner outputs no orders
+kill_switch = true        # true = planner outputs no orders
 
 [costs]
 stock_cost_bps = 5.0

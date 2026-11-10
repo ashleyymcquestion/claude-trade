@@ -1,0 +1,18 @@
+{
+  "enabled": true,
+  "amount": "2.91",
+  "stop_pct": 0.08,
+  "target_pct": 0.08,
+  "trail_pct": null,
+  "peak": null,
+  "status": "holding",
+  "buy": {
+    "order_id": "6af36bf7-d481-46e8-a484-e9c781e26778",
+    "quantity": "0.013103",
+    "price": "222.08",
+    "at": "2026-11-10T19:09:43.564Z"
+  },
+  "stop": 204.3136,
+  "target": 239.8464,
+  "sell": null
+}

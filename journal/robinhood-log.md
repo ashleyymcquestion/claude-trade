@@ -1083,3 +1083,9 @@
 - Dual Thrust: no entries. Gap check: 5 new gap paper trades open (EQPT, FA, GEV, GFL, LEGN), none closed yet.
 - Watchlab: opened 12 (gainers AAON CSQR MARA TTWO SANM; options CLBT GFL; gaps LEGN GFL FA GEV EQPT); closed 2 (GPK -1.1%, DUOL -8.2%). ROKU unpriced again (quote request returns nothing). Buzz/velocity scans empty; social [] (not searched).
 - Options lab: closed QQQ budget call -$81, SWK follow_flow call -$300 (stop); opened 6 (AAON, MARA momentum calls; PLTR/NVDA budget legs). Totals 30 open, 54 closed, 12 wins, closed P&L -$9,753.
+
+## 2026-11-10T19:10Z (11:10 AM PT Tue, user request)
+- User: "can you start trading ttwo" -> picked $0.50 with +8%/-8%; Robinhood minimum is $1 (review alert EQUITY_DOLLAR_BASED_MINIMUM_AMOUNT_ERROR, nothing placed), user picked $1; then "lets sell the other crypto and lets just run ttwo with whatever cash i have".
+- Sold BTC 0.00001111 @ 72,647.14 = $0.80 (cost $0.93, gain -$0.13); sold ETH 0.000289 @ 2,022.27 = $0.58 (cost $0.71, gain -$0.13).
+- Bought TTWO $2.91 = 0.013103 sh @ $222.08 (order 6af36bf7-d481-46e8-a484-e9c781e26778). Stop $204.31 (-8%), target $239.85 (+8%). New trader/ttwo_test.py (same rules as the SPCX test), CLI rh-ttwo-plan / rh-ttwo-record, ledger data/ttwo-test.json, ROBINHOOD.md 17l6.
+- Crypto planner paused (kill_switch = true) and gap rule turned OFF: no cash left and the user wants to focus on TTWO. SPCX unchanged.

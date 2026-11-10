@@ -45,6 +45,15 @@ def main(argv=None):
     sr.add_argument("--price", required=True, help="the order's average_price")
     sr.add_argument("--at", required=True, help="fill time (ISO)")
 
+    tp = sub.add_parser("rh-ttwo-plan", help="TTWO test position ($1, +8%%/-8%%): print the order to place, if any")
+    tp.add_argument("--state", required=True, help="TTWO state JSON (see trader/ttwo_test.py)")
+    tr = sub.add_parser("rh-ttwo-record", help="TTWO test position: record a filled order")
+    tr.add_argument("--side", required=True, choices=["buy", "sell"])
+    tr.add_argument("--order-id", required=True)
+    tr.add_argument("--quantity", required=True)
+    tr.add_argument("--price", required=True, help="the order's average_price")
+    tr.add_argument("--at", required=True, help="fill time (ISO)")
+
     gp = sub.add_parser("rh-gap-plan", help="gap-down rule (off until the user OKs it): print the order, if any")
     gp.add_argument("--state", required=True, help="gap state JSON (see trader/gap_live.py)")
     gr = sub.add_parser("rh-gap-record", help="gap-down rule: record a filled order")
@@ -198,10 +207,14 @@ def main(argv=None):
         else:
             print(json.dumps(watchlab.scoreboard(trades), indent=2))
         return
-    if args.cmd in ("rh-spcx-plan", "rh-spcx-record"):
+    if args.cmd in ("rh-spcx-plan", "rh-spcx-record", "rh-ttwo-plan", "rh-ttwo-record"):
         import json
 
-        from . import spcx_test
+        from . import spcx_test, ttwo_test
+
+        if args.cmd.startswith("rh-ttwo"):
+            spcx_test = ttwo_test  # same rules, its own symbol and ledger
+            args.cmd = args.cmd.replace("ttwo", "spcx")
 
         ledger = spcx_test.load_ledger()
         if args.cmd == "rh-spcx-plan":

@@ -54,7 +54,7 @@ def load_ledger(path: Path = LEDGER) -> dict:
     return {**DEFAULT_LEDGER, **json.loads(path.read_text())} if path.exists() else dict(DEFAULT_LEDGER)
 
 
-def plan(ledger: dict, state: dict) -> dict:
+def plan(ledger: dict, state: dict, symbol: str = SYMBOL, ns: uuid.UUID = REF_NAMESPACE) -> dict:
     """Return {"orders": [...], "notes": [...]}; at most one order, printed exactly as to place.
     With a trailing exit armed it also returns "ledger" (the new peak), which the caller saves."""
     from quantbot.robinhood_stocks import nyse_open
@@ -66,7 +66,7 @@ def plan(ledger: dict, state: dict) -> dict:
     if not ledger.get("enabled", True):
         return {"orders": [], "notes": ["disabled in the ledger"]}
     if state.get("open_order"):
-        return {"orders": [], "notes": ["an SPCX order is still open; waiting for it"]}
+        return {"orders": [], "notes": [f"an {symbol} order is still open; waiting for it"]}
     if not nyse_open(now):
         return {"orders": [], "notes": ["market closed (fractional orders are regular hours only)"]}
 
@@ -75,20 +75,20 @@ def plan(ledger: dict, state: dict) -> dict:
         amount = _f(ledger["amount"])
         cash = _f(state.get("cash"))
         if qty > 0:
-            notes.append(f"already holds {qty} SPCX without a recorded buy; not buying (needs a look)")
+            notes.append(f"already holds {qty} {symbol} without a recorded buy; not buying (needs a look)")
         elif cash + 1e-9 < amount:
             notes.append(f"waiting: cash ${cash:.2f} < ${amount:.2f}")
         else:
-            orders.append({"symbol": SYMBOL, "side": "buy", "type": "market", "market_hours": "regular_hours",
-                           "dollar_amount": f"{amount:.2f}", "ref_id": str(uuid.uuid5(REF_NAMESPACE, "buy")),
+            orders.append({"symbol": symbol, "side": "buy", "type": "market", "market_hours": "regular_hours",
+                           "dollar_amount": f"{amount:.2f}", "ref_id": str(uuid.uuid5(ns, "buy")),
                            "reason": f"test buy: cash ${cash:.2f} >= ${amount:.2f}"})
     elif status == "holding":
         stop, target = ledger.get("stop"), ledger.get("target")
         why = ""
         if qty <= 0:
-            notes.append("ledger says holding but no SPCX is held; not selling (needs a look)")
+            notes.append(f"ledger says holding but no {symbol} is held; not selling (needs a look)")
         elif mark <= 0:
-            notes.append("no SPCX price; not checking the stop or target")
+            notes.append(f"no {symbol} price; not checking the stop or target")
         elif ledger.get("trail_pct") is not None and target is not None and (
                 ledger.get("peak") is not None or mark >= _f(target)):
             peak = max(_f(ledger.get("peak")), mark)
@@ -108,8 +108,8 @@ def plan(ledger: dict, state: dict) -> dict:
                          f"holding at {mark:.2f}: no target")
             notes[-1] += f", stop {_f(stop):.2f}" if stop is not None else ", no stop (sells only at a profit)"
         if why:
-            orders.append({"symbol": SYMBOL, "side": "sell", "type": "market", "market_hours": "regular_hours",
-                           "quantity": str(state["quantity"]), "ref_id": str(uuid.uuid5(REF_NAMESPACE, "sell")),
+            orders.append({"symbol": symbol, "side": "sell", "type": "market", "market_hours": "regular_hours",
+                           "quantity": str(state["quantity"]), "ref_id": str(uuid.uuid5(ns, "sell")),
                            "reason": why})
     else:
         notes.append("test finished; nothing to do")

@@ -229,6 +229,16 @@ spread, bull put spread, cash-secured put, covered call) whose odds and expected
      and run `python -m trader swing-paper --symbol TTWO --mode trail --bid <bid_price> --ask <ask_price>`. Report one
      line: value, return and TTWO price. When the round closes, report the result once and stop running this step.
 
+17l6. TTWO test position (REAL money; the user asked on Nov 10, 2026: "can you start trading ttwo", picked +8% / -8%,
+     then "lets sell the other crypto and lets just run ttwo with whatever cash i have"). Bought $2.91 (0.013103 sh @
+     $222.08) on Nov 10. On every market-hours run: get_equity_quotes(["TTWO"]) and get_equity_orders for TTWO, write
+     `{"now", "cash", "mark", "quantity": <TTWO shares held>, "open_order"}` and run
+     `python -m trader rh-ttwo-plan --state <file>`. Place only the order it prints (review first; any order_checks alert =
+     don't place); once filled run `python -m trader rh-ttwo-record --side sell --order-id ... --quantity ... --price
+     <average_price> --at ...`. Sells everything at the target (+8%) or the stop (-8%) from data/ttwo-test.json.
+     Since Nov 10 the crypto planner is paused (config.robinhood.toml kill_switch = true) and the gap rule is OFF
+     (data/gap-live.json enabled false): the user moved everything into TTWO. SPCX stays as is.
+
 17m. TSLA call watch (paper only, never buy it for real; the user asked on Oct 26 to track it and be told whether
      to buy): while data/optionslab/positions.json has the momentum_calls TSLA 2026-11-27 395C (instrument
      fe77640d-0bbc-475f-9283-427344bc6b20) open, on every market-hours run call `get_option_quotes` for it and report
@@ -254,6 +264,6 @@ spread, bull put spread, cash-secured put, covered call) whose odds and expected
       `source: {kind: "file", url: <the upload's /_blob/... url>, name: "daily-results.json"}` and
       `updated: {at: <now, ISO>, by: "Claude (daily run)"}`. If those tools aren't available, skip this
       and say so in the final message; the CSV in the repo still has the row.
-20. Commit `data/proxy_history.csv`, `data/bars/`, `data/robinhood-stocks.sqlite3`, `data/spcx-test.json`, `data/gap-live.json`, `data/watchlab/`, `data/optionslab/`, `data/xrppaper/`, `data/memepaper/`, `data/coinwatch/`, `data/yahoo/*-USD.csv`, `data/yahoo/meme/`,
+20. Commit `data/proxy_history.csv`, `data/bars/`, `data/robinhood-stocks.sqlite3`, `data/spcx-test.json`, `data/ttwo-test.json`, `data/gap-live.json`, `data/watchlab/`, `data/optionslab/`, `data/xrppaper/`, `data/memepaper/`, `data/coinwatch/`, `data/yahoo/*-USD.csv`, `data/yahoo/meme/`,
     `data/robinhood-results.csv` and `journal/robinhood-log.md` together, and push to
     `claude/jolly-fermi-tvlmpb`.
