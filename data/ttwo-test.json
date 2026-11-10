@@ -3,7 +3,7 @@
   "amount": "2.91",
   "stop_pct": null,
   "target_pct": 0.08,
-  "trail_pct": null,
+  "trail_pct": 0.03,
   "peak": null,
   "status": "holding",
   "buy": {

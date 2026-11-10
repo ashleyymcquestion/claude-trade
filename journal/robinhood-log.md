@@ -1095,3 +1095,6 @@
 
 ## 2026-11-10T19:25Z (user request)
 - "practice day trading ttwo" / "what strategy do you think is best?": backtested on 70 days of TTWO 10-min bars (Aug 3 - Nov 9): ORB 30 -11.9% (35 trades, 34% wins), ORB 60 -14.8%, Dual Thrust k0.5 -3.3% (11), Dual Thrust k0.3 +1.9% (18, 50%), hold -15.9%. No clear edge. Paper tracker trader/daytradepaper.py (`daytrade-paper`), $100 each for DT k0.3 and ORB 30 from Nov 11, ROBINHOOD.md 17l7. Paper only.
+
+## 2026-11-10T19:35Z (user request)
+- User said yes to a trailing exit for TTWO: data/ttwo-test.json trail_pct = 0.03. Once TTWO hits $239.85 (+8%) it tracks the peak and sells at max($239.85, peak x 0.97); never below $239.85, still no stop. Simulated: 230 hold, 241 trailing, 250 trailing (exit 242.50), 242.40 sells.
