@@ -1089,3 +1089,6 @@
 - Sold BTC 0.00001111 @ 72,647.14 = $0.80 (cost $0.93, gain -$0.13); sold ETH 0.000289 @ 2,022.27 = $0.58 (cost $0.71, gain -$0.13).
 - Bought TTWO $2.91 = 0.013103 sh @ $222.08 (order 6af36bf7-d481-46e8-a484-e9c781e26778). Stop $204.31 (-8%), target $239.85 (+8%). New trader/ttwo_test.py (same rules as the SPCX test), CLI rh-ttwo-plan / rh-ttwo-record, ledger data/ttwo-test.json, ROBINHOOD.md 17l6.
 - Crypto planner paused (kill_switch = true) and gap rule turned OFF: no cash left and the user wants to focus on TTWO. SPCX unchanged.
+
+## 2026-11-10T19:30Z (user request)
+- User: "do not sell at a loss". TTWO stop removed (data/ttwo-test.json stop_pct/stop = null); it now sells only at the +8% target $239.85. Checked: at a $180 mark the planner prints no order.

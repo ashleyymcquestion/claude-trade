@@ -1,7 +1,7 @@
 {
   "enabled": true,
   "amount": "2.91",
-  "stop_pct": 0.08,
+  "stop_pct": null,
   "target_pct": 0.08,
   "trail_pct": null,
   "peak": null,
@@ -12,7 +12,7 @@
     "price": "222.08",
     "at": "2026-11-10T19:09:43.564Z"
   },
-  "stop": 204.3136,
+  "stop": null,
   "target": 239.8464,
   "sell": null
 }

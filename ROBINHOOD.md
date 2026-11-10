@@ -235,7 +235,7 @@ spread, bull put spread, cash-secured put, covered call) whose odds and expected
      `{"now", "cash", "mark", "quantity": <TTWO shares held>, "open_order"}` and run
      `python -m trader rh-ttwo-plan --state <file>`. Place only the order it prints (review first; any order_checks alert =
      don't place); once filled run `python -m trader rh-ttwo-record --side sell --order-id ... --quantity ... --price
-     <average_price> --at ...`. Sells everything at the target (+8%) or the stop (-8%) from data/ttwo-test.json.
+     <average_price> --at ...`. Sells everything only at the target (+8%, $239.85) from data/ttwo-test.json; no stop: on Nov 10 the user said "do not sell at a loss".
      Since Nov 10 the crypto planner is paused (config.robinhood.toml kill_switch = true) and the gap rule is OFF
      (data/gap-live.json enabled false): the user moved everything into TTWO. SPCX stays as is.
 
