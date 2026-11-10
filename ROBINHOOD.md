@@ -209,11 +209,18 @@ spread, bull put spread, cash-secured put, covered call) whose odds and expected
      the ask on Oct 26, 1:47 PM PT, sold at the bid once it falls 25% below its highest bid, then cash;
      3-day rounds the same way (CHIP-trail-rounds.json). Report one line comparing all three: swing, trail and hold (value and return).
 
-17l4. Gap-down rule for real money (built Oct 26, OFF: data/gap-live.json has "enabled": false). Skip this step
-     while it is off. It is turned on only when the watchlab "gaps" paper test has 20+ closed trades still
-     winning AND the user says so in their own words; then also add `trader rh-gap-plan` to the trigger's list of
-     planners. Rule (trader/gap_live.py): before 11 AM New York, $1 of the deepest 5%+ gap down among NVDA / AMD /
-     PLTR / QQQ, at most one a day; sold (only its own shares) when back at yesterday's close or after 3:30 PM.
+17l4. Gap-down rule for real money (built Oct 26; turned ON Nov 10, 2026, when the user said "sure lets run it"
+     after the watchlab "gaps" paper test reached 50 closed trades, 56% wins, +1.34% vs QQQ). On every
+     market-hours run, after Part B2: get `get_equity_quotes` for NVDA, AMD, PLTR, QQQ and the first 10-minute bar's
+     open_price of the first regular-hours bar (`get_equity_historicals`, interval 10minute, bounds regular; 9:30 AM New York) for each; write the state file
+     `{"now", "cash", "open_order", "quotes": {SYM: {"open", "prev_close", "mark"}}}` (see trader/gap_live.py) and run
+     `python -m trader rh-gap-plan --state <file>`. Place only the order it prints, exactly as printed (review first,
+     any order_checks alert = don't place), then once it has filled run `python -m trader rh-gap-record --side ...
+     --symbol ... --order-id ... --quantity <cumulative_quantity> --price <average_price> --at <fill time>`
+     (a buy also needs `--prev-close` from the printed order). If NVDA/AMD/PLTR/QQQ shares are held by the stock bot
+     too, its state must leave out the gap shares. Rule (trader/gap_live.py): before 11 AM New York, $1 of the
+     deepest 5%+ gap down among NVDA / AMD / PLTR / QQQ, at most one a day; sold (only its own shares) when back at
+     yesterday's close or at the first run after 3:30 PM. Commit data/gap-live.json with the other data.
 
 17m. TSLA call watch (paper only, never buy it for real; the user asked on Oct 26 to track it and be told whether
      to buy): while data/optionslab/positions.json has the momentum_calls TSLA 2026-11-27 395C (instrument
@@ -240,6 +247,6 @@ spread, bull put spread, cash-secured put, covered call) whose odds and expected
       `source: {kind: "file", url: <the upload's /_blob/... url>, name: "daily-results.json"}` and
       `updated: {at: <now, ISO>, by: "Claude (daily run)"}`. If those tools aren't available, skip this
       and say so in the final message; the CSV in the repo still has the row.
-20. Commit `data/proxy_history.csv`, `data/bars/`, `data/robinhood-stocks.sqlite3`, `data/spcx-test.json`, `data/watchlab/`, `data/optionslab/`, `data/xrppaper/`, `data/memepaper/`, `data/coinwatch/`, `data/yahoo/*-USD.csv`, `data/yahoo/meme/`,
+20. Commit `data/proxy_history.csv`, `data/bars/`, `data/robinhood-stocks.sqlite3`, `data/spcx-test.json`, `data/gap-live.json`, `data/watchlab/`, `data/optionslab/`, `data/xrppaper/`, `data/memepaper/`, `data/coinwatch/`, `data/yahoo/*-USD.csv`, `data/yahoo/meme/`,
     `data/robinhood-results.csv` and `journal/robinhood-log.md` together, and push to
     `claude/jolly-fermi-tvlmpb`.
