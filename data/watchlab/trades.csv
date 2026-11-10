@@ -177,8 +177,8 @@ gainers,TTWO,2026-11-10,224.54,674.5,up 8.3% today,open,0,,0.0,0.0,,0.0,0.0
 gainers,SANM,2026-11-10,160.07,674.5,up 7.0% today,open,0,,0.0,0.0,,0.0,0.0
 options,CLBT,2026-11-10,12.545,674.5,"options volume 16.6x normal, calls 1675.5x puts",open,0,,0.0,0.0,,0.0,0.0
 options,GFL,2026-11-10,41.58,674.5,"options volume 5.3x normal, calls 26.8x puts",open,0,,0.0,0.0,,0.0,0.0
-gaps,LEGN,2026-11-10,21.22,674.5,opened 12.2% below yesterday's close 24.30,open,0,,0.0,0.0,,24.295,0.0
-gaps,GFL,2026-11-10,41.58,674.5,opened 11.2% below yesterday's close 45.88,open,0,,0.0,0.0,,45.88,0.0
-gaps,FA,2026-11-10,21.06,674.5,opened 9.7% below yesterday's close 23.51,open,0,,0.0,0.0,,23.51,0.0
-gaps,GEV,2026-11-10,773.02,674.5,opened 8.9% below yesterday's close 829.08,open,0,,0.0,0.0,,829.075,0.0
-gaps,EQPT,2026-11-10,12.67,674.5,opened 7.4% below yesterday's close 16.19,open,0,,0.0,0.0,,16.19,0.0
+gaps,LEGN,2026-11-10,21.22,674.5,opened 12.2% below yesterday's close 24.30,closed,1,2026-11-10,20.26,673.67,end of day,24.295,0.0
+gaps,GFL,2026-11-10,41.58,674.5,opened 11.2% below yesterday's close 45.88,closed,1,2026-11-10,42.18,673.67,end of day,45.88,0.0
+gaps,FA,2026-11-10,21.06,674.5,opened 9.7% below yesterday's close 23.51,closed,1,2026-11-10,21.61,673.67,end of day,23.51,0.0
+gaps,GEV,2026-11-10,773.02,674.5,opened 8.9% below yesterday's close 829.08,closed,1,2026-11-10,787.16,673.67,end of day,829.075,0.0
+gaps,EQPT,2026-11-10,12.67,674.5,opened 7.4% below yesterday's close 16.19,closed,1,2026-11-10,13.16,673.67,end of day,16.19,0.0

@@ -1098,3 +1098,10 @@
 
 ## 2026-11-10T19:35Z (user request)
 - User said yes to a trailing exit for TTWO: data/ttwo-test.json trail_pct = 0.03. Once TTWO hits $239.85 (+8%) it tracks the peak and sells at max($239.85, peak x 0.97); never below $239.85, still no stop. Simulated: 230 hold, 241 trailing, 250 trailing (exit 242.50), 242.40 sells.
+
+## 2026-11-10T20:43Z run (12:43 PM PT Tue)
+- Account $3.86 (cash 0, equity 3.86: TTWO + SPCX). Crypto planner: kill switch on, no orders (no crypto held).
+- TTWO: holding at 224.13 (cost 222.08), target 239.85, no stop, trailing 3% once armed. Unrealized +$0.03.
+- Stocks: no pending, no orders, not halted. SPCX holding at 142.22 (target 161.05), unrealized -$0.07. CHIP disabled; gap rule off.
+- Gap paper check (end of day): closed EQPT +3.9%, FA +2.6%, GEV +1.8%, GFL +1.4%, LEGN -4.5%. Gaps: 55 closed, 58.2% wins, +1.33% vs QQQ.
+- Dual Thrust: no entries. CHIP paper: swing cash $2.00; trail/hold $1.8736 (-6.3%). TTWO paper: $2.0651 (+3.3%).
