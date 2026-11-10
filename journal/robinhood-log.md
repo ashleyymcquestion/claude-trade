@@ -1061,3 +1061,6 @@
 - Gap check (after 3:30 PM NY): closed 5 at end of day: IONS +7.4%, IBRX +5.7%, ARWR +4.8%, NVDA -0.7%, MNDY -3.2%. Gaps scoreboard: 50 closed, 56% win, +1.34% vs QQQ, ready_for_real_money=true. Asking the user; not traded.
 - Dual Thrust: no entries.
 - CHIP paper R5: swing cash $2.00; trail/hold $1.9341 (-3.3%).
+
+## 2026-11-10T01:36Z (5:36 PM PT Mon, user request)
+- User said "sure lets run it" for the gaps idea. Turned ON the existing gap-down rule (trader/gap_live.py, data/gap-live.json enabled=true): $1 of the deepest 5%+ gap down among NVDA/AMD/PLTR/QQQ before 11 AM New York, at most one a day, sold at yesterday's close or after 3:30 PM. Added it to ROBINHOOD.md 17l4 and the scheduled task's planner list. The watchlab gaps picks (any stock) stay paper only.
