@@ -2256,11 +2256,13 @@
   "ev": -60.44,
   "max_profit": 21545.0,
   "max_loss": 87.0,
-  "status": "open",
-  "closed": "",
-  "exit_reason": "",
-  "pnl": 0.0,
-  "ret": 0.0
+  "status": "closed",
+  "closed": "2026-11-11",
+  "exit_reason": "held 2 days",
+  "pnl": -38.0,
+  "ret": -0.4368,
+  "exit_value": 0.49,
+  "underlying_exit": 174.43
  },
  {
   "id": "4f5d2b46",
@@ -2285,11 +2287,13 @@
   "ev": -95.52,
   "max_profit": 31164.0,
   "max_loss": 97.0,
-  "status": "open",
-  "closed": "",
-  "exit_reason": "",
-  "pnl": 0.0,
-  "ret": 0.0
+  "status": "closed",
+  "closed": "2026-11-11",
+  "exit_reason": "held 2 days",
+  "pnl": -48.0,
+  "ret": -0.4948,
+  "exit_value": 0.49,
+  "underlying_exit": 689.34
  },
  {
   "id": "ca9469fe",
@@ -2546,6 +2550,64 @@
   "ev": -74.66,
   "max_profit": 6837.0,
   "max_loss": 77.0,
+  "status": "open",
+  "closed": "",
+  "exit_reason": "",
+  "pnl": 0.0,
+  "ret": 0.0
+ },
+ {
+  "id": "d25540bd",
+  "strategy": "momentum_calls/call",
+  "structure": "long_call",
+  "underlying": "CRWV",
+  "expiration": "2026-12-11",
+  "legs": [
+   {
+    "instrument_id": "37f4985e-8804-4451-a467-60f83d013311",
+    "type": "call",
+    "action": "buy",
+    "strike": 60.0,
+    "entry": 5.9
+   }
+  ],
+  "net_debit": 5.9,
+  "opened": "2026-11-11",
+  "underlying_entry": 59.4088,
+  "vol": 1.2229,
+  "pop": 0.3225,
+  "ev": 228.39,
+  "max_profit": 8263.0,
+  "max_loss": 590.0,
+  "status": "open",
+  "closed": "",
+  "exit_reason": "",
+  "pnl": 0.0,
+  "ret": 0.0
+ },
+ {
+  "id": "66c04182",
+  "strategy": "momentum_calls/call",
+  "structure": "long_call",
+  "underlying": "AXTI",
+  "expiration": "2026-12-11",
+  "legs": [
+   {
+    "instrument_id": "587a374e-c95f-4617-8b3b-9b61953b583b",
+    "type": "call",
+    "action": "buy",
+    "strike": 48.0,
+    "entry": 6.1
+   }
+  ],
+  "net_debit": 6.1,
+  "opened": "2026-11-11",
+  "underlying_entry": 47.31,
+  "vol": 1.4936,
+  "pop": 0.3019,
+  "ev": 178.42,
+  "max_profit": 6417.0,
+  "max_loss": 610.0,
   "status": "open",
   "closed": "",
   "exit_reason": "",

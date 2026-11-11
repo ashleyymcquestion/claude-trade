@@ -1111,3 +1111,10 @@
 - TTWO closed 224.66 (after hours ~225.6), unrealized +$0.03; target 239.85, trailing not armed. SPCX closed 143.15, unrealized -$0.07.
 - Day-trading practice: appended Nov 10's remaining 10 bars to data/intraday/ttwo/TTWO.csv; tracking starts Nov 11.
 - CHIP paper: swing cash $2.00; trail/hold $1.857 (-7.2%). TTWO paper: $2.0745 (+3.7%).
+
+## 2026-11-11 07:41 PT daily run
+- Planners: crypto paused (kill switch), stocks none, SPCX holding 142.33 (target 161.05), TTWO holding 233.96 (target 239.85, no stop, trail arms above target), CHIP disabled, gap rule off. No real orders.
+- Account $3.99 (+$0.13 day, -$0.17 / -4.0% since $4.16 start). TTWO unrealized ~+$0.16, SPCX ~-$0.07.
+- Paper: TTWO trail $2.1551 (+7.75%); CHIP swing $2.00, trail/hold $1.90; XRP paper $1.98 vs hold $1.66.
+- Watchlab: opened 15, closed 5 (COHR +12.5%, XYZ -1.4%, PFGC -0.5%, SWK -2.8%); ROKU unpriced.
+- Options lab: opened 2 (CRWV, AXTI momentum calls), closed 2 (NVDA call -$38, QQQ put -$48). Totals: 56 closed, 12 wins, -$9,839 paper; 30 open.
