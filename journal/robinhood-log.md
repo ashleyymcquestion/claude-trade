@@ -1140,3 +1140,10 @@
 - Watchlab: opened 9 (gainers MBGL, FIGR, CLS, SWKS; gaps NBIS, TWST, BZ, CRWV, FPS); closed 12 (APP +12.3%, MGNI +6.9%, ACHC +6.3%, MIR +5.2%, BWA +4.2%, ADMA +1.1%, SONY -3.6% x2, AXTI -8.3%, WRBY -10.0%, IREN -10.4%, NBIS -19.3%). Social: no dated page found. ROKU unpriced.
 - Options lab (new Dec 18 expiration; QQQ strikes limited to one page per side, 665-772 calls / 605-758 puts): opened 7 budget positions (NVDA 218C, QQQ 766C x2, PLTR 130P x3, ...), closed 2 (PLTR call -$12, NVDA put +$6). Totals: 58 closed, 13 wins, -$9,845 paper; 34 open.
 - XRP paper $1.97 vs hold $1.58. Meme paper: no signals.
+
+## 2026-11-12 12:41 PT midday run
+- Planners: crypto paused (kill switch), stocks none (not halted), SPCX holding 141.31 (target 161.05), TTWO holding 227.53 (target 239.85, no stop), CHIP disabled, gap rule off. No real orders.
+- Account $3.90 (-$0.09 vs yesterday's $3.99; -$0.26 / -6.2% since $4.16). TTWO unrealized +$0.07 ($2.98 vs $2.91); SPCX -$0.08.
+- Gap paper: closed 5 at end of day (TWST +6.9%, FPS +1.3%, NBIS -0.1%, CRWV -1.7%, BZ -3.1%); 65 closed, 53.8% wins, ready_for_real_money true (gap rule stays off).
+- Dual Thrust paper: NVDA closed end of day -0.24%.
+- TTWO paper (trail): $2.0962 (+4.81%).
