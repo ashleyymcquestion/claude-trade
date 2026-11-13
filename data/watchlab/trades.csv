@@ -213,7 +213,7 @@ gainers,NU,2026-11-13,12.9799,674.74,up 9.7% today,open,0,,0.0,0.0,,0.0,0.0
 gainers,WSE,2026-11-13,11.79,674.74,up 7.9% today,open,0,,0.0,0.0,,0.0,0.0
 gainers,CLBT,2026-11-13,11.67,674.74,up 6.9% today,open,0,,0.0,0.0,,0.0,0.0
 options,KR,2026-11-13,70.83,674.74,"options volume 3.0x normal, calls 47.7x puts",open,0,,0.0,0.0,,0.0,0.0
-gaps,VIR,2026-11-13,9.73,674.74,opened 13.3% below yesterday's close 12.11,open,0,,0.0,0.0,,12.105,0.0
-gaps,NBIS,2026-11-13,113.1864,674.74,opened 4.0% below yesterday's close 128.73,open,0,,0.0,0.0,,128.7316,0.0
-gaps,AMD,2026-11-13,527.0575,674.74,opened 3.2% below yesterday's close 585.58,open,0,,0.0,0.0,,585.5801,0.0
-gaps,ERAS,2026-11-13,14.6501,674.74,opened 3.2% below yesterday's close 15.79,open,0,,0.0,0.0,,15.79,0.0
+gaps,VIR,2026-11-13,9.73,674.74,opened 13.3% below yesterday's close 12.11,closed,1,2026-11-13,9.745,678.6,end of day,12.105,0.0
+gaps,NBIS,2026-11-13,113.1864,674.74,opened 4.0% below yesterday's close 128.73,closed,1,2026-11-13,115.87,678.6,end of day,128.7316,0.0
+gaps,AMD,2026-11-13,527.0575,674.74,opened 3.2% below yesterday's close 585.58,closed,1,2026-11-13,530.715,678.6,end of day,585.5801,0.0
+gaps,ERAS,2026-11-13,14.6501,674.74,opened 3.2% below yesterday's close 15.79,closed,1,2026-11-13,15.7399,678.6,end of day,15.79,0.0

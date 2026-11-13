@@ -1163,3 +1163,9 @@
 - Watchlab: opened 10 (gainers MOD, LFTO, NU, WSE, CLBT; options KR; gaps VIR, NBIS, AMD, ERAS); closed 7 (FROG +11.2%, HONA +8.1%, HDB +2.9%, CLS -10.1%, SNDK -13.2%, AAOI -13.2%, CRWV -14.4%). Social: no dated page. ROKU unpriced. Gaps still ready_for_real_money (rule off; not traded).
 - Options lab: opened 3 (KR 72.5C follow-flow, PLTR 210C, NVDA 114P); closed 4 (NVDA call -$74, QQQ call -$82, CRWV call -$368 stop, AXTI call -$425 stop). Totals: 62 closed, 13 wins, -$10,794 paper; 33 open.
 - XRP paper $1.97 vs hold $1.58. Meme paper: no signals.
+
+## 2026-11-13 12:41 PT midday run
+- Planners: crypto paused (kill switch), stocks none (not halted), SPCX holding 139.63 (target 161.05), TTWO holding 227.23 (target 239.85, no stop), CHIP disabled, gap rule off. No real orders.
+- Account $3.89 (+$0.02 vs yesterday's $3.87; -$0.27 / -6.5% since $4.16). TTWO unrealized +$0.07; SPCX -$0.09.
+- Gap paper: closed 4 at end of day (ERAS +7.4%, NBIS +2.4%, AMD +0.7%, VIR +0.2%); 69 closed, 56.5% wins, ready_for_real_money true (rule stays off).
+- Dual Thrust paper: no entries.
