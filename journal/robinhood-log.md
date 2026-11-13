@@ -1147,3 +1147,9 @@
 - Gap paper: closed 5 at end of day (TWST +6.9%, FPS +1.3%, NBIS -0.1%, CRWV -1.7%, BZ -3.1%); 65 closed, 53.8% wins, ready_for_real_money true (gap rule stays off).
 - Dual Thrust paper: NVDA closed end of day -0.24%.
 - TTWO paper (trail): $2.0962 (+4.81%).
+
+## 2026-11-12 20:41 PT evening run
+- Market closed: SPCX/TTWO planners print no orders (fractional orders regular hours only); stocks skipped (market closed, not halted); crypto paused (kill switch); CHIP disabled; gap rule off. No real orders.
+- Account $3.91 (-$0.08 vs yesterday's $3.99; -$0.25 / -6.0% since $4.16). TTWO closed 226.93 (unrealized +$0.06; target 239.85, trail not armed). SPCX closed 139.96 (unrealized -$0.09; target 161.05).
+- TTWO day-trading practice (day 2, Nov 12): no entries for either strategy. Dual Thrust k0.3 $98.56, ORB 30 $98.74, hold $99.75.
+- TTWO paper (trail), last update of the round (ends 8:57 PM PT): $2.1098 (+5.49%), same as holding (no exits triggered).
