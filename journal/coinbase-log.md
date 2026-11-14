@@ -261,3 +261,7 @@ Paper trading (config.coinbase.toml, COINBASE.md).
 - Paper: btc_trend $4.87 (-2.5%, holds cash), momentum $4.89 (-2.3%, holds cash).
 - Futures paper test: $937.55 (-6.2%), holds flat.
 - Note: the user said yes to selling the real ALGO on Nov 11; the first post-only order was rejected (price moved) and the retry was interrupted before approval, so no real order exists yet.
+
+## 2026-11-13 (4:08 PM PT, daily paper run)
+- Paper: btc_trend $4.87 (-2.5%, holds cash), momentum $4.89 (-2.3%, holds cash).
+- Futures paper test: $937.55 (-6.2%), holds flat.
