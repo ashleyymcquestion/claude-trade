@@ -1169,3 +1169,8 @@
 - Account $3.89 (+$0.02 vs yesterday's $3.87; -$0.27 / -6.5% since $4.16). TTWO unrealized +$0.07; SPCX -$0.09.
 - Gap paper: closed 4 at end of day (ERAS +7.4%, NBIS +2.4%, AMD +0.7%, VIR +0.2%); 69 closed, 56.5% wins, ready_for_real_money true (rule stays off).
 - Dual Thrust paper: no entries.
+
+## 2026-11-13 20:41 PT evening run
+- Market closed: SPCX/TTWO planners print no orders (fractional orders regular hours only); stocks skipped (market closed, not halted); crypto paused (kill switch); CHIP disabled; gap rule off. No real orders.
+- Account $3.88 (+$0.01 vs yesterday's $3.87; -$0.28 / -6.8% since $4.16). TTWO closed 227.86 (unrealized +$0.08; target 239.85, trail not armed). SPCX closed 139.10 (unrealized -$0.09; target 161.05).
+- TTWO day-trading practice (day 3, Nov 13): no entries for either strategy. Dual Thrust k0.3 $98.56, ORB 30 $98.74, hold $100.16.
