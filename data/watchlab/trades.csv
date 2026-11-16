@@ -224,9 +224,9 @@ gainers,TSN,2026-11-16,63.32,665.73,up 7.7% today,open,0,,0.0,0.0,,0.0,0.0
 gainers,BEKE,2026-11-16,18.895,665.73,up 5.8% today,open,0,,0.0,0.0,,0.0,0.0
 options,RYN,2026-11-16,21.775,665.73,"options volume 6.2x normal, calls 2709.3x puts",open,0,,0.0,0.0,,0.0,0.0
 options,TSN,2026-11-16,63.32,665.73,"options volume 3.1x normal, calls 2.3x puts",open,0,,0.0,0.0,,0.0,0.0
-gaps,EMBJ,2026-11-16,19.21,665.73,opened 75.4% below yesterday's close 78.75,open,0,,0.0,0.0,,78.75,0.0
-gaps,SMMT,2026-11-16,12.38,665.73,opened 10.1% below yesterday's close 14.14,open,0,,0.0,0.0,,14.14,0.0
-gaps,GDS,2026-11-16,17.18,665.73,opened 9.5% below yesterday's close 19.81,open,0,,0.0,0.0,,19.81,0.0
-gaps,ASST,2026-11-16,18.9495,665.73,opened 8.9% below yesterday's close 21.37,open,0,,0.0,0.0,,21.37,0.0
-gaps,BE,2026-11-16,177.08,665.73,opened 8.0% below yesterday's close 192.00,open,0,,0.0,0.0,,192.0,0.0
+gaps,EMBJ,2026-11-16,19.21,665.73,opened 75.4% below yesterday's close 78.75,closed,1,2026-11-16,18.695,661.49,end of day,78.75,0.0
+gaps,SMMT,2026-11-16,12.38,665.73,opened 10.1% below yesterday's close 14.14,closed,1,2026-11-16,11.715,661.49,end of day,14.14,0.0
+gaps,GDS,2026-11-16,17.18,665.73,opened 9.5% below yesterday's close 19.81,closed,1,2026-11-16,16.88,661.49,end of day,19.81,0.0
+gaps,ASST,2026-11-16,18.9495,665.73,opened 8.9% below yesterday's close 21.37,closed,1,2026-11-16,18.93,661.49,end of day,21.37,0.0
+gaps,BE,2026-11-16,177.08,665.73,opened 8.0% below yesterday's close 192.00,closed,1,2026-11-16,176.885,661.49,end of day,192.0,0.0
 stacked,TSN,2026-11-16,63.32,665.73,flagged by gainers + options,open,0,,0.0,0.0,,0.0,0.0

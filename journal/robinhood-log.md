@@ -1212,3 +1212,11 @@
 - Options lab (Dec 18): opened TSN 65C, TU 10C, NVDA 210C, QQQ 746C; closed 10 (BETA x2 stop, MARA stop, budget holds). Totals: 72 closed, 16 wins, −$11,124 paper, 27 open.
 - Gaps paper source still ready_for_real_money; not traded (rule off).
 - XRP paper $1.96 vs hold $1.47. Meme paper: no trades.
+
+## 2026-11-16 12:41 PM PT
+- Crypto: kill switch on, no orders. CHIP disabled, gap rule off. No pending stock orders.
+- Stocks: bars refreshed through Nov 13. rh-stock-plan checked 4 and found no signals, not halted.
+- TTWO 213.35 (unrealized −$0.11 on $2.91; target 239.85, no stop): holding. SPCX 139.59 (−$0.09 on $1.00; target 161.05): holding.
+- Account $3.71 (−$0.17 vs Nov 15, −$0.45 / −10.8% since start).
+- Gap paper: 5 end-of-day closes (EMBJ, SMMT, GDS, ASST, BE). EMBJ quote shows adjusted prev close 19.68 vs 78.73, so this morning's "−75% gap" was a 1:4 split, not a real move.
+- Dual Thrust paper: no breakouts.
