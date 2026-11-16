@@ -1202,3 +1202,13 @@
 ## 2026-11-15 20:41 PT evening run (Sunday)
 - Market closed for regular hours (overnight session only): SPCX/TTWO planners print no orders (fractional orders regular hours only); stocks skipped; crypto paused (kill switch); CHIP disabled; gap rule off. No real orders. No day-trading practice (not a trading day).
 - Account $3.95 at overnight prices (+$0.07 vs yesterday's $3.88; -$0.21 / -5.0% since $4.16). TTWO overnight 232.04 (unrealized +$0.13; target 239.85). SPCX overnight 140.16 (unrealized -$0.09).
+
+## 2026-11-16 7:41 AM PT (daily run)
+- Crypto: kill switch on, no orders. CHIP disabled, gap rule off.
+- Stocks: daily bars had been stale since Nov 10 (step 12 was skipped on recent runs, so rh-stock-plan saw "stale" bars). Fetched NVDA/AMD/PLTR/QQQ day bars and reran with --config/--bars: no signals, not halted. Step 12 will run every time from now on.
+- SPCX holding at ~136.97 (target 161.05). TTWO holding at 222.87 (target 239.85, no stop by design). No real orders placed.
+- Account $3.81 (−$0.07 vs yesterday, −$0.35 since start).
+- Watchlab: opened 13 and closed 8 (all losers: QXO, TTD, COHR, BE, LION, AMAT, MARA, KLAC); ROKU unpriced. EMBJ's −75% "gap" is probably a data error or ticker change (paper only).
+- Options lab (Dec 18): opened TSN 65C, TU 10C, NVDA 210C, QQQ 746C; closed 10 (BETA x2 stop, MARA stop, budget holds). Totals: 72 closed, 16 wins, −$11,124 paper, 27 open.
+- Gaps paper source still ready_for_real_money; not traded (rule off).
+- XRP paper $1.96 vs hold $1.47. Meme paper: no trades.
