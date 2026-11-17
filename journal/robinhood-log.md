@@ -1220,3 +1220,9 @@
 - Account $3.71 (−$0.17 vs Nov 15, −$0.45 / −10.8% since start).
 - Gap paper: 5 end-of-day closes (EMBJ, SMMT, GDS, ASST, BE). EMBJ quote shows adjusted prev close 19.68 vs 78.73, so this morning's "−75% gap" was a 1:4 split, not a real move.
 - Dual Thrust paper: no breakouts.
+
+## 2026-11-16 8:41 PM PT (evening)
+- Market closed: TTWO/SPCX planners print nothing after hours. No pending stock orders. Crypto kill switch on.
+- TTWO closed 213.48 (unrealized −$0.11; target 239.85, no stop). SPCX closed 137.37 (−$0.10).
+- Account $3.71 (CSV row for Nov 16 unchanged).
+- Day-trading practice after 4 days ($100 each): Dual Thrust $98.56 (1 trade, 0% wins), ORB30 $98.74 (1 trade, 0% wins), hold $93.84. No new trades today.
