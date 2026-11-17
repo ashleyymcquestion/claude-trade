@@ -2181,11 +2181,13 @@
   "ev": 39.79,
   "max_profit": 5309.0,
   "max_loss": 450.0,
-  "status": "open",
-  "closed": "",
-  "exit_reason": "",
-  "pnl": 0.0,
-  "ret": 0.0
+  "status": "closed",
+  "closed": "2026-11-17",
+  "exit_reason": "stop",
+  "pnl": -300.0,
+  "ret": -0.6667,
+  "exit_value": 1.5,
+  "underlying_exit": 35.235
  },
  {
   "id": "fbbf9d70",
@@ -2239,11 +2241,13 @@
   "ev": -51.19,
   "max_profit": 2057.0,
   "max_loss": 155.0,
-  "status": "open",
-  "closed": "",
-  "exit_reason": "",
-  "pnl": 0.0,
-  "ret": 0.0
+  "status": "closed",
+  "closed": "2026-11-17",
+  "exit_reason": "stop",
+  "pnl": -82.0,
+  "ret": -0.529,
+  "exit_value": 0.73,
+  "underlying_exit": 14.735
  },
  {
   "id": "f35ab2c8",
@@ -2512,11 +2516,13 @@
   "ev": -59.44,
   "max_profit": 20298.0,
   "max_loss": 84.0,
-  "status": "open",
-  "closed": "",
-  "exit_reason": "",
-  "pnl": 0.0,
-  "ret": 0.0
+  "status": "closed",
+  "closed": "2026-11-17",
+  "exit_reason": "held 5 days",
+  "pnl": -53.0,
+  "ret": -0.631,
+  "exit_value": 0.31,
+  "underlying_exit": 151.04
  },
  {
   "id": "4dea3178",
@@ -2541,11 +2547,13 @@
   "ev": 33.67,
   "max_profit": 20181.0,
   "max_loss": 56.0,
-  "status": "open",
-  "closed": "",
-  "exit_reason": "",
-  "pnl": 0.0,
-  "ret": 0.0
+  "status": "closed",
+  "closed": "2026-11-17",
+  "exit_reason": "held 5 days",
+  "pnl": -44.0,
+  "ret": -0.7857,
+  "exit_value": 0.12,
+  "underlying_exit": 156.065
  },
  {
   "id": "0d12f306",
@@ -2785,11 +2793,13 @@
   "ev": -12.96,
   "max_profit": 7821.0,
   "max_loss": 92.0,
-  "status": "open",
-  "closed": "",
-  "exit_reason": "",
-  "pnl": 0.0,
-  "ret": 0.0
+  "status": "closed",
+  "closed": "2026-11-17",
+  "exit_reason": "doubled",
+  "pnl": 147.0,
+  "ret": 1.5978,
+  "exit_value": 2.39,
+  "underlying_exit": 156.065
  },
  {
   "id": "c7770e51",
@@ -2814,11 +2824,13 @@
   "ev": -12.96,
   "max_profit": 7821.0,
   "max_loss": 92.0,
-  "status": "open",
-  "closed": "",
-  "exit_reason": "",
-  "pnl": 0.0,
-  "ret": 0.0
+  "status": "closed",
+  "closed": "2026-11-17",
+  "exit_reason": "doubled",
+  "pnl": 147.0,
+  "ret": 1.5978,
+  "exit_value": 2.39,
+  "underlying_exit": 156.065
  },
  {
   "id": "5b5da71a",
@@ -2872,11 +2884,13 @@
   "ev": 72.25,
   "max_profit": 20847.0,
   "max_loss": 98.0,
-  "status": "open",
-  "closed": "",
-  "exit_reason": "",
-  "pnl": 0.0,
-  "ret": 0.0
+  "status": "closed",
+  "closed": "2026-11-17",
+  "exit_reason": "held 2 days",
+  "pnl": -62.0,
+  "ret": -0.6327,
+  "exit_value": 0.36,
+  "underlying_exit": 156.065
  },
  {
   "id": "21ad1aab",
@@ -2901,11 +2915,13 @@
   "ev": -91.0,
   "max_profit": 6508.0,
   "max_loss": 98.0,
-  "status": "open",
-  "closed": "",
-  "exit_reason": "",
-  "pnl": 0.0,
-  "ret": 0.0
+  "status": "closed",
+  "closed": "2026-11-17",
+  "exit_reason": "held 2 days",
+  "pnl": 44.0,
+  "ret": 0.449,
+  "exit_value": 1.42,
+  "underlying_exit": 151.04
  },
  {
   "id": "c78e4534",
@@ -3017,6 +3033,238 @@
   "ev": 323.46,
   "max_profit": 91802.0,
   "max_loss": 98.0,
+  "status": "open",
+  "closed": "",
+  "exit_reason": "",
+  "pnl": 0.0,
+  "ret": 0.0
+ },
+ {
+  "id": "bb96d9ec",
+  "strategy": "momentum_calls/call",
+  "structure": "long_call",
+  "underlying": "AS",
+  "expiration": "2026-12-18",
+  "legs": [
+   {
+    "instrument_id": "d2b1ceef-8f24-4631-9748-68cf5c7e3641",
+    "type": "call",
+    "action": "buy",
+    "strike": 32.5,
+    "entry": 1.35
+   }
+  ],
+  "net_debit": 1.35,
+  "opened": "2026-11-17",
+  "underlying_entry": 31.27,
+  "vol": 0.4211,
+  "pop": 0.2552,
+  "ev": -22.71,
+  "max_profit": 4433.0,
+  "max_loss": 135.0,
+  "status": "open",
+  "closed": "",
+  "exit_reason": "",
+  "pnl": 0.0,
+  "ret": 0.0
+ },
+ {
+  "id": "a2dcf012",
+  "strategy": "momentum_calls/call",
+  "structure": "long_call",
+  "underlying": "SNAP",
+  "expiration": "2026-12-18",
+  "legs": [
+   {
+    "instrument_id": "c575dbe6-61ca-4bb3-941d-eddd75eb8bad",
+    "type": "call",
+    "action": "buy",
+    "strike": 6.0,
+    "entry": 0.18
+   }
+  ],
+  "net_debit": 0.18,
+  "opened": "2026-11-17",
+  "underlying_entry": 5.3901,
+  "vol": 0.7328,
+  "pop": 0.2382,
+  "ev": 8.14,
+  "max_profit": 730.0,
+  "max_loss": 18.0,
+  "status": "open",
+  "closed": "",
+  "exit_reason": "",
+  "pnl": 0.0,
+  "ret": 0.0
+ },
+ {
+  "id": "6de22727",
+  "strategy": "budget/call-2d",
+  "structure": "call_nearest",
+  "underlying": "NVDA",
+  "expiration": "2026-12-18",
+  "legs": [
+   {
+    "instrument_id": "e6af4b2b-b4bb-4ada-ae7d-4fe12a2dcf8e",
+    "type": "call",
+    "action": "buy",
+    "strike": 205.0,
+    "entry": 0.84
+   }
+  ],
+  "net_debit": 0.84,
+  "opened": "2026-11-17",
+  "underlying_entry": 151.04,
+  "vol": 0.4603,
+  "pop": 0.0116,
+  "ev": -71.0,
+  "max_profit": 17179.0,
+  "max_loss": 84.0,
+  "status": "open",
+  "closed": "",
+  "exit_reason": "",
+  "pnl": 0.0,
+  "ret": 0.0
+ },
+ {
+  "id": "ccd11394",
+  "strategy": "budget/call-2d",
+  "structure": "call_nearest",
+  "underlying": "QQQ",
+  "expiration": "2026-12-18",
+  "legs": [
+   {
+    "instrument_id": "30b32c60-448a-4019-9b1c-b29e917819b3",
+    "type": "call",
+    "action": "buy",
+    "strike": 730.0,
+    "entry": 0.98
+   }
+  ],
+  "net_debit": 0.98,
+  "opened": "2026-11-17",
+  "underlying_entry": 650.74,
+  "vol": 0.3139,
+  "pop": 0.1084,
+  "ev": 289.71,
+  "max_profit": 89578.0,
+  "max_loss": 98.0,
+  "status": "open",
+  "closed": "",
+  "exit_reason": "",
+  "pnl": 0.0,
+  "ret": 0.0
+ },
+ {
+  "id": "b72428d8",
+  "strategy": "budget/call-7d",
+  "structure": "call_nearest",
+  "underlying": "PLTR",
+  "expiration": "2026-12-18",
+  "legs": [
+   {
+    "instrument_id": "d43d7ecd-08f6-4db4-90bd-376f72bde0cc",
+    "type": "call",
+    "action": "buy",
+    "strike": 200.0,
+    "entry": 0.75
+   }
+  ],
+  "net_debit": 0.75,
+  "opened": "2026-11-17",
+  "underlying_entry": 156.065,
+  "vol": 0.5753,
+  "pop": 0.0649,
+  "ev": 35.98,
+  "max_profit": 18943.0,
+  "max_loss": 75.0,
+  "status": "open",
+  "closed": "",
+  "exit_reason": "",
+  "pnl": 0.0,
+  "ret": 0.0
+ },
+ {
+  "id": "0ad541c8",
+  "strategy": "budget/put-2d",
+  "structure": "put_nearest",
+  "underlying": "PLTR",
+  "expiration": "2026-12-18",
+  "legs": [
+   {
+    "instrument_id": "45e1de2e-e177-4580-8a07-87d7a03d1c1d",
+    "type": "put",
+    "action": "buy",
+    "strike": 115.0,
+    "entry": 0.95
+   }
+  ],
+  "net_debit": 0.95,
+  "opened": "2026-11-17",
+  "underlying_entry": 156.065,
+  "vol": 0.5753,
+  "pop": 0.041,
+  "ev": -59.9,
+  "max_profit": 6723.0,
+  "max_loss": 95.0,
+  "status": "open",
+  "closed": "",
+  "exit_reason": "",
+  "pnl": 0.0,
+  "ret": 0.0
+ },
+ {
+  "id": "e994c512",
+  "strategy": "budget/put-5d",
+  "structure": "put_nearest",
+  "underlying": "NVDA",
+  "expiration": "2026-12-18",
+  "legs": [
+   {
+    "instrument_id": "ce49ef0a-a565-4aa8-b388-bc571667b789",
+    "type": "put",
+    "action": "buy",
+    "strike": 107.0,
+    "entry": 0.96
+   }
+  ],
+  "net_debit": 0.96,
+  "opened": "2026-11-17",
+  "underlying_entry": 151.04,
+  "vol": 0.4603,
+  "pop": 0.0062,
+  "ev": -92.51,
+  "max_profit": 6073.0,
+  "max_loss": 96.0,
+  "status": "open",
+  "closed": "",
+  "exit_reason": "",
+  "pnl": 0.0,
+  "ret": 0.0
+ },
+ {
+  "id": "868b62d3",
+  "strategy": "budget/put-7d",
+  "structure": "put_nearest",
+  "underlying": "NVDA",
+  "expiration": "2026-12-18",
+  "legs": [
+   {
+    "instrument_id": "ce49ef0a-a565-4aa8-b388-bc571667b789",
+    "type": "put",
+    "action": "buy",
+    "strike": 107.0,
+    "entry": 0.96
+   }
+  ],
+  "net_debit": 0.96,
+  "opened": "2026-11-17",
+  "underlying_entry": 151.04,
+  "vol": 0.4603,
+  "pop": 0.0062,
+  "ev": -92.51,
+  "max_profit": 6073.0,
+  "max_loss": 96.0,
   "status": "open",
   "closed": "",
   "exit_reason": "",

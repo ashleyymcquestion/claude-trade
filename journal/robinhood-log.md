@@ -1226,3 +1226,13 @@
 - TTWO closed 213.48 (unrealized −$0.11; target 239.85, no stop). SPCX closed 137.37 (−$0.10).
 - Account $3.71 (CSV row for Nov 16 unchanged).
 - Day-trading practice after 4 days ($100 each): Dual Thrust $98.56 (1 trade, 0% wins), ORB30 $98.74 (1 trade, 0% wins), hold $93.84. No new trades today.
+
+## 2026-11-17 7:41 AM PT (daily run)
+- Crypto kill switch on; CHIP disabled; gap rule off; no pending stock orders.
+- Stocks: bars refreshed through Nov 16; rh-stock-plan checked 4, no signals, not halted.
+- TTWO 208.27 (unrealized −$0.18 on $2.91; target 239.85, no stop): holding. SPCX 138.98 (−$0.09 on $1.00; target 161.05): holding. No real orders.
+- Account $3.63 (−$0.08 vs Nov 16, −$0.53 / −12.7% since start).
+- Dual Thrust paper: no breakouts. Social WebSearch skipped (it has returned nothing dated for weeks; social stays []).
+- Watchlab: opened 11 (gainers AS/SNAP/TME; bnf IREN/MSTR/NVDA; gaps CPRI/JD/BILI/DLO/DB); closed 9 (IREN −39.9% bnf, CRWV −13.1%, AAON, CSQR −10%, TTWO −7.4%, SANM −6.9%, CLBT x2, GFL +3.5%). ROKU unpriced. Gaps still ready_for_real_money (not traded; rule off).
+- Options lab: opened 8 (AS 32.5C, SNAP 6C, NVDA/QQQ/PLTR budget calls, PLTR/NVDA budget puts); closed 8 (KRMN −$300 stop, TTD −$82 stop, PLTR puts +$147 x2 doubled, others small). Totals: 80 closed, 19 wins, −$11,327 paper, 27 open.
+- XRP paper $1.96 vs hold $1.48. Meme paper: no trades.
