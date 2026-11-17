@@ -236,8 +236,8 @@ gainers,TME,2026-11-17,9.345,651.12,up 5.2% today,open,0,,0.0,0.0,,0.0,0.0
 bnf,IREN,2026-11-17,15.605,651.12,33% below its 25-day average,open,0,,0.0,0.0,,0.0,0.0
 bnf,MSTR,2026-11-17,99.305,651.12,24% below its 25-day average,open,0,,0.0,0.0,,0.0,0.0
 bnf,NVDA,2026-11-17,151.25,651.12,22% below its 25-day average,open,0,,0.0,0.0,,0.0,0.0
-gaps,CPRI,2026-11-17,18.8,651.12,opened 7.4% below yesterday's close 20.54,open,0,,0.0,0.0,,20.54,0.0
-gaps,JD,2026-11-17,25.97,651.12,opened 6.5% below yesterday's close 27.53,open,0,,0.0,0.0,,27.53,0.0
-gaps,BILI,2026-11-17,12.07,651.12,opened 4.3% below yesterday's close 12.65,open,0,,0.0,0.0,,12.65,0.0
-gaps,DLO,2026-11-17,12.545,651.12,opened 3.9% below yesterday's close 13.34,open,0,,0.0,0.0,,13.34,0.0
-gaps,DB,2026-11-17,34.025,651.12,opened 3.8% below yesterday's close 35.84,open,0,,0.0,0.0,,35.84,0.0
+gaps,CPRI,2026-11-17,18.8,651.12,opened 7.4% below yesterday's close 20.54,closed,1,2026-11-17,18.985,654.4719,end of day,20.54,0.0
+gaps,JD,2026-11-17,25.97,651.12,opened 6.5% below yesterday's close 27.53,closed,1,2026-11-17,25.565,654.4719,end of day,27.53,0.0
+gaps,BILI,2026-11-17,12.07,651.12,opened 4.3% below yesterday's close 12.65,closed,1,2026-11-17,12.0,654.4719,end of day,12.65,0.0
+gaps,DLO,2026-11-17,12.545,651.12,opened 3.9% below yesterday's close 13.34,closed,1,2026-11-17,12.495,654.4719,end of day,13.34,0.0
+gaps,DB,2026-11-17,34.025,651.12,opened 3.8% below yesterday's close 35.84,closed,1,2026-11-17,34.02,654.4719,end of day,35.84,0.0

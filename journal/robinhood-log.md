@@ -1236,3 +1236,8 @@
 - Watchlab: opened 11 (gainers AS/SNAP/TME; bnf IREN/MSTR/NVDA; gaps CPRI/JD/BILI/DLO/DB); closed 9 (IREN −39.9% bnf, CRWV −13.1%, AAON, CSQR −10%, TTWO −7.4%, SANM −6.9%, CLBT x2, GFL +3.5%). ROKU unpriced. Gaps still ready_for_real_money (not traded; rule off).
 - Options lab: opened 8 (AS 32.5C, SNAP 6C, NVDA/QQQ/PLTR budget calls, PLTR/NVDA budget puts); closed 8 (KRMN −$300 stop, TTD −$82 stop, PLTR puts +$147 x2 doubled, others small). Totals: 80 closed, 19 wins, −$11,327 paper, 27 open.
 - XRP paper $1.96 vs hold $1.48. Meme paper: no trades.
+
+## 2026-11-17 12:41 PM PT
+- No orders: TTWO 205.76 (−$0.21 unrealized; target 239.85, no stop), SPCX 141.56 (−$0.08; target 161.05), stock bot 4 checked / no signals / not halted, no pending orders. Crypto kill switch on, CHIP disabled, gap rule off.
+- Account $3.62 (−$0.09 vs Nov 16, −$0.54 / −13.0% since start).
+- Gap paper: 5 end-of-day closes (CPRI +1.0%, JD −1.6%, BILI −0.6%, DLO −0.4%, DB 0.0%); gaps scoreboard 79 closed, 50.6% wins, avg +0.65%, still ready_for_real_money (not traded). Dual Thrust: no breakouts.
