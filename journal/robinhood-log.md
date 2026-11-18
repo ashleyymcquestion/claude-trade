@@ -1257,3 +1257,8 @@
 - Watchlab: opened 13 (gainers TJX/NTSK/FSLY/S/TTWO; bnf NBIS/USAR/COIN; gaps ARDT/PRMB/AAOI/GLBE/FCX); closed 4 (bnf USAR −22.6%, NBIS −32.7%, SMR −20.9%; SWKS −8.2%). ROKU unpriced. Gaps still the only ready_for_real_money source (not traded).
 - Options lab: opened 9 (TJX 145C, NTSK 24C, FSLY 17.5C, budget calls/puts on NVDA/PLTR); closed 2 (BSX call −$115 stop, QQQ put +$5). Totals: 82 closed, 20 wins, −$11,437 paper, 34 open.
 - XRP and meme paper tests run.
+
+## 2026-11-18 12:41 PM PT
+- No orders: TTWO 217.25 (−$0.06 unrealized; target 239.85, no stop), SPCX 142.93 (−$0.07; target 161.05), stock bot 4 checked / no signals / not halted, no pending orders. Crypto kill switch on, CHIP disabled, gap rule off.
+- Account $3.78 (+$0.14 vs Nov 17, −$0.38 / −9.1% since start).
+- Gap paper: all 5 closed end of day in profit (GLBE +4.6%, AAOI +3.8%, PRMB +1.7%, FCX +1.2%, ARDT +0.8%); scoreboard 84 closed, 53.6% wins, avg +0.76% (+0.87% vs QQQ), ready_for_real_money (not traded). Dual Thrust: no breakouts.

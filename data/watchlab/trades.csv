@@ -249,8 +249,8 @@ gainers,TTWO,2026-11-18,218.27,656.14,up 7.0% today,open,0,,0.0,0.0,,0.0,0.0
 bnf,NBIS,2026-11-18,104.57,656.14,30% below its 25-day average,open,0,,0.0,0.0,,0.0,0.0
 bnf,USAR,2026-11-18,7.0,656.14,27% below its 25-day average,open,0,,0.0,0.0,,0.0,0.0
 bnf,COIN,2026-11-18,111.955,656.14,24% below its 25-day average,open,0,,0.0,0.0,,0.0,0.0
-gaps,ARDT,2026-11-18,14.19,656.14,opened 22.6% below yesterday's close 17.76,open,0,,0.0,0.0,,17.76,0.0
-gaps,PRMB,2026-11-18,22.515,656.14,opened 9.0% below yesterday's close 24.25,open,0,,0.0,0.0,,24.25,0.0
-gaps,AAOI,2026-11-18,39.37,656.14,opened 8.6% below yesterday's close 45.23,open,0,,0.0,0.0,,45.2294,0.0
-gaps,GLBE,2026-11-18,36.575,656.14,opened 7.8% below yesterday's close 39.87,open,0,,0.0,0.0,,39.87,0.0
-gaps,FCX,2026-11-18,50.995,656.14,opened 5.7% below yesterday's close 55.35,open,0,,0.0,0.0,,55.35,0.0
+gaps,ARDT,2026-11-18,14.19,656.14,opened 22.6% below yesterday's close 17.76,closed,1,2026-11-18,14.305,658.93,end of day,17.76,0.0
+gaps,PRMB,2026-11-18,22.515,656.14,opened 9.0% below yesterday's close 24.25,closed,1,2026-11-18,22.905,658.93,end of day,24.25,0.0
+gaps,AAOI,2026-11-18,39.37,656.14,opened 8.6% below yesterday's close 45.23,closed,1,2026-11-18,40.875,658.93,end of day,45.2294,0.0
+gaps,GLBE,2026-11-18,36.575,656.14,opened 7.8% below yesterday's close 39.87,closed,1,2026-11-18,38.24,658.93,end of day,39.87,0.0
+gaps,FCX,2026-11-18,50.995,656.14,opened 5.7% below yesterday's close 55.35,closed,1,2026-11-18,51.5997,658.93,end of day,55.35,0.0
