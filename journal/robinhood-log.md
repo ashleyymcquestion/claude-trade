@@ -1241,3 +1241,9 @@
 - No orders: TTWO 205.76 (−$0.21 unrealized; target 239.85, no stop), SPCX 141.56 (−$0.08; target 161.05), stock bot 4 checked / no signals / not halted, no pending orders. Crypto kill switch on, CHIP disabled, gap rule off.
 - Account $3.62 (−$0.09 vs Nov 16, −$0.54 / −13.0% since start).
 - Gap paper: 5 end-of-day closes (CPRI +1.0%, JD −1.6%, BILI −0.6%, DLO −0.4%, DB 0.0%); gaps scoreboard 79 closed, 50.6% wins, avg +0.65%, still ready_for_real_money (not traded). Dual Thrust: no breakouts.
+
+## 2026-11-17 8:41 PM PT (evening)
+- Market closed; no orders. No pending stock orders. Crypto kill switch on.
+- TTWO closed 203.93 (unrealized −$0.24 on $2.91; target 239.85, no stop). SPCX closed 141.68 (−$0.08).
+- Account $3.64 at close (−$0.07 vs Nov 16, −$0.52 / −12.5% since start); CSV row updated.
+- Day-trading practice ($100 each, 5 days): Dual Thrust $98.56 (1 trade), ORB30 $98.74 (1 trade), hold $89.64. No new trades today.
