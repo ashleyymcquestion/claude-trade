@@ -265,7 +265,7 @@ minervini,DIS,2026-11-19,121.67,659.82,"breakout from a tight range, up 18% in 6
 bnf,SMR,2026-11-19,3.805,659.82,25% below its 25-day average,open,0,,0.0,0.0,,0.0,0.0
 bnf,HOOD,2026-11-19,71.575,659.82,21% below its 25-day average,open,0,,0.0,0.0,,0.0,0.0
 bnf,SMCI,2026-11-19,24.79,659.82,20% below its 25-day average,open,0,,0.0,0.0,,0.0,0.0
-gaps,SA,2026-11-19,18.8957,659.82,opened 14.8% below yesterday's close 25.54,open,0,,0.0,0.0,,25.54,0.0
-gaps,SLS,2026-11-19,14.895,659.82,opened 14.1% below yesterday's close 17.95,open,0,,0.0,0.0,,17.945,0.0
-gaps,SNEX,2026-11-19,41.855,659.82,opened 9.1% below yesterday's close 53.84,open,0,,0.0,0.0,,53.835,0.0
-gaps,UGI,2026-11-19,35.25,659.82,opened 3.5% below yesterday's close 38.02,open,0,,0.0,0.0,,38.02,0.0
+gaps,SA,2026-11-19,18.8957,659.82,opened 14.8% below yesterday's close 25.54,closed,1,2026-11-19,18.125,646.95,end of day,25.54,0.0
+gaps,SLS,2026-11-19,14.895,659.82,opened 14.1% below yesterday's close 17.95,closed,1,2026-11-19,14.825,646.95,end of day,17.945,0.0
+gaps,SNEX,2026-11-19,41.855,659.82,opened 9.1% below yesterday's close 53.84,closed,1,2026-11-19,40.225,646.95,end of day,53.835,0.0
+gaps,UGI,2026-11-19,35.25,659.82,opened 3.5% below yesterday's close 38.02,closed,1,2026-11-19,34.95,646.95,end of day,38.02,0.0
