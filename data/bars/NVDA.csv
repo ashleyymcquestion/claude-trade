@@ -2979,10 +2979,11 @@ timestamp,open,high,low,close,volume,source
 2026-11-04T00:00:00Z,203.5,206.79,199.68,200.13,149033316.0,robinhood get_equity_historicals interval=day bounds=regular adjustment=split fetched=2026-11-17T20:42Z
 2026-11-05T00:00:00Z,196.07,196.25,181.462,181.6,306127783.0,robinhood get_equity_historicals interval=day bounds=regular adjustment=split fetched=2026-11-18T20:42Z
 2026-11-06T00:00:00Z,191.1,194.895,185.22,186.64,180212285.0,robinhood get_equity_historicals interval=day bounds=regular adjustment=split fetched=2026-11-18T20:42Z
-2026-11-09T00:00:00Z,173.065,179.92,170.24,178.67,462719328.0,robinhood get_equity_historicals interval=day bounds=regular adjustment=split fetched=2026-11-18T20:42Z
-2026-11-10T00:00:00Z,173.97,174.69,165.89,168.89,429273205.0,robinhood get_equity_historicals interval=day bounds=regular adjustment=split fetched=2026-11-18T20:42Z
-2026-11-11T00:00:00Z,172.8,177.54,170.77,173.73,339214801.0,robinhood get_equity_historicals interval=day bounds=regular adjustment=split fetched=2026-11-16T15:42Z
+2026-11-09T00:00:00Z,173.065,179.92,170.24,178.67,462719328.0,robinhood get_equity_historicals interval=day bounds=regular adjustment=split fetched=2026-11-19T15:42Z
+2026-11-10T00:00:00Z,173.97,174.69,165.89,168.89,429273205.0,robinhood get_equity_historicals interval=day bounds=regular adjustment=split fetched=2026-11-19T15:42Z
+2026-11-11T00:00:00Z,172.8,177.54,170.77,173.73,339214801.0,robinhood get_equity_historicals interval=day bounds=regular adjustment=split fetched=2026-11-19T15:42Z
 2026-11-12T00:00:00Z,151.005,167.14,148.8,166.19,747707648.0,robinhood get_equity_historicals interval=day bounds=regular adjustment=split fetched=2026-11-17T15:42Z
-2026-11-13T00:00:00Z,169.905,170.0,158.39,162.85,365796552.0,robinhood get_equity_historicals interval=day bounds=regular adjustment=split fetched=2026-11-18T15:42Z
-2026-11-16T00:00:00Z,159.015,163.2,155.01,156.14,333822062.0,robinhood get_equity_historicals interval=day bounds=regular adjustment=split fetched=2026-11-18T20:42Z
+2026-11-13T00:00:00Z,169.905,170.0,158.39,162.85,365796552.0,robinhood get_equity_historicals interval=day bounds=regular adjustment=split fetched=2026-11-19T15:42Z
+2026-11-16T00:00:00Z,159.015,163.2,155.01,156.14,333822062.0,robinhood get_equity_historicals interval=day bounds=regular adjustment=split fetched=2026-11-19T15:42Z
 2026-11-17T00:00:00Z,156.895,158.19,150.3301,155.46,406985086.0,robinhood get_equity_historicals interval=day bounds=regular adjustment=split fetched=2026-11-18T20:42Z
+2026-11-18T00:00:00Z,159.19,159.7,150.4,150.96,349791392.0,robinhood get_equity_historicals interval=day bounds=regular adjustment=split fetched=2026-11-19T15:42Z

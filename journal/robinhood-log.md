@@ -1268,3 +1268,12 @@
 - TTWO closed 216.61 (unrealized −$0.07 on $2.91), trading 222.56 after hours (≈ +$0.01). Target 239.85, no stop. SPCX closed 143.50 (−$0.06).
 - Account $3.86 (Robinhood total includes after-hours prices): +$0.22 vs Nov 17, −$0.30 / −7.2% since start. CSV row updated.
 - Day-trading practice ($100 each, 6 days): Dual Thrust $95.94 (2 trades, 0 wins; lost again today), ORB30 $96.63 (2 trades, 0 wins; lost today), hold $95.16.
+
+## 2026-11-19 7:41 AM PT (daily run)
+- Crypto kill switch on; CHIP disabled; gap rule off; no pending stock orders.
+- Stocks: bars through Nov 18; rh-stock-plan checked 4, no signals, not halted. AMD fell ~10% from its 542.6 open (485.6, −8.4% vs close); Dual Thrust paper took no trade.
+- TTWO 215.16 (unrealized −$0.09; target 239.85, no stop). SPCX 139.89 (−$0.09; target 161.05). No real orders.
+- Account $3.73 (−$0.13 vs last night's after-hours $3.86; −$0.43 / −10.3% since start).
+- Watchlab: opened 15 (gainers INSM/P/VVV/PDD/RBRK; options LLYVK/PACS; minervini DIS; bnf SMR/HOOD/SMCI; gaps SA/SLS/SNEX/UGI); closed 4 (ABNB −7.5% minervini, MBGL +1.3%, FIGR −0.4%, WSE −8.3%). ROKU unpriced. Gaps still the only ready_for_real_money source.
+- Options lab: AMD/QQQ needed the Dec 24 expiry (fetched; QQQ capped at 480–735 strikes, one page). Opened 0, closed 7 (TU call +$40 target, QQQ call +$59; KR −$134 stop, AS −$80 stop, QQQ −$72, NVDA −$62, PLTR put −$39). Totals: 89 closed, 22 wins, −$11,725 paper, 27 open.
+- XRP paper $1.96 vs hold $1.49. Meme paper: no trades.

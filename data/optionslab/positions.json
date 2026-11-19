@@ -2737,11 +2737,13 @@
   "ev": 450.86,
   "max_profit": 95157.0,
   "max_loss": 96.0,
-  "status": "open",
-  "closed": "",
-  "exit_reason": "",
-  "pnl": 0.0,
-  "ret": 0.0
+  "status": "closed",
+  "closed": "2026-11-19",
+  "exit_reason": "held 5 days",
+  "pnl": -72.0,
+  "ret": -0.75,
+  "exit_value": 0.24,
+  "underlying_exit": 659.52
  },
  {
   "id": "8d36b587",
@@ -2859,11 +2861,13 @@
   "ev": -0.74,
   "max_profit": 10231.0,
   "max_loss": 215.0,
-  "status": "open",
-  "closed": "",
-  "exit_reason": "",
-  "pnl": 0.0,
-  "ret": 0.0
+  "status": "closed",
+  "closed": "2026-11-19",
+  "exit_reason": "stop",
+  "pnl": -134.0,
+  "ret": -0.6233,
+  "exit_value": 0.81,
+  "underlying_exit": 67.09
  },
  {
   "id": "af5c8217",
@@ -2979,11 +2983,13 @@
   "ev": 9.84,
   "max_profit": 1350.0,
   "max_loss": 25.0,
-  "status": "open",
-  "closed": "",
-  "exit_reason": "",
-  "pnl": 0.0,
-  "ret": 0.0
+  "status": "closed",
+  "closed": "2026-11-19",
+  "exit_reason": "target",
+  "pnl": 40.0,
+  "ret": 1.6,
+  "exit_value": 0.65,
+  "underlying_exit": 10.595
  },
  {
   "id": "2671199b",
@@ -3066,11 +3072,13 @@
   "ev": -22.71,
   "max_profit": 4433.0,
   "max_loss": 135.0,
-  "status": "open",
-  "closed": "",
-  "exit_reason": "",
-  "pnl": 0.0,
-  "ret": 0.0
+  "status": "closed",
+  "closed": "2026-11-19",
+  "exit_reason": "stop",
+  "pnl": -80.0,
+  "ret": -0.5926,
+  "exit_value": 0.55,
+  "underlying_exit": 30.31
  },
  {
   "id": "a2dcf012",
@@ -3124,11 +3132,13 @@
   "ev": -71.0,
   "max_profit": 17179.0,
   "max_loss": 84.0,
-  "status": "open",
-  "closed": "",
-  "exit_reason": "",
-  "pnl": 0.0,
-  "ret": 0.0
+  "status": "closed",
+  "closed": "2026-11-19",
+  "exit_reason": "held 2 days",
+  "pnl": -62.0,
+  "ret": -0.7381,
+  "exit_value": 0.22,
+  "underlying_exit": 152.485
  },
  {
   "id": "ccd11394",
@@ -3153,11 +3163,13 @@
   "ev": 289.71,
   "max_profit": 89578.0,
   "max_loss": 98.0,
-  "status": "open",
-  "closed": "",
-  "exit_reason": "",
-  "pnl": 0.0,
-  "ret": 0.0
+  "status": "closed",
+  "closed": "2026-11-19",
+  "exit_reason": "held 2 days",
+  "pnl": 59.0,
+  "ret": 0.602,
+  "exit_value": 1.57,
+  "underlying_exit": 659.52
  },
  {
   "id": "b72428d8",
@@ -3211,11 +3223,13 @@
   "ev": -59.9,
   "max_profit": 6723.0,
   "max_loss": 95.0,
-  "status": "open",
-  "closed": "",
-  "exit_reason": "",
-  "pnl": 0.0,
-  "ret": 0.0
+  "status": "closed",
+  "closed": "2026-11-19",
+  "exit_reason": "held 2 days",
+  "pnl": -39.0,
+  "ret": -0.4105,
+  "exit_value": 0.56,
+  "underlying_exit": 160.16
  },
  {
   "id": "e994c512",
