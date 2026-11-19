@@ -1262,3 +1262,9 @@
 - No orders: TTWO 217.25 (−$0.06 unrealized; target 239.85, no stop), SPCX 142.93 (−$0.07; target 161.05), stock bot 4 checked / no signals / not halted, no pending orders. Crypto kill switch on, CHIP disabled, gap rule off.
 - Account $3.78 (+$0.14 vs Nov 17, −$0.38 / −9.1% since start).
 - Gap paper: all 5 closed end of day in profit (GLBE +4.6%, AAOI +3.8%, PRMB +1.7%, FCX +1.2%, ARDT +0.8%); scoreboard 84 closed, 53.6% wins, avg +0.76% (+0.87% vs QQQ), ready_for_real_money (not traded). Dual Thrust: no breakouts.
+
+## 2026-11-18 8:41 PM PT (evening)
+- Market closed; no orders; no pending stock orders. Crypto kill switch on.
+- TTWO closed 216.61 (unrealized −$0.07 on $2.91), trading 222.56 after hours (≈ +$0.01). Target 239.85, no stop. SPCX closed 143.50 (−$0.06).
+- Account $3.86 (Robinhood total includes after-hours prices): +$0.22 vs Nov 17, −$0.30 / −7.2% since start. CSV row updated.
+- Day-trading practice ($100 each, 6 days): Dual Thrust $95.94 (2 trades, 0 wins; lost again today), ORB30 $96.63 (2 trades, 0 wins; lost today), hold $95.16.
