@@ -1296,3 +1296,10 @@
 - Watchlab: run ok; gaps source still ready_for_real_money (88 closed, 51.1% wins, avg +0.62%); not traded (rule off). ROKU unpriced.
 - Options lab (paper): opened 4, closed 8 (NVDA/QQQ bull put spreads expired -$845/-$2,234). Totals 97 closed, 23 wins, -$15,811 paper, 23 open.
 - XRP paper $1.95 vs hold $1.40. Meme paper: no trades.
+
+## 2026-11-20 midday run (12:41 PM PT)
+- Container had restarted: recreated .venv from requirements (no code changes).
+- Account $3.59 (-$0.03 vs Nov 19, -$0.57 / -13.6% since start). Cash $0. Crypto kill switch on.
+- Selloff deepened: NVDA 127.88 (-12.4%), AMD 424.05 (-13.3%), PLTR -6.4%, QQQ -5.3%, SPCX 129.08 (-6.8%).
+- No real orders. rh-stock-plan checked 4, no signals, not halted. TTWO holding at 210.08 (target 239.85, no stop), unrealized -$0.16. SPCX holding at 129.08 (target 161.05), unrealized -$0.16. CHIP disabled. Gap rule off.
+- Gap paper check closed 6 at end of day; gaps scoreboard now 93 closed, 48.4% wins, avg +0.43%, no longer ready_for_real_money. Dual Thrust: nothing.

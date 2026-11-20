@@ -275,8 +275,8 @@ gainers,GIS,2026-11-20,36.205,626.85,up 5.0% today,open,0,,0.0,0.0,,0.0,0.0
 options,MTDR,2026-11-20,49.325,626.85,"options volume 5.9x normal, calls 534.3x puts",open,0,,0.0,0.0,,0.0,0.0
 bnf,ENPH,2026-11-20,21.23,626.85,22% below its 25-day average,open,0,,0.0,0.0,,0.0,0.0
 bnf,TWLO,2026-11-20,178.2901,626.85,21% below its 25-day average,open,0,,0.0,0.0,,0.0,0.0
-gaps,SNDK,2026-11-20,80.59,626.85,opened 88.1% below yesterday's close 754.99,open,0,,0.0,0.0,,754.99,0.0
-gaps,SKM,2026-11-20,28.09,626.85,opened 9.1% below yesterday's close 31.70,open,0,,0.0,0.0,,31.7,0.0
-gaps,INTU,2026-11-20,288.32,626.85,opened 8.4% below yesterday's close 310.02,open,0,,0.0,0.0,,310.02,0.0
-gaps,ERAS,2026-11-20,13.885,626.85,opened 7.5% below yesterday's close 14.21,open,0,,0.0,0.0,,14.215,0.0
-gaps,UMC,2026-11-20,12.52,626.85,opened 6.6% below yesterday's close 13.38,open,0,,0.0,0.0,,13.385,0.0
+gaps,SNDK,2026-11-20,80.59,626.85,opened 88.1% below yesterday's close 754.99,closed,1,2026-11-20,79.27,610.82,end of day,754.99,0.0
+gaps,SKM,2026-11-20,28.09,626.85,opened 9.1% below yesterday's close 31.70,closed,1,2026-11-20,27.23,610.82,end of day,31.7,0.0
+gaps,INTU,2026-11-20,288.32,626.85,opened 8.4% below yesterday's close 310.02,closed,1,2026-11-20,277.25,610.82,end of day,310.02,0.0
+gaps,ERAS,2026-11-20,13.885,626.85,opened 7.5% below yesterday's close 14.21,closed,1,2026-11-20,13.645,610.82,end of day,14.215,0.0
+gaps,UMC,2026-11-20,12.52,626.85,opened 6.6% below yesterday's close 13.38,closed,1,2026-11-20,12.065,610.82,end of day,13.385,0.0
