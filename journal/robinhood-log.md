@@ -1288,3 +1288,11 @@
 - TTWO closed 208.65 (unrealized −$0.18 on $2.91; target 239.85, no stop). SPCX closed 138.43 (−$0.10), 135.68 after hours.
 - Account $3.62 (−$0.24 vs Nov 18 row, −$0.54 / −13.0% since start). CSV row updated.
 - Day-trading practice ($100 each, 7 days): Dual Thrust $88.97 (3 trades, 0 wins; today's long from the 225 spike lost ~7%), ORB30 $96.63 (2 trades, no trade today), hold $91.73.
+
+## 2026-11-20 morning run (7:41 AM PT)
+- Account $3.57 (-$0.05 vs Nov 19, -$0.59 / -14.2% since start). Cash $0. Crypto kill switch on.
+- Broad selloff: AMD -8.5%, NVDA -6.3%, QQQ -2.3%, SPCX -6%.
+- No real orders. rh-stock-plan checked 4, no signals. TTWO holding at 208.10 (target 239.85, no stop), unrealized -$0.18. SPCX holding at 129.99 (target 161.05), unrealized -$0.15. CHIP disabled. Gap rule off. Dual Thrust: nothing.
+- Watchlab: run ok; gaps source still ready_for_real_money (88 closed, 51.1% wins, avg +0.62%); not traded (rule off). ROKU unpriced.
+- Options lab (paper): opened 4, closed 8 (NVDA/QQQ bull put spreads expired -$845/-$2,234). Totals 97 closed, 23 wins, -$15,811 paper, 23 open.
+- XRP paper $1.95 vs hold $1.40. Meme paper: no trades.
