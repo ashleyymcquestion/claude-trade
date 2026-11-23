@@ -1347,3 +1347,8 @@
 - Watchlab: 175 gainers in scan; opened 16, closed 10. options source now ready_for_real_money (20 closed, 60% wins, avg +1.25%) - paper only, not traded. gaps 93 closed 48.4% (not ready). ROKU unpriced.
 - Options lab (paper): opened 4, closed 6 (3 wheel puts assigned +$455/+$673/+$535; NVDA budget calls doubled +$316/+$801; TJX call stop -$250). Totals 103 closed, 28 wins, -$13,281 paper, 21 open.
 - XRP paper / meme paper updated.
+
+## 2026-11-23 12:41 PT midday run (Monday)
+- Account $3.63 (+$0.01 vs Nov 22 $3.62; -$0.53 / -12.7% since $4.16). Cash $0. Crypto kill switch on.
+- No real orders. rh-stock-plan checked 4, no signals, not halted. TTWO holding at 210.64 (target 239.85, no stop), unrealized -$0.15. SPCX holding at 134.23 (target 161.05), unrealized -$0.12. CHIP disabled. Gap rule off. Dual Thrust: nothing.
+- Gap paper check closed 5 at end of day; gaps scoreboard 98 closed, 50.0% wins, avg +0.43% -> ready_for_real_money again (rule stays off; not traded).

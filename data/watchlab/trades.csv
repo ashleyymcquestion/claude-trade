@@ -290,9 +290,9 @@ options,EQX,2026-11-23,9.075,653.51,"options volume 3.8x normal, calls 82.1x put
 bnf,INTC,2026-11-23,58.2986,653.51,27% below its 25-day average,open,0,,0.0,0.0,,0.0,0.0
 bnf,MU,2026-11-23,713.36,653.51,26% below its 25-day average,open,0,,0.0,0.0,,0.0,0.0
 bnf,CRWV,2026-11-23,49.6201,653.51,26% below its 25-day average,open,0,,0.0,0.0,,0.0,0.0
-gaps,DHT,2026-11-23,20.865,653.51,opened 5.2% below yesterday's close 21.58,open,0,,0.0,0.0,,21.58,0.0
-gaps,UNH,2026-11-23,330.5,653.51,opened 5.2% below yesterday's close 339.85,open,0,,0.0,0.0,,339.85,0.0
-gaps,CRWD,2026-11-23,208.4175,653.51,opened 5.0% below yesterday's close 229.53,open,0,,0.0,0.0,,229.525,0.0
-gaps,CVS,2026-11-23,79.9251,653.51,opened 3.9% below yesterday's close 80.85,open,0,,0.0,0.0,,80.85,0.0
-gaps,CL,2026-11-23,97.99,653.51,opened 3.6% below yesterday's close 98.71,open,0,,0.0,0.0,,98.71,0.0
+gaps,DHT,2026-11-23,20.865,653.51,opened 5.2% below yesterday's close 21.58,closed,1,2026-11-23,20.895,653.665,end of day,21.58,0.0
+gaps,UNH,2026-11-23,330.5,653.51,opened 5.2% below yesterday's close 339.85,closed,1,2026-11-23,335.88,653.665,end of day,339.85,0.0
+gaps,CRWD,2026-11-23,208.4175,653.51,opened 5.0% below yesterday's close 229.53,closed,1,2026-11-23,209.017,653.665,end of day,229.525,0.0
+gaps,CVS,2026-11-23,79.9251,653.51,opened 3.9% below yesterday's close 80.85,closed,1,2026-11-23,79.79,653.665,end of day,80.85,0.0
+gaps,CL,2026-11-23,97.99,653.51,opened 3.6% below yesterday's close 98.71,closed,1,2026-11-23,98.29,653.665,end of day,98.71,0.0
 stacked,EQX,2026-11-23,9.075,653.51,flagged by gainers + options,open,0,,0.0,0.0,,0.0,0.0
