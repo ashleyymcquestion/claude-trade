@@ -1,4 +1,20 @@
 {
- "last_run": "2026-11-20",
- "wheel": {}
+ "last_run": "2026-11-23",
+ "wheel": {
+  "NVDA": {
+   "shares_cost": 207.5,
+   "share_pnl": 0.0,
+   "premium": 455.0
+  },
+  "QQQ": {
+   "shares_cost": 686.0,
+   "share_pnl": 0.0,
+   "premium": 673.0
+  },
+  "SPCX": {
+   "shares_cost": 149.0,
+   "share_pnl": 0.0,
+   "premium": 535.0
+  }
+ }
 }

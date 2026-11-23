@@ -1338,3 +1338,12 @@
 ## 2026-11-22 20:41 PT evening run (Sunday)
 - Market closed for regular hours (overnight session only): SPCX/TTWO planners print no orders (fractional orders regular hours only); stocks skipped; crypto paused (kill switch); CHIP disabled; gap rule off. No real orders. No day-trading practice (not a trading day).
 - Account $3.62 (unchanged vs yesterday's $3.62; -$0.54 / -13.0% since $4.16). Official Fri closes: TTWO 210.00, SPCX 127.79. Overnight: TTWO 211.35 (unrealized -$0.14; target 239.85, no stop), SPCX 131.25 (unrealized -$0.14).
+
+## 2026-11-23 07:41 PT daily run (Monday)
+- Container scratch files were wiped; recreated helper scripts (no repo code changes).
+- Account $3.69 (+$0.07 vs Nov 22 $3.62; -$0.47 / -11.3% since $4.16). Cash $0. Crypto kill switch on.
+- Big rebound: NVDA 168.40 (+34%), AMD 460.92 (+8.6%), PLTR 159.53 (+11%), QQQ 655.32 (+7.7%), SPCX 138.31 (+8.2%), TTWO 213.63 (+1.7%).
+- No real orders. rh-stock-plan checked 4, no signals, not halted. TTWO holding at 213.63 (target 239.85, no stop), unrealized -$0.11. SPCX holding at 138.31 (target 161.05), unrealized -$0.10. CHIP disabled. Gap rule off. Dual Thrust: nothing.
+- Watchlab: 175 gainers in scan; opened 16, closed 10. options source now ready_for_real_money (20 closed, 60% wins, avg +1.25%) - paper only, not traded. gaps 93 closed 48.4% (not ready). ROKU unpriced.
+- Options lab (paper): opened 4, closed 6 (3 wheel puts assigned +$455/+$673/+$535; NVDA budget calls doubled +$316/+$801; TJX call stop -$250). Totals 103 closed, 28 wins, -$13,281 paper, 21 open.
+- XRP paper / meme paper updated.
