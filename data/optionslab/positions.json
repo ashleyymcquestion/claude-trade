@@ -3270,11 +3270,13 @@
   "ev": -92.51,
   "max_profit": 6073.0,
   "max_loss": 96.0,
-  "status": "open",
-  "closed": "",
-  "exit_reason": "",
+  "status": "closed",
+  "closed": "2026-11-24",
+  "exit_reason": "held 5 days",
   "pnl": 0.0,
-  "ret": 0.0
+  "ret": 0.0,
+  "exit_value": 0.96,
+  "underlying_exit": 152.02
  },
  {
   "id": "868b62d3",
@@ -3659,11 +3661,13 @@
   "ev": 143.83,
   "max_profit": 84102.0,
   "max_loss": 88.0,
-  "status": "open",
-  "closed": "",
-  "exit_reason": "",
-  "pnl": 0.0,
-  "ret": 0.0
+  "status": "closed",
+  "closed": "2026-11-24",
+  "exit_reason": "held 2 days",
+  "pnl": -24.0,
+  "ret": -0.2727,
+  "exit_value": 0.64,
+  "underlying_exit": 633.75
  },
  {
   "id": "6be3e499",
@@ -3717,11 +3721,13 @@
   "ev": 1021.21,
   "max_profit": 23919.0,
   "max_loss": 1135.0,
-  "status": "open",
-  "closed": "",
-  "exit_reason": "",
-  "pnl": 0.0,
-  "ret": 0.0
+  "status": "closed",
+  "closed": "2026-11-24",
+  "exit_reason": "stop",
+  "pnl": -640.0,
+  "ret": -0.5639,
+  "exit_value": 4.95,
+  "underlying_exit": 152.02
  },
  {
   "id": "eee5dd2f",
@@ -3746,11 +3752,13 @@
   "ev": 65.86,
   "max_profit": 2062.0,
   "max_loss": 215.0,
-  "status": "open",
-  "closed": "",
-  "exit_reason": "",
-  "pnl": 0.0,
-  "ret": 0.0
+  "status": "closed",
+  "closed": "2026-11-24",
+  "exit_reason": "stop",
+  "pnl": -140.0,
+  "ret": -0.6512,
+  "exit_value": 0.75,
+  "underlying_exit": 12.57
  },
  {
   "id": "93a96e4e",
@@ -3775,11 +3783,13 @@
   "ev": 265.68,
   "max_profit": 6859.0,
   "max_loss": 95.0,
-  "status": "open",
-  "closed": "",
-  "exit_reason": "",
-  "pnl": 0.0,
-  "ret": 0.0
+  "status": "closed",
+  "closed": "2026-11-24",
+  "exit_reason": "doubled",
+  "pnl": 125.0,
+  "ret": 1.3158,
+  "exit_value": 2.2,
+  "underlying_exit": 152.02
  },
  {
   "id": "973c4e5a",
@@ -3804,6 +3814,93 @@
   "ev": -44.91,
   "max_profit": 6629.0,
   "max_loss": 99.0,
+  "status": "open",
+  "closed": "",
+  "exit_reason": "",
+  "pnl": 0.0,
+  "ret": 0.0
+ },
+ {
+  "id": "8ac54e08",
+  "strategy": "momentum_calls/call",
+  "structure": "long_call",
+  "underlying": "ANF",
+  "expiration": "2026-12-24",
+  "legs": [
+   {
+    "instrument_id": "a58213e9-9b38-41f7-a507-a6dfe7e55da2",
+    "type": "call",
+    "action": "buy",
+    "strike": 175.0,
+    "entry": 13.0
+   }
+  ],
+  "net_debit": 13.0,
+  "opened": "2026-11-24",
+  "underlying_entry": 174.555,
+  "vol": 0.8413,
+  "pop": 0.3414,
+  "ev": 440.16,
+  "max_profit": 24840.0,
+  "max_loss": 1300.0,
+  "status": "open",
+  "closed": "",
+  "exit_reason": "",
+  "pnl": 0.0,
+  "ret": 0.0
+ },
+ {
+  "id": "c2106a00",
+  "strategy": "budget/call-2d",
+  "structure": "call_nearest",
+  "underlying": "NVDA",
+  "expiration": "2026-12-24",
+  "legs": [
+   {
+    "instrument_id": "e32353f1-2014-4e36-bab3-9901d07ef2f3",
+    "type": "call",
+    "action": "buy",
+    "strike": 200.0,
+    "entry": 0.95
+   }
+  ],
+  "net_debit": 0.95,
+  "opened": "2026-11-24",
+  "underlying_entry": 152.02,
+  "vol": 1.0629,
+  "pop": 0.1505,
+  "ev": 490.68,
+  "max_profit": 17914.0,
+  "max_loss": 95.0,
+  "status": "open",
+  "closed": "",
+  "exit_reason": "",
+  "pnl": 0.0,
+  "ret": 0.0
+ },
+ {
+  "id": "51466b09",
+  "strategy": "budget/call-5d",
+  "structure": "call_nearest",
+  "underlying": "NVDA",
+  "expiration": "2026-12-24",
+  "legs": [
+   {
+    "instrument_id": "e32353f1-2014-4e36-bab3-9901d07ef2f3",
+    "type": "call",
+    "action": "buy",
+    "strike": 200.0,
+    "entry": 0.95
+   }
+  ],
+  "net_debit": 0.95,
+  "opened": "2026-11-24",
+  "underlying_entry": 152.02,
+  "vol": 1.0629,
+  "pop": 0.1505,
+  "ev": 490.68,
+  "max_profit": 17914.0,
+  "max_loss": 95.0,
   "status": "open",
   "closed": "",
   "exit_reason": "",
