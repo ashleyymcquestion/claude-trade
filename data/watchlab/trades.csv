@@ -303,8 +303,8 @@ gainers,DKS,2026-11-24,154.475,634.2,up 15.6% today,open,0,,0.0,0.0,,0.0,0.0
 gainers,INSM,2026-11-24,170.37,634.2,up 14.3% today,open,0,,0.0,0.0,,0.0,0.0
 bnf,NOW,2026-11-24,92.08,634.2,20% below its 25-day average,open,0,,0.0,0.0,,0.0,0.0
 bnf,DKNG,2026-11-24,16.355,634.2,20% below its 25-day average,open,0,,0.0,0.0,,0.0,0.0
-gaps,ADI,2026-11-24,317.505,634.2,opened 13.3% below yesterday's close 378.92,open,0,,0.0,0.0,,378.92,0.0
-gaps,SMTC,2026-11-24,87.07,634.2,opened 13.2% below yesterday's close 104.86,open,0,,0.0,0.0,,104.86,0.0
-gaps,HPE,2026-11-24,40.501,634.2,opened 12.1% below yesterday's close 48.31,open,0,,0.0,0.0,,48.3141,0.0
-gaps,DELL,2026-11-24,292.73,634.2,opened 7.4% below yesterday's close 335.75,open,0,,0.0,0.0,,335.75,0.0
-gaps,ZTO,2026-11-24,19.035,634.2,opened 6.8% below yesterday's close 20.39,open,0,,0.0,0.0,,20.385,0.0
+gaps,ADI,2026-11-24,317.505,634.2,opened 13.3% below yesterday's close 378.92,closed,1,2026-11-24,315.78,635.5573,end of day,378.92,0.0
+gaps,SMTC,2026-11-24,87.07,634.2,opened 13.2% below yesterday's close 104.86,closed,1,2026-11-24,87.615,635.5573,end of day,104.86,0.0
+gaps,HPE,2026-11-24,40.501,634.2,opened 12.1% below yesterday's close 48.31,closed,1,2026-11-24,39.555,635.5573,end of day,48.3141,0.0
+gaps,DELL,2026-11-24,292.73,634.2,opened 7.4% below yesterday's close 335.75,closed,1,2026-11-24,295.57,635.5573,end of day,335.75,0.0
+gaps,ZTO,2026-11-24,19.035,634.2,opened 6.8% below yesterday's close 20.39,closed,1,2026-11-24,19.295,635.5573,end of day,20.385,0.0
