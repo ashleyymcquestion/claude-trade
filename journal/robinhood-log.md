@@ -1377,3 +1377,11 @@
 - Closes: TTWO 220.35 (+5.2%; 219.05 after hours), SPCX 125.87 (123.92 after hours), NVDA 155.48, AMD 413.25, PLTR 161.23, QQQ 638.12.
 - No real orders. Market closed: stock bot skipped all 4 (not halted); TTWO/SPCX planners: market closed. TTWO unrealized -$0.04 (target 239.85, no stop). SPCX unrealized -$0.19 (target 161.05). CHIP disabled. Gap rule off.
 - TTWO day-trading practice (10 days, $100 paper each): Dual Thrust $91.53 (4 trades, 1 win; +2.87% today), ORB30 $94.96 (5 trades, 1 win; +0.16% today), hold $96.86.
+
+## 2026-11-25 morning run (7:41 AM PT, Wednesday)
+- Account $3.65 (-$0.03 vs Nov 24 $3.68; -$0.51 / -12.3% since $4.16). Cash $0. Crypto kill switch on. Gap rule off.
+- Broad tech sell-off: NVDA 143.16 (-7.9%), AMD 376.13 (-9.0%), PLTR 154.23 (-4.3%), QQQ 611.65 (-4.1%), SPCX 116.69 (-7.2%). TTWO 220.59 (+0.1%).
+- No real orders. rh-stock-plan checked 4, no signals, not halted, no pending orders. TTWO holding (target 239.85, no stop), unrealized -$0.02. SPCX holding (target 161.05), unrealized -$0.24. CHIP disabled. Dual Thrust paper: no signals.
+- Watchlab: opened 14 (gainers BZ/HPQ/KSS/CNH, options CCC/GE, bnf APLD/MRVL/ADI, gaps NTNX/URBN/DELL/UMC/MU), closed 8. Ready for real money (paper only, not traded): options 21 closed, 57.1% wins, +0.81%; gaps 103 closed, 50.5%, +0.41%. ROKU unpriced.
+- Options lab: opened GE 315C, KSS 27C; closed 5 (budget NVDA/QQQ/PLTR calls -$197, PLTR puts +$23). Totals 113 closed, 31 wins, -$14,134; 16 open.
+- XRP paper: target weight 0, paper $1.94 vs hold-XRP $1.39. Meme paper: no trades.

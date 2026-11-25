@@ -3028,11 +3028,13 @@
   "ev": -74.89,
   "max_profit": 18665.0,
   "max_loss": 99.0,
-  "status": "open",
-  "closed": "",
-  "exit_reason": "",
-  "pnl": 0.0,
-  "ret": 0.0
+  "status": "closed",
+  "closed": "2026-11-25",
+  "exit_reason": "held 7 days",
+  "pnl": -76.0,
+  "ret": -0.7677,
+  "exit_value": 0.23,
+  "underlying_exit": 142.21
  },
  {
   "id": "1159486f",
@@ -3057,11 +3059,13 @@
   "ev": 323.46,
   "max_profit": 91802.0,
   "max_loss": 98.0,
-  "status": "open",
-  "closed": "",
-  "exit_reason": "",
-  "pnl": 0.0,
-  "ret": 0.0
+  "status": "closed",
+  "closed": "2026-11-25",
+  "exit_reason": "held 7 days",
+  "pnl": -88.0,
+  "ret": -0.898,
+  "exit_value": 0.1,
+  "underlying_exit": 609.809
  },
  {
   "id": "bb96d9ec",
@@ -3483,11 +3487,13 @@
   "ev": 49.3,
   "max_profit": 19285.0,
   "max_loss": 79.0,
-  "status": "open",
-  "closed": "",
-  "exit_reason": "",
-  "pnl": 0.0,
-  "ret": 0.0
+  "status": "closed",
+  "closed": "2026-11-25",
+  "exit_reason": "held 5 days",
+  "pnl": -33.0,
+  "ret": -0.4177,
+  "exit_value": 0.46,
+  "underlying_exit": 153.64
  },
  {
   "id": "f371e52d",
@@ -3543,11 +3549,13 @@
   "ev": -53.13,
   "max_profit": 6751.0,
   "max_loss": 85.0,
-  "status": "open",
-  "closed": "",
-  "exit_reason": "",
-  "pnl": 0.0,
-  "ret": 0.0
+  "status": "closed",
+  "closed": "2026-11-25",
+  "exit_reason": "held 5 days",
+  "pnl": 16.0,
+  "ret": 0.1882,
+  "exit_value": 1.01,
+  "underlying_exit": 153.64
  },
  {
   "id": "b73e4072",
@@ -3814,11 +3822,13 @@
   "ev": -44.91,
   "max_profit": 6629.0,
   "max_loss": 99.0,
-  "status": "open",
-  "closed": "",
-  "exit_reason": "",
-  "pnl": 0.0,
-  "ret": 0.0
+  "status": "closed",
+  "closed": "2026-11-25",
+  "exit_reason": "held 2 days",
+  "pnl": 7.0,
+  "ret": 0.0707,
+  "exit_value": 1.06,
+  "underlying_exit": 153.64
  },
  {
   "id": "8ac54e08",
@@ -3901,6 +3911,64 @@
   "ev": 490.68,
   "max_profit": 17914.0,
   "max_loss": 95.0,
+  "status": "open",
+  "closed": "",
+  "exit_reason": "",
+  "pnl": 0.0,
+  "ret": 0.0
+ },
+ {
+  "id": "6c7a756b",
+  "strategy": "follow_flow/call",
+  "structure": "long_call",
+  "underlying": "GE",
+  "expiration": "2026-12-31",
+  "legs": [
+   {
+    "instrument_id": "cf611329-6c4c-4ef8-92b4-d67c1175ef53",
+    "type": "call",
+    "action": "buy",
+    "strike": 315.0,
+    "entry": 14.8
+   }
+  ],
+  "net_debit": 14.8,
+  "opened": "2026-11-25",
+  "underlying_entry": 310.04,
+  "vol": 0.4144,
+  "pop": 0.3057,
+  "ev": -30.11,
+  "max_profit": 44529.0,
+  "max_loss": 1480.0,
+  "status": "open",
+  "closed": "",
+  "exit_reason": "",
+  "pnl": 0.0,
+  "ret": 0.0
+ },
+ {
+  "id": "18cec02f",
+  "strategy": "momentum_calls/call",
+  "structure": "long_call",
+  "underlying": "KSS",
+  "expiration": "2026-12-31",
+  "legs": [
+   {
+    "instrument_id": "d512f080-5172-40ab-9c34-fb3f476297ff",
+    "type": "call",
+    "action": "buy",
+    "strike": 27.0,
+    "entry": 2.19
+   }
+  ],
+  "net_debit": 2.19,
+  "opened": "2026-11-25",
+  "underlying_entry": 26.635,
+  "vol": 0.8435,
+  "pop": 0.3218,
+  "ev": 52.2,
+  "max_profit": 3740.0,
+  "max_loss": 219.0,
   "status": "open",
   "closed": "",
   "exit_reason": "",
