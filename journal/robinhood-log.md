@@ -1385,3 +1385,9 @@
 - Watchlab: opened 14 (gainers BZ/HPQ/KSS/CNH, options CCC/GE, bnf APLD/MRVL/ADI, gaps NTNX/URBN/DELL/UMC/MU), closed 8. Ready for real money (paper only, not traded): options 21 closed, 57.1% wins, +0.81%; gaps 103 closed, 50.5%, +0.41%. ROKU unpriced.
 - Options lab: opened GE 315C, KSS 27C; closed 5 (budget NVDA/QQQ/PLTR calls -$197, PLTR puts +$23). Totals 113 closed, 31 wins, -$14,134; 16 open.
 - XRP paper: target weight 0, paper $1.94 vs hold-XRP $1.39. Meme paper: no trades.
+
+## 2026-11-25 12:41 PT midday run (Wednesday)
+- Account $3.80 (+$0.12 vs Nov 24 $3.68; -$0.36 / -8.7% since $4.16). Cash $0. Crypto kill switch on. Gap rule off.
+- Rebound from the morning drop: TTWO 226.91 (+2.9%), SPCX 126.18 (+0.3%), NVDA 147.56, AMD 397.30, PLTR 162.75, QQQ 630.28.
+- No real orders. rh-stock-plan checked 4, no signals, not halted. TTWO holding (target 239.85, no stop), unrealized +$0.06. SPCX holding (target 161.05), unrealized -$0.18. CHIP disabled. Dual Thrust paper: no signals.
+- Gap paper check closed 5 at end of day (DELL, MU, NTNX, UMC, URBN); gaps scoreboard 108 closed, 52.8% wins, avg +0.62%, ready_for_real_money (rule off; not traded).

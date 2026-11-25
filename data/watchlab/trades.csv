@@ -317,8 +317,8 @@ options,GE,2026-11-25,311.29,609.6301,"options volume 3.1x normal, calls 76.2x p
 bnf,APLD,2026-11-25,11.35,609.6301,26% below its 25-day average,open,0,,0.0,0.0,,0.0,0.0
 bnf,MRVL,2026-11-25,120.39,609.6301,25% below its 25-day average,open,0,,0.0,0.0,,0.0,0.0
 bnf,ADI,2026-11-25,314.63,609.6301,20% below its 25-day average,open,0,,0.0,0.0,,0.0,0.0
-gaps,NTNX,2026-11-25,44.485,609.6301,opened 16.2% below yesterday's close 54.61,open,0,,0.0,0.0,,54.61,0.0
-gaps,URBN,2026-11-25,75.62,609.6301,opened 9.7% below yesterday's close 85.65,open,0,,0.0,0.0,,85.65,0.0
-gaps,DELL,2026-11-25,270.16,609.6301,opened 9.2% below yesterday's close 294.58,open,0,,0.0,0.0,,294.58,0.0
-gaps,UMC,2026-11-25,12.33,609.6301,opened 8.9% below yesterday's close 13.39,open,0,,0.0,0.0,,13.395,0.0
-gaps,MU,2026-11-25,558.725,609.6301,opened 8.7% below yesterday's close 629.97,open,0,,0.0,0.0,,629.966,0.0
+gaps,NTNX,2026-11-25,44.485,609.6301,opened 16.2% below yesterday's close 54.61,closed,1,2026-11-25,46.325,630.281,end of day,54.61,0.0
+gaps,URBN,2026-11-25,75.62,609.6301,opened 9.7% below yesterday's close 85.65,closed,1,2026-11-25,76.43,630.281,end of day,85.65,0.0
+gaps,DELL,2026-11-25,270.16,609.6301,opened 9.2% below yesterday's close 294.58,closed,1,2026-11-25,291.67,630.281,end of day,294.58,0.0
+gaps,UMC,2026-11-25,12.33,609.6301,opened 8.9% below yesterday's close 13.39,closed,1,2026-11-25,12.995,630.281,end of day,13.395,0.0
+gaps,MU,2026-11-25,558.725,609.6301,opened 8.7% below yesterday's close 629.97,closed,1,2026-11-25,593.09,630.281,end of day,629.966,0.0
