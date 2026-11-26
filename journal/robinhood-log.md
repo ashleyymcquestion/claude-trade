@@ -1398,3 +1398,8 @@
 - No real orders. Market closed: stock bot skipped all 4 (not halted); TTWO/SPCX planners: market closed. TTWO unrealized +$0.07 (target 239.85, no stop). SPCX unrealized -$0.17 (target 161.05). CHIP disabled.
 - TTWO day-trading practice (11 days, $100 paper each): Dual Thrust $92.43 (5 trades, 2 wins; +0.98% today), ORB30 $97.64 (6 trades, 2 wins; +2.83% today), hold $99.89.
 - Nov 26 is Thanksgiving (market closed); Nov 27 closes early at 1 PM ET.
+
+## 2026-11-26 morning run (7:41 AM PT, Thanksgiving - market closed)
+- Account $3.80 (+$0.00 vs Nov 25 $3.80; -$0.36 / -8.7% since $4.16). Cash $0. Crypto kill switch on. Gap rule off.
+- No real orders. Stock bot skipped all 4 (market closed, not halted); TTWO/SPCX planners: market closed. TTWO last 227.26 (target 239.85, no stop), unrealized +$0.07. SPCX last 127.40 (target 161.05), unrealized -$0.17. Watchlab/options lab not due (holiday).
+- XRP paper: {"already_ran": true, "start": "2026-10-23", "cash": 1.943731389005856, "xrp": 0.0, "hold_xrp": 1.545989317213818, "trades": 3, "last": "2026-11-26"}
