@@ -1403,3 +1403,6 @@
 - Account $3.80 (+$0.00 vs Nov 25 $3.80; -$0.36 / -8.7% since $4.16). Cash $0. Crypto kill switch on. Gap rule off.
 - No real orders. Stock bot skipped all 4 (market closed, not halted); TTWO/SPCX planners: market closed. TTWO last 227.26 (target 239.85, no stop), unrealized +$0.07. SPCX last 127.40 (target 161.05), unrealized -$0.17. Watchlab/options lab not due (holiday).
 - XRP paper: {"already_ran": true, "start": "2026-10-23", "cash": 1.943731389005856, "xrp": 0.0, "hold_xrp": 1.545989317213818, "trades": 3, "last": "2026-11-26"}
+
+## 2026-11-26 12:41 PT midday run (Thanksgiving - market closed)
+- Account $3.80 (unchanged; -$0.36 / -8.7% since $4.16). No real orders: TTWO/SPCX planners say market closed; stock bot idle; crypto kill switch on; gap rule off. TTWO last 227.26 (target 239.85), SPCX last 127.40 (target 161.05).
