@@ -1391,3 +1391,10 @@
 - Rebound from the morning drop: TTWO 226.91 (+2.9%), SPCX 126.18 (+0.3%), NVDA 147.56, AMD 397.30, PLTR 162.75, QQQ 630.28.
 - No real orders. rh-stock-plan checked 4, no signals, not halted. TTWO holding (target 239.85, no stop), unrealized +$0.06. SPCX holding (target 161.05), unrealized -$0.18. CHIP disabled. Dual Thrust paper: no signals.
 - Gap paper check closed 5 at end of day (DELL, MU, NTNX, UMC, URBN); gaps scoreboard 108 closed, 52.8% wins, avg +0.62%, ready_for_real_money (rule off; not traded).
+
+## 2026-11-25 evening run (8:41 PM PT)
+- Account $3.80 (+$0.12 vs Nov 24 $3.68; -$0.36 / -8.7% since $4.16). Cash $0. Crypto kill switch on. Gap rule off.
+- Closes: TTWO 227.26 (+3.1%; 225.62 after hours), SPCX 127.40 (128.96 after hours), NVDA 149.33, AMD 406.10, PLTR 163.63, QQQ 633.95.
+- No real orders. Market closed: stock bot skipped all 4 (not halted); TTWO/SPCX planners: market closed. TTWO unrealized +$0.07 (target 239.85, no stop). SPCX unrealized -$0.17 (target 161.05). CHIP disabled.
+- TTWO day-trading practice (11 days, $100 paper each): Dual Thrust $92.43 (5 trades, 2 wins; +0.98% today), ORB30 $97.64 (6 trades, 2 wins; +2.83% today), hold $99.89.
+- Nov 26 is Thanksgiving (market closed); Nov 27 closes early at 1 PM ET.
