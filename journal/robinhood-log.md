@@ -1409,3 +1409,12 @@
 
 ## 2026-11-26 evening run (8:41 PM PT, Thanksgiving - market closed)
 - Account $3.80 (unchanged; -$0.36 / -8.7% since $4.16). No real orders: market closed all day; TTWO/SPCX planners say market closed; crypto kill switch on; gap rule off. No TTWO day-trading practice (no trading session). Fri Nov 27 closes early at 1 PM ET.
+
+## 2026-11-27 morning run (7:41 AM PT, Friday - early close 1 PM ET)
+- Account $3.89 (+$0.09 vs Nov 26 $3.80; -$0.27 / -6.5% since $4.16). Cash $0. Crypto kill switch on. Gap rule off.
+- TTWO 230.96 (+1.6% vs Wed close 227.34), SPCX 131.90 (+3.5%), NVDA 147.22, AMD 413.07, PLTR 170.65, QQQ 644.43.
+- No real orders. rh-stock-plan checked 4, no signals, not halted, no pending orders. TTWO holding (target 239.85, no stop), unrealized +$0.12. SPCX holding (target 161.05), unrealized -$0.14. CHIP disabled. Dual Thrust paper: no signals.
+- Watchlab: opened 8 (gainers XP/VERA/SNDK/ITUB/SBS, gaps VRTX/ERO/SONY), closed 5 (KYMR +17.0% target, VVV +5.4%, PDD +4.0%, LLYVK +1.9%, PACS +6.0%). Ready for real money (paper only, not traded): options 23 closed, 60.9% wins, +1.08%; gaps 108 closed, 52.8%, +0.62%. ROKU unpriced.
+- Options lab: opened 7 (SNDK 85C, NVDA 205C, NVDA 95P x2, QQQ 460P x3); closed 7 (REGN momentum call +$2,340, others -$193 net). Totals 120 closed, 33 wins, -$11,987; 16 open.
+- XRP paper: {"date": "2026-11-27", "xrp_price": 0.9511, "target_weight": 0.0, "traded_usd": 0.0, "paper_value": 1.9437, "hold_xrp_value": 1.4704}
+- Meme paper: {"day": "2026-11-26", "opened": [], "closed": [], "open": 0, "scoreboard": {"trades": 0}}
