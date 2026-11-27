@@ -1406,3 +1406,6 @@
 
 ## 2026-11-26 12:41 PT midday run (Thanksgiving - market closed)
 - Account $3.80 (unchanged; -$0.36 / -8.7% since $4.16). No real orders: TTWO/SPCX planners say market closed; stock bot idle; crypto kill switch on; gap rule off. TTWO last 227.26 (target 239.85), SPCX last 127.40 (target 161.05).
+
+## 2026-11-26 evening run (8:41 PM PT, Thanksgiving - market closed)
+- Account $3.80 (unchanged; -$0.36 / -8.7% since $4.16). No real orders: market closed all day; TTWO/SPCX planners say market closed; crypto kill switch on; gap rule off. No TTWO day-trading practice (no trading session). Fri Nov 27 closes early at 1 PM ET.
