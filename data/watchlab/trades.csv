@@ -327,6 +327,6 @@ gainers,VERA,2026-11-27,33.5,645.291,up 13.6% today,open,0,,0.0,0.0,,0.0,0.0
 gainers,SNDK,2026-11-27,83.0201,645.291,up 12.8% today,open,0,,0.0,0.0,,0.0,0.0
 gainers,ITUB,2026-11-27,7.755,645.291,up 12.7% today,open,0,,0.0,0.0,,0.0,0.0
 gainers,SBS,2026-11-27,5.445,645.291,up 12.0% today,open,0,,0.0,0.0,,0.0,0.0
-gaps,VRTX,2026-11-27,526.74,645.291,opened 8.4% below yesterday's close 564.11,open,0,,0.0,0.0,,564.11,0.0
-gaps,ERO,2026-11-27,21.25,645.291,opened 3.5% below yesterday's close 22.36,open,0,,0.0,0.0,,22.36,0.0
-gaps,SONY,2026-11-27,27.945,645.291,opened 3.0% below yesterday's close 28.50,open,0,,0.0,0.0,,28.5,0.0
+gaps,VRTX,2026-11-27,526.74,645.291,opened 8.4% below yesterday's close 564.11,closed,1,2026-11-27,534.99,650.76,end of day,564.11,0.0
+gaps,ERO,2026-11-27,21.25,645.291,opened 3.5% below yesterday's close 22.36,closed,1,2026-11-27,21.66,650.76,end of day,22.36,0.0
+gaps,SONY,2026-11-27,27.945,645.291,opened 3.0% below yesterday's close 28.50,closed,1,2026-11-27,27.955,650.76,end of day,28.5,0.0

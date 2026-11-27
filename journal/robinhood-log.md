@@ -1418,3 +1418,9 @@
 - Options lab: opened 7 (SNDK 85C, NVDA 205C, NVDA 95P x2, QQQ 460P x3); closed 7 (REGN momentum call +$2,340, others -$193 net). Totals 120 closed, 33 wins, -$11,987; 16 open.
 - XRP paper: {"date": "2026-11-27", "xrp_price": 0.9511, "target_weight": 0.0, "traded_usd": 0.0, "paper_value": 1.9437, "hold_xrp_value": 1.4704}
 - Meme paper: {"day": "2026-11-26", "opened": [], "closed": [], "open": 0, "scoreboard": {"trades": 0}}
+
+## 2026-11-27 12:41 PT midday run (after 1 PM ET early close)
+- Account $3.87 (+$0.07 vs Nov 26 $3.80; -$0.29 / -7.0% since $4.16). Cash $0. Crypto kill switch on. Gap rule off.
+- Closes: TTWO 230.45 (+1.4%; 229.59 after hours), SPCX 133.17 (+4.5%), NVDA 150.62, AMD 425.87, PLTR 172.25, QQQ 650.76.
+- No real orders. TTWO/SPCX planners printed no orders (holding; note: the planners do not know about the early close, but they had nothing to place). Stock bot no signals, not halted. TTWO unrealized +$0.11 (target 239.85, no stop). SPCX unrealized -$0.13 (target 161.05).
+- Gap paper check closed 3 at end of day (VRTX +1.6%, ERO +1.9%, SONY +0.0%); gaps scoreboard 111 closed, 54.1% wins, avg +0.64%, ready_for_real_money (rule off; not traded).
