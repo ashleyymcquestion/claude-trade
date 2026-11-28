@@ -1429,3 +1429,9 @@
 - Account $3.87 (+$0.07 vs Nov 26 $3.80; -$0.29 / -7.0% since $4.16). Cash $0. Crypto kill switch on. Gap rule off.
 - No real orders. Market closed: TTWO/SPCX planners say market closed; stock bot idle. TTWO closed 230.45 (unrealized +$0.11; target 239.85, no stop). SPCX closed 133.17 (unrealized -$0.13; target 161.05). CHIP disabled.
 - TTWO day-trading practice: added 21 bars from the half-day session; no new trades. Dual Thrust $92.43 (5 trades, 2 wins), ORB30 $97.64 (6 trades, 2 wins), hold $99.89 (as reported by the practice ledger).
+
+## 2026-11-28 morning run (7:41 AM PT, Saturday - market closed)
+- Account $3.87 (+$0.00 vs Nov 27 $3.87; -$0.29 / -7.0% since $4.16). No real orders: TTWO/SPCX planners say market closed; crypto kill switch on; gap rule off; watchlab not due.
+- TTWO last 230.45 (unrealized +$0.11; target 239.85, no stop). SPCX last 133.17 (unrealized -$0.13; target 161.05).
+- XRP paper: {"date": "2026-11-28", "xrp_price": 0.9397, "target_weight": 0.0, "traded_usd": 0.0, "paper_value": 1.9437, "hold_xrp_value": 1.4527}
+- Meme paper: {"day": "2026-11-27", "opened": [], "closed": [], "open": 0, "scoreboard": {"trades": 0}}
