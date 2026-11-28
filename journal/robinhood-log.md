@@ -1424,3 +1424,8 @@
 - Closes: TTWO 230.45 (+1.4%; 229.59 after hours), SPCX 133.17 (+4.5%), NVDA 150.62, AMD 425.87, PLTR 172.25, QQQ 650.76.
 - No real orders. TTWO/SPCX planners printed no orders (holding; note: the planners do not know about the early close, but they had nothing to place). Stock bot no signals, not halted. TTWO unrealized +$0.11 (target 239.85, no stop). SPCX unrealized -$0.13 (target 161.05).
 - Gap paper check closed 3 at end of day (VRTX +1.6%, ERO +1.9%, SONY +0.0%); gaps scoreboard 111 closed, 54.1% wins, avg +0.64%, ready_for_real_money (rule off; not traded).
+
+## 2026-11-27 evening run (8:41 PM PT)
+- Account $3.87 (+$0.07 vs Nov 26 $3.80; -$0.29 / -7.0% since $4.16). Cash $0. Crypto kill switch on. Gap rule off.
+- No real orders. Market closed: TTWO/SPCX planners say market closed; stock bot idle. TTWO closed 230.45 (unrealized +$0.11; target 239.85, no stop). SPCX closed 133.17 (unrealized -$0.13; target 161.05). CHIP disabled.
+- TTWO day-trading practice: added 21 bars from the half-day session; no new trades. Dual Thrust $92.43 (5 trades, 2 wins), ORB30 $97.64 (6 trades, 2 wins), hold $99.89 (as reported by the practice ledger).
